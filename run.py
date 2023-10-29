@@ -81,8 +81,7 @@ class TaskManager:
         task_id = len(tasks) + 1
         worksheet.append_row([task_id, description, category, priority, 'Open', notes])
         print("\nTask added successfully!")
-        input("\nPress enter to return to the main menu")
-        clear_screen()
+        return
     
     def display_tasks(self):
         """
@@ -119,6 +118,7 @@ class TaskManager:
 
         input("\nPress enter to return to the main menu")
         clear_screen()
+        return
     
     def task_options(self):
         """
