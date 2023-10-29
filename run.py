@@ -177,7 +177,20 @@ class TaskManager:
         row_to_edit = [task_to_edit.task_id, task_to_edit.description, task_to_edit.category, task_to_edit.priority, task_to_edit.status, task_to_edit.notes]
         worksheet.update(range_name='A{}:F{}'.format(task_id + 1, task_id + 1), values=[row_to_edit])
 
+        # Fetch updated task data
+        updated_record = worksheet.row_values(task_id + 1)
+        updated_task = Task(*updated_record)
+
+        # Display the updated task to the user
         print("\nTask updated successfully!")
+        print(updated_task)
+
+        # Give the user the option to return to the main menu
+        choice = input("\nPress enter to return to the main menu or 'q' to quit: ")
+        if choice.lower() == 'q':
+            exit()
+        else:
+            clear_screen()
 
 task_manager = TaskManager(SHEET)
 
