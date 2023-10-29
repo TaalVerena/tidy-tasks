@@ -21,6 +21,16 @@ def clear_screen():
     """
     os.system("cls" if os.name == "nt" else "clear")
 
+def get_task_info():
+    """
+    Gets task information from the user
+    """
+    description = input("Enter task description: \n")
+    category = input("Enter task category: \n")
+    priority = input("Enter task priority: \n")
+    notes = input("Enter task notes: \n")
+    return description, category, priority, notes
+
 class Task:
     def __init__(self, task_id, description, category, priority, status, notes):
         """
@@ -101,11 +111,7 @@ def main_menu():
             print("Retrieving list of tasks...\n")
             task_manager.display_tasks()
         elif user_choice == "2":
-            description = input("Enter task description: \n")
-            category = input("Enter task category: \n")
-            priority = input("Enter task priority: \n")
-            notes = input("Enter task notes: \n")
-            task_manager.add_task(description, category, priority, notes)
+            task_manager.add_task(*get_task_info())
             # Add error handling
         elif user_choice == "3":
             # help_menu()
@@ -116,3 +122,4 @@ def main_menu():
             print("Please enter a valid option\n")  
 
 main_menu()
+
