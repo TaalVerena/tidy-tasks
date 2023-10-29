@@ -89,8 +89,42 @@ class TaskManager:
 
         for task in tasks:
             print(task)
+        
+        self.task_options()
+
         input("\nPress enter to return to the main menu")
         clear_screen()
+    
+    def task_options(self):
+        """
+        Displays the task options menu
+        """
+        print("\nTask Options:")
+        print("1. Add a new task")
+        print("2. Edit a task")
+        print("3. Mark a task as complete")
+        print("4. Remove a task")
+        print("5. Return to main menu")
+        
+        choice = input("\nSelect an option: ")
+
+        if choice == "1":
+            task_manager.add_task(*get_task_info())
+        elif choice == "2":
+            # Placeholder for future edit task function
+            print("Edit feature not yet implemented.")
+        elif choice == "3":
+            # Placeholder for marking tasks as complete
+            print("Mark as complete feature not yet implemented.")
+        elif choice == "4":
+            # Placeholder for removing tasks
+            print("Remove feature not yet implemented.")
+        elif choice == "5":
+            clear_screen()
+            return
+        else:
+            print("Please select a valid option!")
+            self.task_options()
 
 task_manager = TaskManager(SHEET)
 
@@ -122,4 +156,3 @@ def main_menu():
             print("Please enter a valid option\n")  
 
 main_menu()
-
