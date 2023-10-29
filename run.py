@@ -111,8 +111,7 @@ class TaskManager:
         if choice == "1":
             task_manager.add_task(*get_task_info())
         elif choice == "2":
-            # Placeholder for future edit task function
-            print("Edit feature not yet implemented.")
+            self.edit_task()
         elif choice == "3":
             # Placeholder for marking tasks as complete
             print("Mark as complete feature not yet implemented.")
@@ -125,6 +124,60 @@ class TaskManager:
         else:
             print("Please select a valid option!")
             self.task_options()
+    
+    def edit_task(self):
+        """
+        Edits an existing task in the spreadsheet
+        """
+        try:
+            task_id = int(input("\nEnter the task ID you would like to edit: "))
+        except ValueError:
+            print("Please enter a valid task ID.")
+            return
+
+        tasks = self.fetch_tasks()
+        task_to_edit = None
+        for task in tasks:
+            if task.task_id == task_id:
+                task_to_edit = task
+                break
+
+        if not task_to_edit:
+            print(f"No task found with ID {task_id}.")
+            return
+
+        print("\nCurrent task details:")
+        print(task_to_edit)
+
+        print("\nWhich field do you want to edit?")
+        print("1. Description")
+        print("2. Category")
+        print("3. Priority")
+        print("4. Notes")
+        print("5. Status")
+        choice = input("Enter your choice: ")
+
+        new_value = input("\nEnter the new value: ")
+
+        if choice == "1":
+            task_to_edit.description = new_value
+        elif choice == "2":
+            task_to_edit.category = new_value
+        elif choice == "3":
+            task_to_edit.priority = new_value
+        elif choice == "4":
+            task_to_edit.notes = new_value
+        elif choice == "5":
+            task_to_edit.status = new_value
+        else:
+            print("Invalid choice!")
+            return
+
+        worksheet = self.sheet.worksheet("tasks")
+        row_to_edit = [task_to_edit.task_id, task_to_edit.description, task_to_edit.category, task_to_edit.priority, task_to_edit.status, task_to_edit.notes]
+        worksheet.update(range_name='A{}:F{}'.format(task_id + 1, task_id + 1), values=[row_to_edit])
+
+        print("\nTask updated successfully!")
 
 task_manager = TaskManager(SHEET)
 
