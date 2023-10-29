@@ -45,6 +45,16 @@ class TaskManager:
         records = worksheet.get_all_records()
         return [Task(**record) for record in records]
     
+    def add_task(self, description, category, priority, notes):
+        """
+        Adds a task to the spreadsheet
+        """
+        worksheet = self.sheet.worksheet("tasks")
+        tasks = self.fetch_tasks()
+
+        task_id = len(tasks) + 1
+        worksheet.append_row([task_id, description, category, priority, 'Open', notes])
+    
     def display_tasks(self):
         """
         Displays all tasks in the spreadsheet or
@@ -76,8 +86,12 @@ def main_menu():
         if user_choice == "1":
             task_manager.display_tasks()
         elif user_choice == "2":
-            # create_task()
-            print(f"You have selected 2  {user_choice}\n")
+            description = input("Enter task description: \n")
+            category = input("Enter task category: \n")
+            priority = input("Enter task priority: \n")
+            notes = input("Enter task notes: \n")
+            task_manager.add_task(description, category, priority, notes)
+            # Add error handling
         elif user_choice == "3":
             # help_menu()
             print(f"You have selected 3 {user_choice}\n")
