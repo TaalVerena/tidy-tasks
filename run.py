@@ -1,18 +1,23 @@
+# === IMPORTS ===
 import gspread
 import os
 from google.oauth2.service_account import Credentials
 
-
-
+# === GOOGLE SPREADSHEET AUTHENTICATION ===
+# The necessary scopes to interact with Google Sheets
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive",
 ]
 
+# Load credentials from the provided JSON file
 CREDS = Credentials.from_service_account_file("creds.json")
+# Assign the necessary scopes to the credentials
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+# Authorize and initialize the gspread client with the scoped credentials
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+# Open the 'tidy_tasks' spreadsheet
 SHEET = GSPREAD_CLIENT.open("tidy_tasks")
 
 def clear_screen():
@@ -31,6 +36,7 @@ def get_task_info():
     notes = input("Enter task notes: \n")
     return description, category, priority, notes
 
+# Task class to represent individual tasks with their properties and methods
 class Task:
     def __init__(self, task_id, description, category, priority, status, notes):
         """
@@ -49,6 +55,7 @@ class Task:
         """
         return f"ID: {self.task_id}\t Description: {self.description}\t Category: {self.category}\t Priority: {self.priority}\t Status: {self.status}\t Notes: {self.notes}"
 
+# TaskManager class to manage various operations on tasks using the Google Sheets backend
 class TaskManager:
     def __init__(self, sheet):
         """
@@ -192,11 +199,12 @@ class TaskManager:
         else:
             clear_screen()
 
+# Initialize the TaskManager with the opened Google Sheets spreadsheet
 task_manager = TaskManager(SHEET)
 
 def main_menu():
     """
-    Displays main menu for Tidy Tasks
+    Displays main menu for Tidy Tasks and handles user input / interaction
     """
     while True:
         print("Welcome to Tidy Tasks\n")
@@ -221,4 +229,5 @@ def main_menu():
         else:
             print("Please enter a valid option\n")  
 
+# Invoke the main menu to start the application
 main_menu()
