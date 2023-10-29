@@ -93,10 +93,28 @@ class TaskManager:
         if not tasks:
             print("No tasks found!")
             return
-
-        for task in tasks:
-            print(task)
         
+        # Header
+        headers = ["task_id", "description", "category", "priority", "status", "notes"]
+        header_widths = []
+        for header in headers:
+            max_length = max([len(str(getattr(task, header.lower()))) for task in tasks])
+            header_widths.append(max(max_length, len(header)))
+        
+        for i, header in enumerate(headers):
+            print(header.ljust(header_widths[i]), end=" | ")
+        print("\n" + "-" * (sum(header_widths) + len(headers) * 3 - 1))
+
+        # Tasks
+        for task in tasks:
+            print(str(task.task_id).rjust(header_widths[0]), end=" | ")
+            print(task.description.ljust(header_widths[1]), end=" | ")
+            print(task.category.ljust(header_widths[2]), end=" | ")
+            print(task.priority.ljust(header_widths[3]), end=" | ")
+            print(task.status.ljust(header_widths[4]), end=" | ")
+            print(task.notes.ljust(header_widths[5]))
+        print("-" * (sum(header_widths) + len(headers) * 3 - 1))
+
         self.task_options()
 
         input("\nPress enter to return to the main menu")
