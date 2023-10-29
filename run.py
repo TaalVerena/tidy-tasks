@@ -38,5 +38,22 @@ def main_menu():
             exit()
         else:
             print("Please enter a valid option\n")
+            
+def view_tasks():
+    """
+    Pulls information from Google Sheets and
+    displays the to do list tasks
+    """
+    worksheet = SHEET.worksheet("tasks")
+    tasks = worksheet.get_all_records()
+
+    if not tasks:
+        print("No tasks found!")
+        return
+
+    for task in tasks:
+        print(
+            f"Task ID: {task['Task ID']}\t Description: {task['Task Description']}\t Category: {task['Category']}\t Priority: {task['Priority']}\t Status: {task['Status']}\t Notes: {task['Notes']}"
+        )
 
 main_menu()
