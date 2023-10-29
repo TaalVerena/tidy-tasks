@@ -14,6 +14,9 @@ SHEET = GSPREAD_CLIENT.open("tidy_tasks")
 
 class Task:
     def __init__(self, task_id, description, category, priority, status, notes):
+        """
+        Initialise a task
+        """
         self.task_id = task_id
         self.description = description
         self.category = category
@@ -22,7 +25,40 @@ class Task:
         self.notes = notes
 
     def __str__(self):
+        """
+        Returns a string representation of a task
+        """
         return f"ID: {self.task_id}\t Description: {self.description}\t Category: {self.category}\t Priority: {self.priority}\t Status: {self.status}\t Notes: {self.notes}"
+
+class TaskManager:
+    def __init__(self, sheet):
+        """
+        Initialise the TaskManager
+        """
+        self.sheet = sheet
+
+    def fetch_tasks(self):
+        """
+        Fetches all tasks from the spreadsheet
+        """
+        worksheet = self.sheet.worksheet("tasks")
+        records = worksheet.get_all_records()
+        return [Task(**record) for record in records]
+    
+    def display_tasks(self):
+        """
+        Displays all tasks in the spreadsheet or
+        a message if there are no tasks
+        """
+        tasks = self.fetch_tasks()
+        if not tasks:
+            print("No tasks found!")
+            return
+
+        for task in tasks:
+            print(task)
+
+task_manager = TaskManager(SHEET)
 
 def main_menu():
     """
@@ -38,8 +74,7 @@ def main_menu():
         user_choice = input("Enter your choice: \n")
 
         if user_choice == "1":
-            print(f"You have selected 1 {user_choice}\n")
-            view_tasks()
+            task_manager.display_tasks()
         elif user_choice == "2":
             # create_task()
             print(f"You have selected 2  {user_choice}\n")
@@ -49,23 +84,6 @@ def main_menu():
         elif user_choice == "4":
             exit()
         else:
-            print("Please enter a valid option\n")
-
-def view_tasks():
-    """
-    Pulls information from Google Sheets and
-    displays the to do list tasks
-    """
-    worksheet = SHEET.worksheet("tasks")
-    tasks = worksheet.get_all_records()
-
-    if not tasks:
-        print("No tasks found!")
-        return
-
-    for task in tasks:
-        print(
-            f"Task ID: {task['Task ID']}\t Description: {task['Task Description']}\t Category: {task['Category']}\t Priority: {task['Priority']}\t Status: {task['Status']}\t Notes: {task['Notes']}"
-        )
+            print("Please enter a valid option\n")  
 
 main_menu()
