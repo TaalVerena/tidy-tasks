@@ -1,5 +1,8 @@
 import gspread
+import os
 from google.oauth2.service_account import Credentials
+
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -11,6 +14,12 @@ CREDS = Credentials.from_service_account_file("creds.json")
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("tidy_tasks")
+
+def clear_screen():
+    """
+    Clears the terminal screen
+    """
+    os.system("cls" if os.name == "nt" else "clear")
 
 class Task:
     def __init__(self, task_id, description, category, priority, status, notes):
@@ -33,7 +42,7 @@ class Task:
 class TaskManager:
     def __init__(self, sheet):
         """
-        Initialise the TaskManager
+        Initialise the TaskManager class
         """
         self.sheet = sheet
 
@@ -54,6 +63,9 @@ class TaskManager:
 
         task_id = len(tasks) + 1
         worksheet.append_row([task_id, description, category, priority, 'Open', notes])
+        print("\nTask added successfully!")
+        input("\nPress enter to return to the main menu")
+        clear_screen()
     
     def display_tasks(self):
         """
@@ -67,6 +79,8 @@ class TaskManager:
 
         for task in tasks:
             print(task)
+        input("\nPress enter to return to the main menu")
+        clear_screen()
 
 task_manager = TaskManager(SHEET)
 
@@ -84,6 +98,7 @@ def main_menu():
         user_choice = input("Enter your choice: \n")
 
         if user_choice == "1":
+            print("Retrieving list of tasks...\n")
             task_manager.display_tasks()
         elif user_choice == "2":
             description = input("Enter task description: \n")
