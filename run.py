@@ -12,6 +12,18 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("tidy_tasks")
 
+class Task:
+    def __init__(self, task_id, description, category, priority, status, notes):
+        self.task_id = task_id
+        self.description = description
+        self.category = category
+        self.priority = priority
+        self.status = status
+        self.notes = notes
+
+    def __str__(self):
+        return f"ID: {self.task_id}\t Description: {self.description}\t Category: {self.category}\t Priority: {self.priority}\t Status: {self.status}\t Notes: {self.notes}"
+
 def main_menu():
     """
     Displays main menu for Tidy Tasks
@@ -38,7 +50,7 @@ def main_menu():
             exit()
         else:
             print("Please enter a valid option\n")
-            
+
 def view_tasks():
     """
     Pulls information from Google Sheets and
