@@ -16,13 +16,27 @@ def main_menu():
     """
     Displays main menu for Tidy Tasks
     """
-    print("Welcome to Tidy Tasks\n")
-    print("Please select an option:")
-    print("1. View To Do Lists")
-    print("2. Create a To Do List")
-    print("3. Help")
-    print("4. Exit\n")
-    user_choice = input("Enter your choice: \n")
-    print(f"You have selected {user_choice}\n")
+    while True:
+        print("Welcome to Tidy Tasks\n")
+        print("Please select an option:")
+        print("1. View tasks")
+        print("2. Create a task")
+        print("3. Help")
+        print("4. Exit\n")
+        user_choice = input("Enter your choice: \n")
+
+        if user_choice == "1":
+            print(f"You have selected 1 {user_choice}\n")
+            view_tasks()
+        elif user_choice == "2":
+            # create_task()
+            print(f"You have selected 2  {user_choice}\n")
+        elif user_choice == "3":
+            # help_menu()
+            print(f"You have selected 3 {user_choice}\n")
+        elif user_choice == "4":
+            exit()
+        else:
+            print("Please enter a valid option\n")
 
 main_menu()
