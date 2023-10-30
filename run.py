@@ -24,7 +24,7 @@ def clear_screen():
     """
     Clears the terminal screen
     """
-    os.system("cls" if os.name == "nt" else "clear")
+    os.system("clear")
 
 def get_task_info():
     """
@@ -200,7 +200,16 @@ class TaskManager:
 
         worksheet = self.sheet.worksheet("tasks")
         row_to_edit = [task_to_edit.task_id, task_to_edit.description, task_to_edit.category, task_to_edit.priority, task_to_edit.status, task_to_edit.notes]
-        worksheet.update(values=[row_to_edit], range_name='A{}:F{}'.format(task_id + 1, task_id + 1))
+
+        range_start = 'A{}'.format(task_id + 1)
+        range_end = 'F{}'.format(task_id + 1)
+        cell_range = '{}:{}'.format(range_start, range_end)
+        cells = worksheet.range(cell_range)
+
+        for cell, value in zip(cells, row_to_edit):
+            cell.value = value
+
+        worksheet.update_cells(cells)
 
         # Fetch updated task data
         updated_record = worksheet.row_values(task_id + 1)
