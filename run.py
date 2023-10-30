@@ -146,9 +146,9 @@ class TaskManager:
         # 1. Get the row of the task to mark as complete
         try:
             task_id = int(
-                input(("\nEnter the task ID you would like "
-                       "to mark as complete: "))
-            )
+                            input(("\nEnter the task ID you would like "
+                                "to mark as complete:  \n"))
+                        )
         except ValueError:
             print("Please enter a valid task ID.")
             return
@@ -196,7 +196,7 @@ class TaskManager:
         print("4. Remove a task")
         print("5. Return to main menu")
 
-        choice = input("\nSelect an option: ")
+        choice = input("\nSelect an option:  \n")
 
         if choice == "1":
             task_manager.add_task(*get_task_info())
@@ -220,7 +220,7 @@ class TaskManager:
         """
         try:
             task_id = int(input((
-                                "\nEnter the task ID you would like to edit:"
+                                "\nEnter the task ID you would like to edit: \n"
                                 )))
         except ValueError:
             print("Please enter a valid task ID.")
@@ -246,9 +246,9 @@ class TaskManager:
         print("3. Priority")
         print("4. Notes")
         print("5. Status")
-        choice = input("Enter your choice: ")
+        choice = input("Enter your choice:  \n")
 
-        new_value = input("\nEnter the new value: ")
+        new_value = input("\nEnter the new value:  \n")
 
         if choice == "1":
             task_to_edit.description = new_value
