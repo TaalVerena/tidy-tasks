@@ -200,7 +200,7 @@ class TaskManager:
 
         worksheet = self.sheet.worksheet("tasks")
         row_to_edit = [task_to_edit.task_id, task_to_edit.description, task_to_edit.category, task_to_edit.priority, task_to_edit.status, task_to_edit.notes]
-        worksheet.update(range_name='A{}:F{}'.format(task_id + 1, task_id + 1), values=[row_to_edit])
+        worksheet.update(values=[row_to_edit], range_name='A{}:F{}'.format(task_id + 1, task_id + 1))
 
         # Fetch updated task data
         updated_record = worksheet.row_values(task_id + 1)
