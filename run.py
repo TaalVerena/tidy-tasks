@@ -2,6 +2,7 @@
 import gspread
 import os
 from google.oauth2.service_account import Credentials
+from time import sleep
 
 # === GOOGLE SPREADSHEET AUTHENTICATION ===
 # The necessary scopes to interact with Google Sheets
@@ -164,8 +165,9 @@ class TaskManager:
             print(f"No task found with ID {task_id}.")
             return
 
-        print("\nMarking task as complete...")
+        print(f"\nMarking task with ID {task_id} as complete...\n")
         task_to_complete.status = "complete"
+        sleep(1.5)
 
         # 2. Move task to the complete tab in Google Sheets
         complete_worksheet = self.sheet.worksheet("complete")
@@ -178,12 +180,23 @@ class TaskManager:
             task_to_complete.notes,
         ]
         complete_worksheet.append_row(row_to_append)
-        print(f"Task with ID {task_id} moved to the complete tab.")
+        print(f"Task with ID {task_id} moved to the complete tab.\n")
 
         # 3. Remove completed task from the tasks tab in Google Sheets
         tasks_worksheet = self.sheet.worksheet("tasks")
-        tasks_worksheet.delete_row(task_id + 1)
+        tasks_worksheet.delete_rows(task_id + 1)
+        sleep(1.5)
         print(f"Task with ID {task_id} removed from the tasks tab.")
+        sleep(1.5)
+
+        choice = input((
+                        "\nPress enter to return to the "
+                        "main menu or 'q' to quit: \n"
+                        ))
+        if choice.lower() == "q":
+            exit()
+        else:
+            clear_screen()
 
     def task_options(self):
         """
