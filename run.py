@@ -42,8 +42,10 @@ def get_task_info():
 # Task class to represent individual tasks with their properties and methods
 class Task:
     def __init__(
-            self, task_id, description, category, priority, status, notes
-            ):
+                self, task_id, description, 
+                category, priority, status,
+                notes
+                ):
         """
         Initialise a task
         """
@@ -63,7 +65,7 @@ class Task:
                 Status: {self.status}\t Notes: {self.notes}"
 
 
-# TaskManager class to manage various operations on 
+# TaskManager class to manage various operations on
 # tasks using the Google Sheets backend
 class TaskManager:
     def __init__(self, sheet):
@@ -89,8 +91,8 @@ class TaskManager:
 
         task_id = len(tasks) + 1
         worksheet.append_row([
-                                task_id, description, category, 
-                                priority, 'Open', notes
+                            task_id, description, category,
+                            priority, "Open", notes
                             ])
         print("\nTask added successfully!")
         return
@@ -109,13 +111,12 @@ class TaskManager:
         headers = [
                     "task_id", "description", "category",
                     "priority", "status", "notes"
-                ]
+                    ]
         header_widths = []
         for header in headers:
-            max_length = max([
-                            len(str(getattr(task, header.lower())))
-                            for task in tasks
-                            ])
+            max_length = max(
+                [len(str(getattr(task, header.lower()))) for task in tasks]
+            )
             header_widths.append(max(max_length, len(header)))
 
         for i, header in enumerate(headers):
@@ -137,6 +138,53 @@ class TaskManager:
         clear_screen()
         return
 
+    def mark_task_as_complete(self):
+        """
+        Marks a task as complete, moves it to the complete tab
+        and removes it from the tasks tab.
+        """
+        # 1. Get the row of the task to mark as complete
+        try:
+            task_id = int(
+                input(("\nEnter the task ID you would like "
+                       "to mark as complete: "))
+            )
+        except ValueError:
+            print("Please enter a valid task ID.")
+            return
+
+        tasks = self.fetch_tasks()
+        task_to_complete = None
+        for task in tasks:
+            if task.task_id == task_id:
+                task_to_complete = task
+                break
+
+        if not task_to_complete:
+            print(f"No task found with ID {task_id}.")
+            return
+
+        print("\nMarking task as complete...")
+        task_to_complete.status = "complete"
+
+        # 2. Move task to the complete tab in Google Sheets
+        complete_worksheet = self.sheet.worksheet("complete")
+        row_to_append = [
+            task_to_complete.task_id,
+            task_to_complete.description,
+            task_to_complete.category,
+            task_to_complete.priority,
+            task_to_complete.status,
+            task_to_complete.notes,
+        ]
+        complete_worksheet.append_row(row_to_append)
+        print(f"Task with ID {task_id} moved to the complete tab.")
+
+        # 3. Remove completed task from the tasks tab in Google Sheets
+        tasks_worksheet = self.sheet.worksheet("tasks")
+        tasks_worksheet.delete_row(task_id + 1)
+        print(f"Task with ID {task_id} removed from the tasks tab.")
+
     def task_options(self):
         """
         Displays the task options menu
@@ -155,8 +203,7 @@ class TaskManager:
         elif choice == "2":
             self.edit_task()
         elif choice == "3":
-            # Placeholder for marking tasks as complete
-            print("Mark as complete feature not yet implemented.")
+            self.mark_task_as_complete()
         elif choice == "4":
             # Placeholder for removing tasks
             print("Remove feature not yet implemented.")
@@ -172,9 +219,9 @@ class TaskManager:
         Edits an existing task in the spreadsheet
         """
         try:
-            task_id = int(input("\n \
-                                Enter the task ID you would like to edit: \
-                                "))
+            task_id = int(input((
+                                "\nEnter the task ID you would like to edit:"
+                                )))
         except ValueError:
             print("Please enter a valid task ID.")
             return
@@ -219,14 +266,17 @@ class TaskManager:
 
         worksheet = self.sheet.worksheet("tasks")
         row_to_edit = [
-                        task_to_edit.task_id, task_to_edit.description,
-                        task_to_edit.category, task_to_edit.priority,
-                        task_to_edit.status, task_to_edit.notes
-                    ]
+            task_to_edit.task_id,
+            task_to_edit.description,
+            task_to_edit.category,
+            task_to_edit.priority,
+            task_to_edit.status,
+            task_to_edit.notes,
+        ]
 
-        range_start = 'A{}'.format(task_id + 1)
-        range_end = 'F{}'.format(task_id + 1)
-        cell_range = '{}:{}'.format(range_start, range_end)
+        range_start = "A{}".format(task_id + 1)
+        range_end = "F{}".format(task_id + 1)
+        cell_range = "{}:{}".format(range_start, range_end)
         cells = worksheet.range(cell_range)
 
         for cell, value in zip(cells, row_to_edit):
@@ -243,10 +293,11 @@ class TaskManager:
         print(updated_task)
 
         # Give the user the option to return to the main menu
-        choice = input("\n \
-                       Press enter to return to the main menu or 'q' to quit: "
-                       )
-        if choice.lower() == 'q':
+        choice = input((
+                        "\nPress enter to return to the "
+                        "main menu or 'q' to quit: \n"
+                        ))
+        if choice.lower() == "q":
             exit()
         else:
             clear_screen()
@@ -281,7 +332,7 @@ def main_menu():
         elif user_choice == "4":
             exit()
         else:
-            print("Please enter a valid option\n")  
+            print("Please enter a valid option\n")
 
 
 # Invoke the main menu to start the application
