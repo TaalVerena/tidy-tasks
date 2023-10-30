@@ -20,11 +20,13 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 # Open the 'tidy_tasks' spreadsheet
 SHEET = GSPREAD_CLIENT.open("tidy_tasks")
 
+
 def clear_screen():
     """
     Clears the terminal screen
     """
     os.system("clear")
+
 
 def get_task_info():
     """
@@ -36,9 +38,12 @@ def get_task_info():
     notes = input("Enter task notes: \n")
     return description, category, priority, notes
 
+
 # Task class to represent individual tasks with their properties and methods
 class Task:
-    def __init__(self, task_id, description, category, priority, status, notes):
+    def __init__(
+            self, task_id, description, category, priority, status, notes
+            ):
         """
         Initialise a task
         """
@@ -53,9 +58,13 @@ class Task:
         """
         Returns a string representation of a task
         """
-        return f"ID: {self.task_id}\t Description: {self.description}\t Category: {self.category}\t Priority: {self.priority}\t Status: {self.status}\t Notes: {self.notes}"
+        return f"ID: {self.task_id}\t Description: {self.description}\t \
+                Category: {self.category}\t Priority: {self.priority}\t \
+                Status: {self.status}\t Notes: {self.notes}"
 
-# TaskManager class to manage various operations on tasks using the Google Sheets backend
+
+# TaskManager class to manage various operations on 
+# tasks using the Google Sheets backend
 class TaskManager:
     def __init__(self, sheet):
         """
@@ -70,7 +79,7 @@ class TaskManager:
         worksheet = self.sheet.worksheet("tasks")
         records = worksheet.get_all_records()
         return [Task(**record) for record in records]
-    
+
     def add_task(self, description, category, priority, notes):
         """
         Adds a task to the spreadsheet
@@ -79,10 +88,13 @@ class TaskManager:
         tasks = self.fetch_tasks()
 
         task_id = len(tasks) + 1
-        worksheet.append_row([task_id, description, category, priority, 'Open', notes])
+        worksheet.append_row([
+                                task_id, description, category, 
+                                priority, 'Open', notes
+                            ])
         print("\nTask added successfully!")
         return
-    
+
     def display_tasks(self):
         """
         Displays all tasks in the spreadsheet or
@@ -92,14 +104,20 @@ class TaskManager:
         if not tasks:
             print("No tasks found!")
             return
-        
+
         # Header
-        headers = ["task_id", "description", "category", "priority", "status", "notes"]
+        headers = [
+                    "task_id", "description", "category",
+                    "priority", "status", "notes"
+                ]
         header_widths = []
         for header in headers:
-            max_length = max([len(str(getattr(task, header.lower()))) for task in tasks])
+            max_length = max([
+                            len(str(getattr(task, header.lower())))
+                            for task in tasks
+                            ])
             header_widths.append(max(max_length, len(header)))
-        
+
         for i, header in enumerate(headers):
             print(header.ljust(header_widths[i]), end=" | ")
         print("\n" + "-" * (sum(header_widths) + len(headers) * 3 - 1))
@@ -118,7 +136,7 @@ class TaskManager:
 
         clear_screen()
         return
-    
+
     def task_options(self):
         """
         Displays the task options menu
@@ -129,7 +147,7 @@ class TaskManager:
         print("3. Mark a task as complete")
         print("4. Remove a task")
         print("5. Return to main menu")
-        
+
         choice = input("\nSelect an option: ")
 
         if choice == "1":
@@ -148,13 +166,15 @@ class TaskManager:
         else:
             print("Please select a valid option!")
             self.task_options()
-    
+
     def edit_task(self):
         """
         Edits an existing task in the spreadsheet
         """
         try:
-            task_id = int(input("\nEnter the task ID you would like to edit: "))
+            task_id = int(input("\n \
+                                Enter the task ID you would like to edit: \
+                                "))
         except ValueError:
             print("Please enter a valid task ID.")
             return
@@ -198,7 +218,11 @@ class TaskManager:
             return
 
         worksheet = self.sheet.worksheet("tasks")
-        row_to_edit = [task_to_edit.task_id, task_to_edit.description, task_to_edit.category, task_to_edit.priority, task_to_edit.status, task_to_edit.notes]
+        row_to_edit = [
+                        task_to_edit.task_id, task_to_edit.description,
+                        task_to_edit.category, task_to_edit.priority,
+                        task_to_edit.status, task_to_edit.notes
+                    ]
 
         range_start = 'A{}'.format(task_id + 1)
         range_end = 'F{}'.format(task_id + 1)
@@ -219,14 +243,18 @@ class TaskManager:
         print(updated_task)
 
         # Give the user the option to return to the main menu
-        choice = input("\nPress enter to return to the main menu or 'q' to quit: ")
+        choice = input("\n \
+                       Press enter to return to the main menu or 'q' to quit: "
+                       )
         if choice.lower() == 'q':
             exit()
         else:
             clear_screen()
 
+
 # Initialize the TaskManager with the opened Google Sheets spreadsheet
 task_manager = TaskManager(SHEET)
+
 
 def main_menu():
     """
@@ -254,6 +282,7 @@ def main_menu():
             exit()
         else:
             print("Please enter a valid option\n")  
+
 
 # Invoke the main menu to start the application
 main_menu()
