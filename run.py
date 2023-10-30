@@ -116,7 +116,6 @@ class TaskManager:
 
         self.task_options()
 
-        input("\nPress enter to return to the main menu")
         clear_screen()
         return
     
