@@ -87,14 +87,27 @@ class TaskManager:
         """
         Adds a task to the spreadsheet
         """
-        worksheet = self.sheet.worksheet("tasks")
-        tasks = self.fetch_tasks()
+        tasks_worksheet = self.sheet.worksheet("tasks")
+        complete_worksheet = self.sheet.worksheet("complete")
 
-        task_id = len(tasks) + 1
-        worksheet.append_row([
-                            task_id, description, category,
-                            priority, "Open", notes
-                            ])
+        # Fetch tasks from both worksheets
+        tasks_records = tasks_worksheet.get_all_records()
+        complete_records = complete_worksheet.get_all_records()
+
+        # Extract task IDs and convert them to integers
+        task_ids = [
+            int(record['task_id']) 
+            for record in tasks_records + complete_records
+        ]
+
+        # Determine the next task ID (highest existing ID + 1)
+        next_task_id = max(task_ids) + 1 if task_ids else 1
+
+        # Add the new task
+        tasks_worksheet.append_row([
+            next_task_id, description, category,
+            priority, "Open", notes
+        ])
         print("\nTask added successfully!")
         return
 
