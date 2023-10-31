@@ -40,6 +40,39 @@ def get_task_info():
     return description, category, priority, notes
 
 
+def help_menu():
+    """
+    Displays the help menu for Tidy Tasks
+    """
+    clear_screen()
+    print("Tidy Tasks Help Menu\n")
+    print("Welcome to Tidy Tasks, your simple task management system!")
+    print("Below you'll find detailed descriptions of each feature.\n")
+
+    print("1. View tasks")
+    print("\t- Displays all your current tasks along with their details (description, category, priority, status, and notes.)")
+
+    print("2. Create a task")
+    print("\t- Allows you to add a new task. You'll be prompted to enter details such as the task's description, category, priority, and any additional notes.")
+    
+    print("3. Edit a task")
+    print("\t- Enables you to update the details of an existing task. Simply enter the task ID of the task you wish to edit, and follow the prompts to change the task's description, category, priority, status, or notes.")
+    
+    print("4. Mark a task as complete")
+    print("\t- Mark a task as complete by entering its task ID. Completed tasks will be moved to a separate 'complete' tab.")
+    
+    print("5. Remove a task")
+    print("\t- This allows you to delete a task permanently.")
+    
+    print("6. Help")
+    print("\t- Displays this help menu with information about all the features and how to use them.")
+    
+    print("7. Exit")
+    print("\t- Exits the application. All your tasks are saved in the spreadsheet and will be there when you come back!\n")
+    
+    input("Press enter to return to the main menu.\n")
+    clear_screen()
+
 # Task class to represent individual tasks with their properties and methods
 class Task:
     def __init__(
@@ -360,8 +393,7 @@ def main_menu():
             task_manager.add_task(*get_task_info())
             # Add error handling
         elif user_choice == "3":
-            # help_menu()
-            print(f"You have selected 3 {user_choice}\n")
+            help_menu()
         elif user_choice == "4":
             exit()
         else:
