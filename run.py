@@ -53,19 +53,19 @@ def help_menu():
     print("\t- Displays all your current tasks along with their details (description, category, priority, status, and notes.)")
 
     print("2. Create a task")
-    print("\t- Allows you to add a new task. You'll be prompted to enter details such as the task's description, category, priority, and any additional notes.")
+    print("\t- Allows you to add a new task and fill in the details.")
     
     print("3. Edit a task")
-    print("\t- Enables you to update the details of an existing task. Simply enter the task ID of the task you wish to edit, and follow the prompts to change the task's description, category, priority, status, or notes.")
+    print("\t- Enables you to update the details of an existing task. Simply enter the task ID and follow the prompts")
     
     print("4. Mark a task as complete")
-    print("\t- Mark a task as complete by entering its task ID. Completed tasks will be moved to a separate 'complete' tab.")
+    print("\t- Simply enter the task ID and it will be moved to a separate 'complete' tab.")
     
     print("5. Remove a task")
     print("\t- This allows you to delete a task permanently.")
     
     print("6. Help")
-    print("\t- Displays this help menu with information about all the features and how to use them.")
+    print("\t- Displays this handy help menu.")
     
     print("7. Exit")
     print("\t- Exits the application. All your tasks are saved in the spreadsheet and will be there when you come back!\n")
@@ -115,6 +115,42 @@ class TaskManager:
         worksheet = self.sheet.worksheet("tasks")
         records = worksheet.get_all_records()
         return [Task(**record) for record in records]
+ 
+    def view_and_manage_tasks():
+        """
+        Displays the task management sub-menu for Tidy Tasks
+        """
+        while True:
+            print("\nView and Manage Tasks:\n")
+            print("1. View tasks")
+            print("2. Add a new task")
+            print("3. Edit a task")
+            print("4. Mark a task as complete")
+            print("5. Remove a task")
+            print("6. Return to Main Menu")
+            print("7. Help")
+            print("8. Exit\n")
+            choice = input("Select an option: \n")
+
+            if choice == "1":
+                task_manager.display_tasks()
+            elif choice == "2":
+                task_manager.add_task(*get_task_info())
+            elif choice == "3":
+                task_manager.edit_task()
+            elif choice == "4":
+                task_manager.mark_task_as_complete()
+            elif choice == "5":
+                print("Remove feature not yet implemented.")  # Placeholder
+            elif choice == "6":
+                clear_screen()
+                break
+            elif choice == "7":
+                help_menu()
+            elif choice == "8":
+                exit()
+            else:
+                print("Please select a valid option!\n")
 
     def add_task(self, description, category, priority, notes):
         """
@@ -380,25 +416,21 @@ def main_menu():
     while True:
         print("Welcome to Tidy Tasks\n")
         print("Please select an option:")
-        print("1. View tasks")
-        print("2. Create a task")
-        print("3. Help")
-        print("4. Exit\n")
+        print("1. View and manage tasks")
+        print("2. Help")
+        print("3. Exit\n")
         user_choice = input("Enter your choice: \n")
 
         if user_choice == "1":
-            print("Retrieving list of tasks...\n")
-            task_manager.display_tasks()
+            TaskManager.view_and_manage_tasks()
         elif user_choice == "2":
-            task_manager.add_task(*get_task_info())
-            # Add error handling
+            help_menu()
         elif user_choice == "3":
             help_menu()
         elif user_choice == "4":
             exit()
         else:
             print("Please enter a valid option\n")
-
 
 # Invoke the main menu to start the application
 main_menu()
