@@ -160,7 +160,8 @@ class TaskManager:
         # 1. Get the row of the task to mark as complete
         try:
             task_id = int(
-                            input(("\nEnter the task ID you would like "
+                            input((
+                                "\nEnter the task ID you would like "
                                 "to mark as complete:  \n"))
                         )
         except ValueError:
@@ -169,9 +170,11 @@ class TaskManager:
 
         tasks = self.fetch_tasks()
         task_to_complete = None
-        for task in tasks:
+        row_index = None
+        for index, task in enumerate(tasks, start=2):
             if task.task_id == task_id:
                 task_to_complete = task
+                row_index = index
                 break
 
         if not task_to_complete:
@@ -197,9 +200,13 @@ class TaskManager:
 
         # 3. Remove completed task from the tasks tab in Google Sheets
         tasks_worksheet = self.sheet.worksheet("tasks")
-        tasks_worksheet.delete_rows(task_id + 1)
-        sleep(1.5)
-        print(f"Task with ID {task_id} removed from the tasks tab.")
+        if row_index:
+            tasks_worksheet.delete_rows(row_index)
+            sleep(1.5)
+            print(f"Task with ID {task_id} removed from the tasks tab.")
+        else:
+            print("Unable to find the task in the sheet to delete.")
+
         sleep(1.5)
 
         choice = input((
