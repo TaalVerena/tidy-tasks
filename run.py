@@ -115,71 +115,7 @@ class TaskManager:
         worksheet = self.sheet.worksheet("tasks")
         records = worksheet.get_all_records()
         return [Task(**record) for record in records]
- 
-    def view_and_manage_tasks():
-        """
-        Displays the task management sub-menu for Tidy Tasks
-        """
-        while True:
-            print("\nView and Manage Tasks:\n")
-            print("1. View tasks")
-            print("2. Add a new task")
-            print("3. Edit a task")
-            print("4. Mark a task as complete")
-            print("5. Remove a task")
-            print("6. Return to Main Menu")
-            print("7. Help")
-            print("8. Exit\n")
-            choice = input("Select an option: \n")
-
-            if choice == "1":
-                task_manager.display_tasks()
-            elif choice == "2":
-                task_manager.add_task(*get_task_info())
-            elif choice == "3":
-                task_manager.edit_task()
-            elif choice == "4":
-                task_manager.mark_task_as_complete()
-            elif choice == "5":
-                print("Remove feature not yet implemented.")  # Placeholder
-            elif choice == "6":
-                clear_screen()
-                break
-            elif choice == "7":
-                help_menu()
-            elif choice == "8":
-                exit()
-            else:
-                print("Please select a valid option!\n")
-
-    def add_task(self, description, category, priority, notes):
-        """
-        Adds a task to the spreadsheet
-        """
-        tasks_worksheet = self.sheet.worksheet("tasks")
-        complete_worksheet = self.sheet.worksheet("complete")
-
-        # Fetch tasks from both worksheets
-        tasks_records = tasks_worksheet.get_all_records()
-        complete_records = complete_worksheet.get_all_records()
-
-        # Extract task IDs and convert them to integers
-        task_ids = [
-            int(record['task_id']) 
-            for record in tasks_records + complete_records
-        ]
-
-        # Determine the next task ID (highest existing ID + 1)
-        next_task_id = max(task_ids) + 1 if task_ids else 1
-
-        # Add the new task
-        tasks_worksheet.append_row([
-            next_task_id, description, category,
-            priority, "Open", notes
-        ])
-        print("\nTask added successfully!")
-        return
-
+    
     def display_tasks(self):
         """
         Displays all tasks in the spreadsheet or
@@ -216,9 +152,34 @@ class TaskManager:
             print(task.notes.ljust(header_widths[5]))
         print("-" * (sum(header_widths) + len(headers) * 3 - 1))
 
-        self.task_options()
+        return
+    
+    def add_task(self, description, category, priority, notes):
+        """
+        Adds a task to the spreadsheet
+        """
+        tasks_worksheet = self.sheet.worksheet("tasks")
+        complete_worksheet = self.sheet.worksheet("complete")
 
-        clear_screen()
+        # Fetch tasks from both worksheets
+        tasks_records = tasks_worksheet.get_all_records()
+        complete_records = complete_worksheet.get_all_records()
+
+        # Extract task IDs and convert them to integers
+        task_ids = [
+            int(record['task_id']) 
+            for record in tasks_records + complete_records
+        ]
+
+        # Determine the next task ID (highest existing ID + 1)
+        next_task_id = max(task_ids) + 1 if task_ids else 1
+
+        # Add the new task
+        tasks_worksheet.append_row([
+            next_task_id, description, category,
+            priority, "Open", notes
+        ])
+        print("\nTask added successfully!")
         return
 
     def mark_task_as_complete(self):
@@ -287,34 +248,35 @@ class TaskManager:
         else:
             clear_screen()
 
-    def task_options(self):
+    def view_and_manage_tasks():
         """
-        Displays the task options menu
+        Displays the task management sub-menu for Tidy Tasks
         """
-        print("\nTask Options:")
-        print("1. Add a new task")
-        print("2. Edit a task")
-        print("3. Mark a task as complete")
-        print("4. Remove a task")
-        print("5. Return to main menu")
+        clear_screen()
+        while True:
+            print("\nView and Manage Tasks:\n")
+            task_manager.display_tasks()
+            print("1. Add a new task")
+            print("2. Edit a task")
+            print("3. Mark a task as complete")
+            print("4. Remove a task")
+            print("5. Return to Main Menu")
+            choice = input("Select an option: \n")
 
-        choice = input("\nSelect an option:  \n")
-
-        if choice == "1":
-            task_manager.add_task(*get_task_info())
-        elif choice == "2":
-            self.edit_task()
-        elif choice == "3":
-            self.mark_task_as_complete()
-        elif choice == "4":
-            # Placeholder for removing tasks
-            print("Remove feature not yet implemented.")
-        elif choice == "5":
-            clear_screen()
-            return
-        else:
-            print("Please select a valid option!")
-            self.task_options()
+            if choice == "1":
+                task_manager.add_task(*get_task_info())
+            elif choice == "2":
+                task_manager.edit_task()
+            elif choice == "3":
+                task_manager.mark_task_as_complete()
+            elif choice == "4":
+                print("Remove feature not yet implemented.")  # Placeholder
+            elif choice == "5":
+                clear_screen()
+                main_menu()
+                break
+            else:
+                print("Please select a valid option!\n")
 
     def edit_task(self):
         """
@@ -413,6 +375,7 @@ def main_menu():
     """
     Displays main menu for Tidy Tasks and handles user input / interaction
     """
+    clear_screen()
     while True:
         print("Welcome to Tidy Tasks\n")
         print("Please select an option:")
@@ -426,8 +389,6 @@ def main_menu():
         elif user_choice == "2":
             help_menu()
         elif user_choice == "3":
-            help_menu()
-        elif user_choice == "4":
             exit()
         else:
             print("Please enter a valid option\n")
