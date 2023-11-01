@@ -167,16 +167,26 @@ class TaskManager:
             return
 
         # Display task details for confirmation
-        print("\nPlease confirm the task details:")
-        print(f"Description: {description}")
-        print(f"Category: {category}")
-        print(f"Priority: {priority}")
-        print(f"Notes: {notes}")
-        confirmation = input("Add this task? (yes/no): ")
-        
-        if confirmation.lower() != 'yes':
-            print("Task addition cancelled.")
-            return
+        while True:
+            print("\nPlease confirm the task details:")
+            print(f"Description: {description}")
+            print(f"Category: {category}")
+            print(f"Priority: {priority}")
+            print(f"Notes: {notes}")
+            confirmation = input("Add this task? (yes/no): ")
+
+            if confirmation.lower() == 'yes':
+                break
+            else:
+                print("\nTask not added.")
+                decision = input("Would you like to re-enter the task details? (yes/no): ")
+                if decision.lower() == 'yes':
+                    description, category, priority, notes = get_task_info()
+                    continue
+                else:
+                    print("Returning to the View and Manage Tasks menu...\n")
+                    sleep(1.5)
+                    return
         
         tasks_worksheet = self.sheet.worksheet("tasks")
         complete_worksheet = self.sheet.worksheet("complete")
@@ -197,7 +207,7 @@ class TaskManager:
         # Add the new task
         tasks_worksheet.append_row([
             next_task_id, description, category,
-            priority, "Open", notes
+            priority, "open", notes
         ])
         print("\nTask added successfully!")
         return
