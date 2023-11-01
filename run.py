@@ -35,7 +35,10 @@ def get_task_info():
     """
     description = input("Enter task description: \n")
     category = input("Enter task category: \n")
-    priority = input("Enter task priority: \n")
+    priority = TaskManager.get_user_input(
+        "Enter task priority (high, medium, low): \n",
+        TaskManager.validate_priority
+)
     notes = input("Enter task notes: \n")
     return description, category, priority, notes
 
@@ -134,11 +137,47 @@ class TaskManager:
         print("-" * (sum(header_widths) + len(headers) * 3 - 1))
 
         return
-    
+
+    @staticmethod
+    def get_user_input(prompt, validation_func=None):
+        """
+        Repeatedly asks for user input until valid data is provided.
+        """
+        while True:
+            data = input(prompt)
+            if not validation_func or validation_func(data):
+                return data
+            print("Invalid input, please try again.")
+
+    @staticmethod
+    def validate_priority(priority):
+        """
+        Validates the task priority
+        """
+        valid_priorities = ['high', 'medium', 'low']
+        return priority.lower() in valid_priorities
+
     def add_task(self, description, category, priority, notes):
         """
-        Adds a task to the spreadsheet
+        Adds a task to the spreadsheet after user confirmation
         """
+        # Validate the priority
+        if not self.validate_priority(priority):
+            print("Priority must be high, medium, or low.")
+            return
+
+        # Display task details for confirmation
+        print("\nPlease confirm the task details:")
+        print(f"Description: {description}")
+        print(f"Category: {category}")
+        print(f"Priority: {priority}")
+        print(f"Notes: {notes}")
+        confirmation = input("Add this task? (yes/no): ")
+        
+        if confirmation.lower() != 'yes':
+            print("Task addition cancelled.")
+            return
+        
         tasks_worksheet = self.sheet.worksheet("tasks")
         complete_worksheet = self.sheet.worksheet("complete")
 
