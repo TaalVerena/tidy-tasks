@@ -168,6 +168,7 @@ class TaskManager:
 
         # Display task details for confirmation
         while True:
+            clear_screen()
             print("\nPlease confirm the task details:")
             print(f"Description: {description}")
             print(f"Category: {category}")
@@ -177,7 +178,7 @@ class TaskManager:
 
             if confirmation.lower() == 'yes':
                 break
-            else:
+            elif confirmation.lower() == 'no':
                 print("\nTask not added.")
                 decision = input("Would you like to re-enter the task details? (yes/no): ")
                 if decision.lower() == 'yes':
@@ -187,6 +188,9 @@ class TaskManager:
                     print("Returning to the View and Manage Tasks menu...\n")
                     sleep(1.5)
                     return
+            else:
+                print("Invalid input, please try again.")
+                continue
         
         tasks_worksheet = self.sheet.worksheet("tasks")
         complete_worksheet = self.sheet.worksheet("complete")
@@ -210,6 +214,9 @@ class TaskManager:
             priority, "open", notes
         ])
         print("\nTask added successfully!")
+        sleep(1.5)
+        print("Returning to the View and Manage Tasks menu...\n")
+        sleep(1.5)
         return
 
     def mark_task_as_complete(self):
@@ -294,6 +301,7 @@ class TaskManager:
             choice = input("Select an option: \n")
 
             if choice == "1":
+                clear_screen()
                 task_manager.add_task(*get_task_info())
             elif choice == "2":
                 task_manager.edit_task()
