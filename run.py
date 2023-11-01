@@ -40,37 +40,18 @@ def get_task_info():
     return description, category, priority, notes
 
 
-def help_menu():
+def about_menu():
     """
-    Displays the help menu for Tidy Tasks
+    Displays the about menu for Tidy Tasks
     """
     clear_screen()
-    print("Tidy Tasks Help Menu\n")
-    print("Welcome to Tidy Tasks, your simple task management system!")
-    print("Below you'll find detailed descriptions of each feature.\n")
-
-    print("1. View tasks")
-    print("\t- Displays all your current tasks along with their details (description, category, priority, status, and notes.)")
-
-    print("2. Create a task")
-    print("\t- Allows you to add a new task and fill in the details.")
+    print("Welcome to Tidy Tasks, your personal task management companion.\n")
+    print("Crafted to bring simplicity and order to your daily to-dos.\n")
+    print("\t- Easily view, add, edit, complete and remove tasks.\n")
+    print("\t- Add a description, category, priority and notes to your task.\n")
+    print("\t- Manage your tasks anywhere, any time at the click of a button.\n")
     
-    print("3. Edit a task")
-    print("\t- Enables you to update the details of an existing task. Simply enter the task ID and follow the prompts")
-    
-    print("4. Mark a task as complete")
-    print("\t- Simply enter the task ID and it will be moved to a separate 'complete' tab.")
-    
-    print("5. Remove a task")
-    print("\t- This allows you to delete a task permanently.")
-    
-    print("6. Help")
-    print("\t- Displays this handy help menu.")
-    
-    print("7. Exit")
-    print("\t- Exits the application. All your tasks are saved in the spreadsheet and will be there when you come back!\n")
-    
-    input("Press enter to return to the main menu.\n")
+    input("Press enter to return to the main menu and get started!\n")
     clear_screen()
 
 # Task class to represent individual tasks with their properties and methods
@@ -380,14 +361,14 @@ def main_menu():
         print("Welcome to Tidy Tasks\n")
         print("Please select an option:")
         print("1. View and manage tasks")
-        print("2. Help")
+        print("2. About")
         print("3. Exit\n")
         user_choice = input("Enter your choice: \n")
 
         if user_choice == "1":
             TaskManager.view_and_manage_tasks()
         elif user_choice == "2":
-            help_menu()
+            about_menu()
         elif user_choice == "3":
             exit()
         else:
