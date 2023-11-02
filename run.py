@@ -117,7 +117,7 @@ class TaskManager:
         headers = ["Task ID", "Description", "Category", "Priority", "Status"]
         
         # Using tabulate to print a neat table
-        print(tabulate(tasks_table, headers=headers, tablefmt="grid"))
+        print(tabulate(tasks_table, headers=headers, tablefmt="fancy_grid"))
 
         return
 
