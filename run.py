@@ -358,7 +358,68 @@ class TaskManager:
             exit()
         else:
             clear_screen()
+    
+    def remove_task(self):
+        """
+        Removes an existing task from the spreadsheet
+        """
+        while True:
+            try:
+                task_id = int(input("\nEnter the task ID you would like to remove: \n"))
+            except ValueError:
+                print("Please enter a valid task ID.")
+                continue
 
+            tasks = self.fetch_tasks()
+            task_to_remove = None
+            row_index = None
+            for index, task in enumerate(tasks, start=2):
+                if task.task_id == task_id:
+                    task_to_remove = task
+                    row_index = index
+                    break
+
+            if not task_to_remove:
+                print(f"No task found with ID {task_id}.")
+                decision = input("Would you like to remove a different task? (yes/no): ")
+                if decision.lower() == 'yes':
+                    continue
+                else:
+                    print("Returning to the View and Manage Tasks menu...\n")
+                    sleep(1.5)
+                    return
+
+            print("\nTask to remove:")
+            print(task_to_remove)
+
+            while True:
+                confirmation = input("Are you sure you want to remove this task? (yes/no): ")
+
+                if confirmation.lower() == 'yes':
+                    worksheet = self.sheet.worksheet("tasks")
+                    worksheet.delete_rows(row_index)
+                    print("\nTask removed successfully!")
+                    break
+                elif confirmation.lower() == 'no':
+                    print("\nTask not removed.")
+                    decision = input("Would you like to remove a different task? (yes/no): ")
+                    if decision.lower() == 'yes':
+                        break
+                    else:
+                        print("Returning to the View and Manage Tasks menu...\n")
+                        sleep(1.5)
+                        return
+                else:
+                    print("Invalid input, please try again.")
+
+            choice = input(("\nPress enter to return to the "
+                            "main menu or 'q' to quit: \n"))
+            if choice.lower() == "q":
+                exit()
+            else:
+                clear_screen()
+                return
+    
     def view_and_manage_tasks():
         """
         Displays the task management sub-menu for Tidy Tasks
@@ -382,7 +443,7 @@ class TaskManager:
             elif choice == "3":
                 task_manager.mark_task_as_complete()
             elif choice == "4":
-                print("Remove feature not yet implemented.")  # Placeholder
+                task_manager.remove_task()
             elif choice == "5":
                 clear_screen()
                 main_menu()
