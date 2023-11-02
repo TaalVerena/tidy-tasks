@@ -169,11 +169,11 @@ class TaskManager:
         # Display task details for confirmation
         while True:
             clear_screen()
-            print("\nPlease confirm the task details:")
+            print("\nPlease confirm the task details: \n")
             print(f"Description: {description}")
             print(f"Category: {category}")
             print(f"Priority: {priority}")
-            print(f"Notes: {notes}")
+            print(f"Notes: {notes} \n")
             confirmation = input("Add this task? (yes/no): ")
 
             if confirmation.lower() == 'yes':
@@ -213,7 +213,7 @@ class TaskManager:
             next_task_id, description, category,
             priority, "open", notes
         ])
-        print("\nTask added successfully!")
+        print("\nTask added successfully! \n")
         sleep(1.5)
         print("Returning to the View and Manage Tasks menu...\n")
         sleep(1.5)
@@ -285,54 +285,23 @@ class TaskManager:
         else:
             clear_screen()
 
-    def view_and_manage_tasks():
-        """
-        Displays the task management sub-menu for Tidy Tasks
-        """
-        clear_screen()
-        while True:
-            print("\nView and Manage Tasks:\n")
-            task_manager.display_tasks()
-            print("1. Add a new task")
-            print("2. Edit a task")
-            print("3. Mark a task as complete")
-            print("4. Remove a task")
-            print("5. Return to Main Menu")
-            choice = input("Select an option: \n")
-
-            if choice == "1":
-                clear_screen()
-                task_manager.add_task(*get_task_info())
-            elif choice == "2":
-                task_manager.edit_task()
-            elif choice == "3":
-                task_manager.mark_task_as_complete()
-            elif choice == "4":
-                print("Remove feature not yet implemented.")  # Placeholder
-            elif choice == "5":
-                clear_screen()
-                main_menu()
-                break
-            else:
-                print("Please select a valid option!\n")
-
     def edit_task(self):
         """
         Edits an existing task in the spreadsheet
         """
         try:
-            task_id = int(input((
-                                "\nEnter the task ID you would like to edit: \n"
-                                )))
+            task_id = int(input(("\nEnter the task ID you would like to edit: \n")))
         except ValueError:
             print("Please enter a valid task ID.")
             return
 
         tasks = self.fetch_tasks()
         task_to_edit = None
-        for task in tasks:
+        row_index = None
+        for index, task in enumerate(tasks, start=2):
             if task.task_id == task_id:
                 task_to_edit = task
+                row_index = index
                 break
 
         if not task_to_edit:
@@ -376,25 +345,11 @@ class TaskManager:
             task_to_edit.notes,
         ]
 
-        range_start = "A{}".format(task_id + 1)
-        range_end = "F{}".format(task_id + 1)
-        cell_range = "{}:{}".format(range_start, range_end)
-        cells = worksheet.range(cell_range)
+        worksheet.delete_rows(row_index)
+        worksheet.insert_row(row_to_edit, row_index)
 
-        for cell, value in zip(cells, row_to_edit):
-            cell.value = value
-
-        worksheet.update_cells(cells)
-
-        # Fetch updated task data
-        updated_record = worksheet.row_values(task_id + 1)
-        updated_task = Task(*updated_record)
-
-        # Display the updated task to the user
         print("\nTask updated successfully!")
-        print(updated_task)
 
-        # Give the user the option to return to the main menu
         choice = input((
                         "\nPress enter to return to the "
                         "main menu or 'q' to quit: \n"
@@ -403,6 +358,39 @@ class TaskManager:
             exit()
         else:
             clear_screen()
+
+    def view_and_manage_tasks():
+        """
+        Displays the task management sub-menu for Tidy Tasks
+        """
+        clear_screen()
+        while True:
+            print("\nView and Manage Tasks:\n")
+            task_manager.display_tasks()
+            print("1. Add a new task")
+            print("2. Edit a task")
+            print("3. Mark a task as complete")
+            print("4. Remove a task")
+            print("5. Return to Main Menu")
+            choice = input("Select an option: \n")
+
+            if choice == "1":
+                clear_screen()
+                task_manager.add_task(*get_task_info())
+            elif choice == "2":
+                task_manager.edit_task()
+            elif choice == "3":
+                task_manager.mark_task_as_complete()
+            elif choice == "4":
+                print("Remove feature not yet implemented.")  # Placeholder
+            elif choice == "5":
+                clear_screen()
+                main_menu()
+                break
+            else:
+                print("Please select a valid option!\n")
+
+    
 
 
 # Initialize the TaskManager with the opened Google Sheets spreadsheet
@@ -423,6 +411,7 @@ def main_menu():
         user_choice = input("Enter your choice: \n")
 
         if user_choice == "1":
+            clear_screen()
             TaskManager.view_and_manage_tasks()
         elif user_choice == "2":
             about_menu()
