@@ -39,8 +39,7 @@ def get_task_info():
         "Enter task priority (high, medium, low): \n",
         TaskManager.validate_priority
 )
-    notes = input("Enter task notes: \n")
-    return description, category, priority, notes
+    return description, category, priority
 
 
 def about_menu():
@@ -51,7 +50,7 @@ def about_menu():
     print("Welcome to Tidy Tasks, your personal task management companion.\n")
     print("Crafted to bring simplicity and order to your daily to-dos.\n")
     print("\t- Easily view, add, edit, complete and remove tasks.\n")
-    print("\t- Add a description, category, priority and notes to your task.\n")
+    print("\t- Add a description, category and priority to your tasks.\n")
     print("\t- Manage your tasks anywhere, any time at the click of a button.\n")
     
     input("Press enter to return to the main menu and get started!\n")
@@ -61,8 +60,7 @@ def about_menu():
 class Task:
     def __init__(
                 self, task_id, description, 
-                category, priority, status,
-                notes
+                category, priority, status
                 ):
         """
         Initialise a task
@@ -72,7 +70,6 @@ class Task:
         self.category = category
         self.priority = priority
         self.status = status
-        self.notes = notes
 
     def __str__(self):
         """
@@ -80,7 +77,7 @@ class Task:
         """
         return f"ID: {self.task_id}\t Description: {self.description}\t \
                 Category: {self.category}\t Priority: {self.priority}\t \
-                Status: {self.status}\t Notes: {self.notes}"
+                Status: {self.status}"
 
 
 # TaskManager class to manage various operations on
@@ -113,7 +110,7 @@ class TaskManager:
         # Header
         headers = [
                     "task_id", "description", "category",
-                    "priority", "status", "notes"
+                    "priority", "status"
                     ]
         header_widths = []
         for header in headers:
@@ -133,7 +130,6 @@ class TaskManager:
             print(task.category.ljust(header_widths[2]), end=" | ")
             print(task.priority.ljust(header_widths[3]), end=" | ")
             print(task.status.ljust(header_widths[4]), end=" | ")
-            print(task.notes.ljust(header_widths[5]))
         print("-" * (sum(header_widths) + len(headers) * 3 - 1))
 
         return
@@ -157,7 +153,7 @@ class TaskManager:
         valid_priorities = ['high', 'medium', 'low']
         return priority.lower() in valid_priorities
 
-    def add_task(self, description, category, priority, notes):
+    def add_task(self, description, category, priority):
         """
         Adds a task to the spreadsheet after user confirmation
         """
@@ -173,7 +169,6 @@ class TaskManager:
             print(f"Description: {description}")
             print(f"Category: {category}")
             print(f"Priority: {priority}")
-            print(f"Notes: {notes} \n")
             confirmation = input("Add this task? (yes/no): ")
 
             if confirmation.lower() == 'yes':
@@ -182,7 +177,7 @@ class TaskManager:
                 print("\nTask not added.")
                 decision = input("Would you like to re-enter the task details? (yes/no): ")
                 if decision.lower() == 'yes':
-                    description, category, priority, notes = get_task_info()
+                    description, category, priority = get_task_info()
                     continue
                 else:
                     print("Returning to the View and Manage Tasks menu...\n")
@@ -211,7 +206,7 @@ class TaskManager:
         # Add the new task
         tasks_worksheet.append_row([
             next_task_id, description, category,
-            priority, "open", notes
+            priority, "open"
         ])
         print("\nTask added successfully! \n")
         sleep(1.5)
@@ -259,8 +254,7 @@ class TaskManager:
             task_to_complete.description,
             task_to_complete.category,
             task_to_complete.priority,
-            task_to_complete.status,
-            task_to_complete.notes,
+            task_to_complete.status
         ]
         complete_worksheet.append_row(row_to_append)
         print(f"Task with ID {task_id} moved to the complete tab.\n")
@@ -315,8 +309,7 @@ class TaskManager:
         print("1. Description")
         print("2. Category")
         print("3. Priority")
-        print("4. Notes")
-        print("5. Status")
+        print("4. Status")
         choice = input("Enter your choice:  \n")
 
         new_value = input("\nEnter the new value:  \n")
@@ -328,8 +321,6 @@ class TaskManager:
         elif choice == "3":
             task_to_edit.priority = new_value
         elif choice == "4":
-            task_to_edit.notes = new_value
-        elif choice == "5":
             task_to_edit.status = new_value
         else:
             print("Invalid choice!")
@@ -342,7 +333,6 @@ class TaskManager:
             task_to_edit.category,
             task_to_edit.priority,
             task_to_edit.status,
-            task_to_edit.notes,
         ]
 
         worksheet.delete_rows(row_index)
@@ -450,8 +440,6 @@ class TaskManager:
                 break
             else:
                 print("Please select a valid option!\n")
-
-    
 
 
 # Initialize the TaskManager with the opened Google Sheets spreadsheet
