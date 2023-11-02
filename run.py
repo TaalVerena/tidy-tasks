@@ -3,6 +3,7 @@ import gspread
 import os
 from google.oauth2.service_account import Credentials
 from time import sleep
+from tabulate import tabulate
 
 # === GOOGLE SPREADSHEET AUTHENTICATION ===
 # The necessary scopes to interact with Google Sheets
@@ -106,31 +107,17 @@ class TaskManager:
         if not tasks:
             print("No tasks found!")
             return
-
+        
+        # Preparing data for tabulate
+        tasks_table = [[
+            task.task_id, task.description, task.category, 
+            task.priority, task.status] for task in tasks]
+        
         # Header
-        headers = [
-                    "task_id", "description", "category",
-                    "priority", "status"
-                    ]
-        header_widths = []
-        for header in headers:
-            max_length = max(
-                [len(str(getattr(task, header.lower()))) for task in tasks]
-            )
-            header_widths.append(max(max_length, len(header)))
-
-        for i, header in enumerate(headers):
-            print(header.ljust(header_widths[i]), end=" | ")
-        print("\n" + "-" * (sum(header_widths) + len(headers) * 3 - 1))
-
-        # Tasks
-        for task in tasks:
-            print(str(task.task_id).rjust(header_widths[0]), end=" | ")
-            print(task.description.ljust(header_widths[1]), end=" | ")
-            print(task.category.ljust(header_widths[2]), end=" | ")
-            print(task.priority.ljust(header_widths[3]), end=" | ")
-            print(task.status.ljust(header_widths[4]), end=" | ")
-        print("-" * (sum(header_widths) + len(headers) * 3 - 1))
+        headers = ["Task ID", "Description", "Category", "Priority", "Status"]
+        
+        # Using tabulate to print a neat table
+        print(tabulate(tasks_table, headers=headers, tablefmt="grid"))
 
         return
 
