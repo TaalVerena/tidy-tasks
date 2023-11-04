@@ -73,7 +73,7 @@ def return_to_main_menu():
             print("Returning to the main menu...\n")
             sleep(2)
             clear_screen()
-            return
+            task_manager.view_and_manage_tasks()
         else:
             invalid_input()
             continue
@@ -197,6 +197,8 @@ class TaskManager:
         headers = ["Task ID", "Description", "Category", "Priority", "Status"]
         tasks_table = [[getattr(task, header.replace(" ", "_").lower()) for header in headers] for task in completed_tasks]
         print(tabulate(tasks_table, headers=headers, tablefmt="fancy_grid"))
+   
+        return_to_main_menu()
 
 
     @staticmethod
@@ -500,7 +502,6 @@ class TaskManager:
             elif choice == "5":
                 clear_screen()
                 task_manager.display_completed_tasks()
-                input("\nPress Enter to return to the previous menu...")
                 break
 
             elif choice == "6":
