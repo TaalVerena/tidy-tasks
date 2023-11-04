@@ -29,6 +29,29 @@ def clear_screen():
     """
     os.system("clear")
 
+def return_to_main_menu():
+    """
+    Returns to the main menu
+    """
+    while True:
+        choice = input(("\nPress enter to return to the "
+                        "main menu or 'q' to quit: \n"))
+        if choice.lower() == "q":
+            sleep(1.5)
+            print("Thank you for using Tidy Tasks!\n")
+            sleep(1.5)
+            exit()
+        elif choice.lower() == "":
+            sleep(1.5)
+            print("Returning to the main menu...\n")
+            sleep(1.5)
+            clear_screen()
+            return
+        else:
+            sleep(1.5) 
+            print("Invalid input, please try again.\n")
+            sleep(1.5)
+            continue
 
 def get_task_info():
     """
@@ -39,7 +62,7 @@ def get_task_info():
     priority = TaskManager.get_user_input(
         "Enter task priority (high, medium, low): \n",
         TaskManager.validate_priority
-)
+    )
     return description, category, priority
 
 
@@ -53,8 +76,8 @@ def about_menu():
     print("\t- Easily view, add, edit, complete and remove tasks.\n")
     print("\t- Add a description, category and priority to your tasks.\n")
     print("\t- Manage your tasks anywhere, any time at the click of a button.\n")
-    
-    input("Press enter to return to the main menu and get started!\n")
+
+    input("Press enter to return to the homepage and get started!\n")
     clear_screen()
 
 # Task class to represent individual tasks with their properties and methods
@@ -257,14 +280,7 @@ class TaskManager:
 
         sleep(1.5)
 
-        choice = input((
-                        "\nPress enter to return to the "
-                        "main menu or 'q' to quit: \n"
-                        ))
-        if choice.lower() == "q":
-            exit()
-        else:
-            clear_screen()
+        return_to_main_menu()
 
     def edit_task(self):
         """
@@ -327,14 +343,7 @@ class TaskManager:
 
         print("\nTask updated successfully!")
 
-        choice = input((
-                        "\nPress enter to return to the "
-                        "main menu or 'q' to quit: \n"
-                        ))
-        if choice.lower() == "q":
-            exit()
-        else:
-            clear_screen()
+        return_to_main_menu()
     
     def remove_task(self):
         """
@@ -389,13 +398,7 @@ class TaskManager:
                 else:
                     print("Invalid input, please try again.")
 
-            choice = input(("\nPress enter to return to the "
-                            "main menu or 'q' to quit: \n"))
-            if choice.lower() == "q":
-                exit()
-            else:
-                clear_screen()
-                return
+            return_to_main_menu()
     
     def view_and_manage_tasks():
         """
@@ -409,7 +412,7 @@ class TaskManager:
             print("2. Edit a task")
             print("3. Mark a task as complete")
             print("4. Remove a task")
-            print("5. Return to Main Menu")
+            print("5. Return to home page\n")
             choice = input("Select an option: \n")
 
             if choice == "1":
@@ -423,7 +426,7 @@ class TaskManager:
                 task_manager.remove_task()
             elif choice == "5":
                 clear_screen()
-                main_menu()
+                homepage()
                 break
             else:
                 print("Please select a valid option!\n")
@@ -433,9 +436,10 @@ class TaskManager:
 task_manager = TaskManager(SHEET)
 
 
-def main_menu():
+def homepage():
     """
-    Displays main menu for Tidy Tasks and handles user input / interaction
+    Displays homepage or landing page for Tidy Tasks
+    and handles user input / interaction
     """
     clear_screen()
     while True:
@@ -456,5 +460,6 @@ def main_menu():
         else:
             print("Please enter a valid option\n")
 
-# Invoke the main menu to start the application
-main_menu()
+
+# Invoke the homepage / landing page to start the application
+homepage()
