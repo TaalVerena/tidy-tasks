@@ -178,6 +178,27 @@ class TaskManager:
 
         return
 
+
+    def display_completed_tasks(self):
+        """
+        Displays all completed tasks in the spreadsheet or
+        a message if there are no completed tasks
+        """
+        worksheet = self.sheet.worksheet("complete")
+        records = worksheet.get_all_records()
+        completed_tasks = [Task(**record) for record in records]
+
+        if not completed_tasks:
+            sleep(1.5)
+            print("No completed tasks found!")
+            sleep(2)
+            return
+
+        headers = ["Task ID", "Description", "Category", "Priority", "Status"]
+        tasks_table = [[getattr(task, header.replace(" ", "_").lower()) for header in headers] for task in completed_tasks]
+        print(tabulate(tasks_table, headers=headers, tablefmt="fancy_grid"))
+
+
     @staticmethod
     def get_user_input(prompt, validation_func=None):
         """
@@ -463,7 +484,8 @@ class TaskManager:
             print("2. Edit a task")
             print("3. Mark a task as complete")
             print("4. Remove a task")
-            print("5. Return to home page\n")
+            print("5. View completed tasks")
+            print("6. Return to home page\n")
             choice = input("Select an option: \n")
 
             if choice == "1":
@@ -476,6 +498,12 @@ class TaskManager:
             elif choice == "4":
                 task_manager.remove_task()
             elif choice == "5":
+                clear_screen()
+                task_manager.display_completed_tasks()
+                input("\nPress Enter to return to the previous menu...")
+                break
+
+            elif choice == "6":
                 clear_screen()
                 homepage()
                 break
