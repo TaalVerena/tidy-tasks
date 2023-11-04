@@ -34,8 +34,17 @@ def invalid_input():
     """
     Displays an invalid input message
     """
-    sleep(2)
+    sleep(1.5)
     print("Invalid input, please try again.\n")
+    sleep(2)
+
+
+def id_not_found():
+    """
+    Displays an ID not found message
+    """
+    sleep(1.5)
+    print("No task found with that id. Please try again. \n")
     sleep(2)
 
 
@@ -43,7 +52,7 @@ def exit_tidy_tasks():
     """
     Exits the Tidy Tasks application
     """
-    sleep(2)
+    sleep(1.5)
     print("Thank you for using Tidy Tasks! Exiting application ...\n")
     sleep(2)
     exit()
@@ -60,7 +69,7 @@ def return_to_main_menu():
         if choice.lower() == "q":
             exit_tidy_tasks()
         elif choice.lower() == "":
-            sleep(2)
+            sleep(1.5)
             print("Returning to the main menu...\n")
             sleep(2)
             clear_screen()
@@ -246,7 +255,7 @@ class TaskManager:
             [next_task_id, description, category, priority, "open"]
         )
         print("\nTask added successfully! \n")
-        sleep(2)
+        sleep(1.5)
         print("Returning to the View and Manage Tasks menu...\n")
         sleep(2)
         return
@@ -280,7 +289,7 @@ class TaskManager:
                 break
 
         if not task_to_complete:
-            print(f"No task found with ID {task_id}.")
+            id_not_found()
             return
 
         print(f"\nMarking task with ID {task_id} as complete...\n")
@@ -334,9 +343,7 @@ class TaskManager:
                 break
 
         if not task_to_edit:
-            sleep(2)
-            print(f"No task found with ID {task_id}. Please try again.\n")
-            sleep(2)
+            id_not_found()
             return
 
         print("\nCurrent task details:")
@@ -402,7 +409,7 @@ class TaskManager:
                     break
 
             if not task_to_remove:
-                print(f"No task found with ID {task_id}.")
+                id_not_found()
                 decision = input(
                     "Would you like to remove a different task? (yes/no): "
                 )
