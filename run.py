@@ -30,6 +30,25 @@ def clear_screen():
     os.system("clear")
 
 
+def invalid_input():
+    """
+    Displays an invalid input message
+    """
+    sleep(1.5)
+    print("Invalid input, please try again.\n")
+    sleep(1.5)
+
+
+def exit_tidy_tasks():
+    """
+    Exits the Tidy Tasks application
+    """
+    sleep(1.5)
+    print("Thank you for using Tidy Tasks! Exiting application ...\n")
+    sleep(1.5)
+    exit()
+
+
 def return_to_main_menu():
     """
     Returns to the main menu
@@ -39,10 +58,7 @@ def return_to_main_menu():
             ("\nPress enter to return to the " "main menu or 'q' to quit: \n")
         )
         if choice.lower() == "q":
-            sleep(1.5)
-            print("Thank you for using Tidy Tasks!\n")
-            sleep(1.5)
-            exit()
+            exit_tidy_tasks()
         elif choice.lower() == "":
             sleep(1.5)
             print("Returning to the main menu...\n")
@@ -50,9 +66,7 @@ def return_to_main_menu():
             clear_screen()
             return
         else:
-            sleep(1.5)
-            print("Invalid input, please try again.\n")
-            sleep(1.5)
+            invalid_input()
             continue
 
 
@@ -164,7 +178,8 @@ class TaskManager:
             data = input(prompt)
             if not validation_func or validation_func(data):
                 return data
-            print("Invalid input, please try again.")
+            invalid_input()
+            continue
 
     @staticmethod
     def validate_priority(priority):
@@ -207,7 +222,7 @@ class TaskManager:
                     sleep(1.5)
                     return
             else:
-                print("Invalid input, please try again.")
+                invalid_input()
                 continue
 
         tasks_worksheet = self.sheet.worksheet("tasks")
@@ -421,11 +436,13 @@ class TaskManager:
                         sleep(1.5)
                         return
                 else:
-                    print("Invalid input, please try again.")
+                    invalid_input()
+                    continue
 
             return_to_main_menu()
 
-    def view_and_manage_tasks(self):
+    @staticmethod
+    def view_and_manage_tasks():
         """
         Displays the task management sub-menu for Tidy Tasks
         """
@@ -481,7 +498,7 @@ def homepage():
         elif user_choice == "2":
             about_menu()
         elif user_choice == "3":
-            exit()
+            exit_tidy_tasks()
         else:
             print("Please enter a valid option\n")
 
