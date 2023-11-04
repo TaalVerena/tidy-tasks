@@ -29,13 +29,15 @@ def clear_screen():
     """
     os.system("clear")
 
+
 def return_to_main_menu():
     """
     Returns to the main menu
     """
     while True:
-        choice = input(("\nPress enter to return to the "
-                        "main menu or 'q' to quit: \n"))
+        choice = input(
+            ("\nPress enter to return to the " "main menu or 'q' to quit: \n")
+        )
         if choice.lower() == "q":
             sleep(1.5)
             print("Thank you for using Tidy Tasks!\n")
@@ -48,10 +50,11 @@ def return_to_main_menu():
             clear_screen()
             return
         else:
-            sleep(1.5) 
+            sleep(1.5)
             print("Invalid input, please try again.\n")
             sleep(1.5)
             continue
+
 
 def get_task_info():
     """
@@ -75,17 +78,20 @@ def about_menu():
     print("Crafted to bring simplicity and order to your daily to-dos.\n")
     print("\t- Easily view, add, edit, complete and remove tasks.\n")
     print("\t- Add a description, category and priority to your tasks.\n")
-    print("\t- Manage your tasks anywhere, any time at the click of a button.\n")
+    print((
+        "\t- Manage your tasks anywhere,"
+        " any time at the click of a button.\n"))
 
     input("Press enter to return to the homepage and get started!\n")
     clear_screen()
 
-# Task class to represent individual tasks with their properties and methods
+
 class Task:
-    def __init__(
-                self, task_id, description, 
-                category, priority, status
-                ):
+    """
+    Represents a task with its properties and methods
+    """
+
+    def __init__(self, task_id, description, category, priority, status):
         """
         Initialise a task
         """
@@ -104,9 +110,10 @@ class Task:
                 Status: {self.status}"
 
 
-# TaskManager class to manage various operations on
-# tasks using the Google Sheets backend
 class TaskManager:
+    """
+    Manages various operations on tasks using the Google Sheets backend
+    """
     def __init__(self, sheet):
         """
         Initialise the TaskManager class
@@ -120,7 +127,7 @@ class TaskManager:
         worksheet = self.sheet.worksheet("tasks")
         records = worksheet.get_all_records()
         return [Task(**record) for record in records]
-    
+
     def display_tasks(self):
         """
         Displays all tasks in the spreadsheet or
@@ -130,15 +137,19 @@ class TaskManager:
         if not tasks:
             print("No tasks found!")
             return
-        
+
         # Preparing data for tabulate
-        tasks_table = [[
-            task.task_id, task.description, task.category, 
-            task.priority, task.status] for task in tasks]
-        
+        tasks_table = [
+            [
+                task.task_id, task.description,
+                task.category, task.priority, task.status
+            ]
+            for task in tasks
+        ]
+
         # Header
         headers = ["Task ID", "Description", "Category", "Priority", "Status"]
-        
+
         # Using tabulate to print a neat table
         print(tabulate(tasks_table, headers=headers, tablefmt="fancy_grid"))
 
@@ -160,7 +171,7 @@ class TaskManager:
         """
         Validates the task priority
         """
-        valid_priorities = ['high', 'medium', 'low']
+        valid_priorities = ["high", "medium", "low"]
         return priority.lower() in valid_priorities
 
     def add_task(self, description, category, priority):
@@ -181,12 +192,14 @@ class TaskManager:
             print(f"Priority: {priority}")
             confirmation = input("Add this task? (yes/no): ")
 
-            if confirmation.lower() == 'yes':
+            if confirmation.lower() == "yes":
                 break
-            elif confirmation.lower() == 'no':
+            elif confirmation.lower() == "no":
                 print("\nTask not added.")
-                decision = input("Would you like to re-enter the task details? (yes/no): ")
-                if decision.lower() == 'yes':
+                decision = input(
+                    "Would you like to re-enter the task details? (yes/no): "
+                )
+                if decision.lower() == "yes":
                     description, category, priority = get_task_info()
                     continue
                 else:
@@ -196,7 +209,7 @@ class TaskManager:
             else:
                 print("Invalid input, please try again.")
                 continue
-        
+
         tasks_worksheet = self.sheet.worksheet("tasks")
         complete_worksheet = self.sheet.worksheet("complete")
 
@@ -206,18 +219,17 @@ class TaskManager:
 
         # Extract task IDs and convert them to integers
         task_ids = [
-            int(record['task_id']) 
-            for record in tasks_records + complete_records
+            int(record["task_id"]) for record in
+            tasks_records + complete_records
         ]
 
         # Determine the next task ID (highest existing ID + 1)
         next_task_id = max(task_ids) + 1 if task_ids else 1
 
         # Add the new task
-        tasks_worksheet.append_row([
-            next_task_id, description, category,
-            priority, "open"
-        ])
+        tasks_worksheet.append_row(
+            [next_task_id, description, category, priority, "open"]
+        )
         print("\nTask added successfully! \n")
         sleep(1.5)
         print("Returning to the View and Manage Tasks menu...\n")
@@ -232,10 +244,13 @@ class TaskManager:
         # 1. Get the row of the task to mark as complete
         try:
             task_id = int(
-                            input((
-                                "\nEnter the task ID you would like "
-                                "to mark as complete:  \n"))
-                        )
+                input(
+                    (
+                        "\nEnter the task ID you "
+                        "would like to mark as complete: \n"
+                    )
+                )
+            )
         except ValueError:
             print("Please enter a valid task ID.")
             return
@@ -264,7 +279,7 @@ class TaskManager:
             task_to_complete.description,
             task_to_complete.category,
             task_to_complete.priority,
-            task_to_complete.status
+            task_to_complete.status,
         ]
         complete_worksheet.append_row(row_to_append)
         print(f"Task with ID {task_id} moved to the complete tab.\n")
@@ -287,7 +302,9 @@ class TaskManager:
         Edits an existing task in the spreadsheet
         """
         try:
-            task_id = int(input(("\nEnter the task ID you would like to edit: \n")))
+            task_id = int(input((
+                "\nEnter the task ID you would like to edit: \n"
+                )))
         except ValueError:
             print("Please enter a valid task ID.")
             return
@@ -344,14 +361,16 @@ class TaskManager:
         print("\nTask updated successfully!")
 
         return_to_main_menu()
-    
+
     def remove_task(self):
         """
         Removes an existing task from the spreadsheet
         """
         while True:
             try:
-                task_id = int(input("\nEnter the task ID you would like to remove: \n"))
+                task_id = int(input(
+                    ("\nEnter the task ID you would like to remove: \n")
+                ))
             except ValueError:
                 print("Please enter a valid task ID.")
                 continue
@@ -367,8 +386,10 @@ class TaskManager:
 
             if not task_to_remove:
                 print(f"No task found with ID {task_id}.")
-                decision = input("Would you like to remove a different task? (yes/no): ")
-                if decision.lower() == 'yes':
+                decision = input(
+                    "Would you like to remove a different task? (yes/no): "
+                )
+                if decision.lower() == "yes":
                     continue
                 else:
                     print("Returning to the View and Manage Tasks menu...\n")
@@ -379,17 +400,21 @@ class TaskManager:
             print(task_to_remove)
 
             while True:
-                confirmation = input("Are you sure you want to remove this task? (yes/no): ")
+                confirmation = input(
+                    "Are you sure you want to remove this task? (yes/no): "
+                )
 
-                if confirmation.lower() == 'yes':
+                if confirmation.lower() == "yes":
                     worksheet = self.sheet.worksheet("tasks")
                     worksheet.delete_rows(row_index)
                     print("\nTask removed successfully!")
                     break
-                elif confirmation.lower() == 'no':
+                elif confirmation.lower() == "no":
                     print("\nTask not removed.")
-                    decision = input("Would you like to remove a different task? (yes/no): ")
-                    if decision.lower() == 'yes':
+                    decision = input(
+                        "Would you like to remove a different task? (yes/no): "
+                    )
+                    if decision.lower() == "yes":
                         break
                     else:
                         print("Returning to the View and Manage Tasks menu...\n")
@@ -399,8 +424,8 @@ class TaskManager:
                     print("Invalid input, please try again.")
 
             return_to_main_menu()
-    
-    def view_and_manage_tasks():
+
+    def view_and_manage_tasks(self):
         """
         Displays the task management sub-menu for Tidy Tasks
         """
