@@ -34,18 +34,18 @@ def invalid_input():
     """
     Displays an invalid input message
     """
-    sleep(1.5)
+    sleep(2)
     print("Invalid input, please try again.\n")
-    sleep(1.5)
+    sleep(2)
 
 
 def exit_tidy_tasks():
     """
     Exits the Tidy Tasks application
     """
-    sleep(1.5)
+    sleep(2)
     print("Thank you for using Tidy Tasks! Exiting application ...\n")
-    sleep(1.5)
+    sleep(2)
     exit()
 
 
@@ -60,9 +60,9 @@ def return_to_main_menu():
         if choice.lower() == "q":
             exit_tidy_tasks()
         elif choice.lower() == "":
-            sleep(1.5)
+            sleep(2)
             print("Returning to the main menu...\n")
-            sleep(1.5)
+            sleep(2)
             clear_screen()
             return
         else:
@@ -219,7 +219,7 @@ class TaskManager:
                     continue
                 else:
                     print("Returning to the View and Manage Tasks menu...\n")
-                    sleep(1.5)
+                    sleep(2)
                     return
             else:
                 invalid_input()
@@ -246,9 +246,9 @@ class TaskManager:
             [next_task_id, description, category, priority, "open"]
         )
         print("\nTask added successfully! \n")
-        sleep(1.5)
+        sleep(2)
         print("Returning to the View and Manage Tasks menu...\n")
-        sleep(1.5)
+        sleep(2)
         return
 
     def mark_task_as_complete(self):
@@ -267,7 +267,7 @@ class TaskManager:
                 )
             )
         except ValueError:
-            print("Please enter a valid task ID.")
+            invalid_input()
             return
 
         tasks = self.fetch_tasks()
@@ -285,7 +285,7 @@ class TaskManager:
 
         print(f"\nMarking task with ID {task_id} as complete...\n")
         task_to_complete.status = "complete"
-        sleep(1.5)
+        sleep(2)
 
         # 2. Move task to the complete tab in Google Sheets
         complete_worksheet = self.sheet.worksheet("complete")
@@ -303,12 +303,12 @@ class TaskManager:
         tasks_worksheet = self.sheet.worksheet("tasks")
         if row_index:
             tasks_worksheet.delete_rows(row_index)
-            sleep(1.5)
+            sleep(2)
             print(f"Task with ID {task_id} removed from the tasks tab.")
         else:
             print("Unable to find the task in the sheet to delete.")
 
-        sleep(1.5)
+        sleep(2)
 
         return_to_main_menu()
 
@@ -321,7 +321,7 @@ class TaskManager:
                 "\nEnter the task ID you would like to edit: \n"
                 )))
         except ValueError:
-            print("Please enter a valid task ID.")
+            invalid_input()
             return
 
         tasks = self.fetch_tasks()
@@ -334,7 +334,9 @@ class TaskManager:
                 break
 
         if not task_to_edit:
-            print(f"No task found with ID {task_id}.")
+            sleep(2)
+            print(f"No task found with ID {task_id}. Please try again.\n")
+            sleep(2)
             return
 
         print("\nCurrent task details:")
@@ -358,7 +360,7 @@ class TaskManager:
         elif choice == "4":
             task_to_edit.status = new_value
         else:
-            print("Invalid choice!")
+            invalid_input()
             return
 
         worksheet = self.sheet.worksheet("tasks")
@@ -387,7 +389,7 @@ class TaskManager:
                     ("\nEnter the task ID you would like to remove: \n")
                 ))
             except ValueError:
-                print("Please enter a valid task ID.")
+                invalid_input()
                 continue
 
             tasks = self.fetch_tasks()
@@ -408,7 +410,7 @@ class TaskManager:
                     continue
                 else:
                     print("Returning to the View and Manage Tasks menu...\n")
-                    sleep(1.5)
+                    sleep(2)
                     return
 
             print("\nTask to remove:")
@@ -433,7 +435,7 @@ class TaskManager:
                         break
                     else:
                         print("Returning to the View and Manage Tasks menu...\n")
-                        sleep(1.5)
+                        sleep(2)
                         return
                 else:
                     invalid_input()
@@ -471,7 +473,7 @@ class TaskManager:
                 homepage()
                 break
             else:
-                print("Please select a valid option!\n")
+                invalid_input()
 
 
 # Initialize the TaskManager with the opened Google Sheets spreadsheet
@@ -500,7 +502,7 @@ def homepage():
         elif user_choice == "3":
             exit_tidy_tasks()
         else:
-            print("Please enter a valid option\n")
+            invalid_input()
 
 
 # Invoke the homepage / landing page to start the application
