@@ -42,6 +42,18 @@ def invalid_input():
     sleep(2)
 
 
+def invalid_menu_option():
+    """
+    Displays an invalid menu option message
+    """
+    sleep(1.5)
+    print("Invalid input. Returning to the menu...\n")
+    sleep(1.5)
+    print("Please select one of the menu options.\n")
+    sleep(2)
+    clear_screen()
+
+
 def id_not_found():
     """
     Displays an ID not found message
@@ -537,8 +549,8 @@ class TaskManager:
                 homepage()
                 break
             else:
-                invalid_input()
-                clear_screen()
+                invalid_menu_option()
+                continue
 
 
 # Initialize the TaskManager with the opened Google Sheets spreadsheet
@@ -567,11 +579,8 @@ def homepage():
         elif user_choice == "3":
             exit_tidy_tasks()
         else:
-            print("Invalid input. Returning to homepage...\n")
-            sleep(1.5)
-            print("Please select 1, 2 or 3 from the homepage menu options.\n")
-            sleep(2)
-            clear_screen()
+            invalid_menu_option()
+            continue
 
 
 # Invoke the homepage / landing page to start the application
