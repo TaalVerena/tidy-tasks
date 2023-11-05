@@ -69,8 +69,10 @@ def exit_tidy_tasks():
     Exits the Tidy Tasks application
     """
     sleep(1.5)
-    print("Thank you for using Tidy Tasks! Exiting application ...\n")
-    sleep(2)
+    print("\nThank you for using Tidy Tasks! Exiting application ...\n")
+    sleep(1.5)
+    clear_screen()
+    sleep(1.5)
     exit()
 
 
@@ -100,20 +102,20 @@ def get_task_info():
     Gets task information from the user
     """
     description = input("Enter task description: \n")
-    print("\nSelect a category:")
+    print("\nTask Category Options:")
     for index, category in enumerate(TaskManager.VALID_CATEGORIES, start=1):
         print(f"{index}. {category}")
     category_index = TaskManager.get_user_input(
-        "Choose a category (number): \n",
+        "\nChoose a category (1 - 5): \n",
         TaskManager.validate_category
     )
     category = list(TaskManager.VALID_CATEGORIES)[int(category_index) - 1]
 
-    print("\nSelect a priority:")
+    print("\nTask Priority Options:")
     for index, priority in enumerate(TaskManager.VALID_PRIORITIES, start=1):
         print(f"{index}. {priority}")
     priority_index = TaskManager.get_user_input(
-        "Choose a priority (number): \n",
+        "\nChoose a priority (1 - 3): \n",
         TaskManager.validate_priority
     )
     priority = TaskManager.VALID_PRIORITIES[int(priority_index) - 1]
@@ -167,7 +169,7 @@ class TaskManager:
     """
     TASKS_SHEET_NAME = "tasks"
     COMPLETE_SHEET_NAME = "complete"
-    VALID_CATEGORIES = {'home', 'work', 'hobbies', 'exercise'}
+    VALID_CATEGORIES = {'home', 'work', 'studies', 'hobbies', 'exercise'}
     VALID_PRIORITIES = ['high', 'medium', 'low']
 
 
@@ -227,7 +229,10 @@ class TaskManager:
             print("No completed tasks found!")
             sleep(2)
             return
+        
+        print("\nCompleted Tasks:\n")
 
+        # Preparing data for tabulate
         headers = ["Task ID", "Description", "Category", "Priority", "Status"]
         tasks_table = [[getattr(task, header.replace(" ", "_").lower()) for header in headers] for task in completed_tasks]
         print(tabulate(tasks_table, headers=headers, tablefmt="fancy_grid"))
@@ -300,17 +305,20 @@ class TaskManager:
         complete_worksheet = self.sheet.worksheet("complete")
 
         # Fetch tasks from both worksheets
-        tasks_records = tasks_worksheet.get_all_records()
-        complete_records = complete_worksheet.get_all_records()
+        tasks_records = tasks_worksheet.get_all_values()[1:]
+        complete_records = complete_worksheet.get_all_values()[1:]
 
-        # Extract task IDs and convert them to integers
-        task_ids = [
-            int(record["task_id"]) for record in
-            tasks_records + complete_records
-        ]
-
-        # Determine the next task ID (highest existing ID + 1)
-        next_task_id = max(task_ids) + 1 if task_ids else 1
+        # Check if there are records in both worksheets
+        if tasks_records or complete_records:
+            # Extract task IDs and convert them to integers
+            task_ids = [int(record[0]) for record in tasks_records]
+            if complete_records:
+                task_ids.extend([int(record[0]) for record in complete_records])
+            # Determine the next task ID (highest existing ID + 1)
+            next_task_id = max(task_ids) + 1
+        else:
+            # If both are empty, start with task ID 1
+            next_task_id = 1
 
         # Add the new task
         tasks_worksheet.append_row(
@@ -520,9 +528,9 @@ class TaskManager:
         """
         clear_screen()
         while True:
-            print("\nView and Manage Tasks:\n")
+            print("\nTasks & Options:\n")
             task_manager.display_tasks()
-            print("1. Add a new task")
+            print("\n1. Add a new task")
             print("2. Edit a task")
             print("3. Mark a task as complete")
             print("4. Remove a task")
