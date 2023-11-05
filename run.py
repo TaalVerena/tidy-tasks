@@ -397,6 +397,7 @@ class TaskManager:
                 else:
                     print("\nReturning to the View and Manage Tasks menu...\n")
                     sleep(2)
+                    clear_screen()
                     return
             else:
                 invalid_input()
@@ -432,6 +433,7 @@ class TaskManager:
         sleep(1.5)
         print("Returning to the View and Manage Tasks menu...\n")
         sleep(2)
+        clear_screen()
         return
 
     def mark_task_as_complete(self):
