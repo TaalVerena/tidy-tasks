@@ -51,14 +51,14 @@ def print_ascii_art():
     """
     Prints the Tidy Tasks ASCII art in magenta
     """
-    print(Fore.MAGENTA + tidy_tasks_ascii_art + Style.RESET_ALL)
+    print(Fore.LIGHTMAGENTA_EX + tidy_tasks_ascii_art + Style.RESET_ALL)
 
 
 def print_about_ascii_art():
     """
     Prints the Tidy Tasks about ASCII art in meganta
     """
-    print(Fore.MAGENTA + about_ascii_art + Style.RESET_ALL)
+    print(Fore.LIGHTMAGENTA_EX + about_ascii_art + Style.RESET_ALL)
 
 
 def clear_screen():
@@ -142,18 +142,20 @@ def get_task_info():
     description = input("Enter task description: \n")
     print("\nTask Category Options:")
     for index, category in enumerate(TaskManager.VALID_CATEGORIES, start=1):
-        print(f"{index}. {category}")
+        print(Fore.LIGHTMAGENTA_EX +
+              str(index) + ". " + Style.RESET_ALL + category)
     category_index = TaskManager.get_user_input(
-        "\nChoose a category (1 - 5): \n",
+        "\nChoose a category " + Fore.LIGHTMAGENTA_EX + "(1 - 5): \n" + Style.RESET_ALL,
         TaskManager.validate_category
     )
     category = list(TaskManager.VALID_CATEGORIES)[int(category_index) - 1]
 
     print("\nTask Priority Options:")
     for index, priority in enumerate(TaskManager.VALID_PRIORITIES, start=1):
-        print(f"{index}. {priority}")
+        print(Fore.LIGHTMAGENTA_EX +
+              str(index) + ". " + Style.RESET_ALL + priority)
     priority_index = TaskManager.get_user_input(
-        "\nChoose a priority (1 - 3): \n",
+        "\nChoose a priority " + Fore.LIGHTMAGENTA_EX + "(1 - 3): \n" + Style.RESET_ALL,
         TaskManager.validate_priority
     )
     priority = TaskManager.VALID_PRIORITIES[int(priority_index) - 1]
@@ -168,11 +170,15 @@ def about_menu():
     print_about_ascii_art()
     print("Welcome to Tidy Tasks, your personal task management companion.\n")
     print("Crafted to bring simplicity and order to your daily to-dos.\n")
-    print("\t- Easily view, add, edit, complete and remove tasks.\n")
-    print("\t- Add a description, category and priority to your tasks.\n")
-    print((
-        "\t- Manage your tasks anywhere,"
-        " any time at the click of a button.\n"))
+    print((Fore.LIGHTMAGENTA_EX +
+           "\t- " + Style.RESET_ALL + "Easily view, add, edit, "
+           "complete and remove tasks.\n"))
+    print((Fore.LIGHTMAGENTA_EX +
+           "\t- " + Style.RESET_ALL + "Add a description, category "
+           "and priority to your tasks.\n"))
+    print((Fore.LIGHTMAGENTA_EX +
+           "\t- " + Style.RESET_ALL + "Manage your tasks anywhere,"
+           " any time at the click of a button.\n"))
 
     input("Press enter to return to the homepage and get started!\n")
     clear_screen()
@@ -332,12 +338,14 @@ class TaskManager:
             print(f"Description: {description}")
             print(f"Category: {category}")
             print(f"Priority: {priority}")
-            confirmation = input("Add this task? (yes/no): ")
+            confirmation = input(
+                Fore.LIGHTGREEN_EX + "\n Add this task? (yes/no): " +
+                Style.RESET_ALL)
 
             if confirmation.lower() == "yes":
                 break
             elif confirmation.lower() == "no":
-                print("\nTask not added.")
+                print(Fore.RED + "\nTask not added." + Style.RESET_ALL)
                 decision = input(
                     "Would you like to re-enter the task details? (yes/no): "
                 )
@@ -375,7 +383,8 @@ class TaskManager:
         tasks_worksheet.append_row(
             [next_task_id, description, category, priority, "open"]
         )
-        print("\nTask added successfully! \n")
+        print(Fore.LIGHTGREEN_EX + 
+              "\nTask added successfully! \n" + Style.RESET_ALL)
         sleep(1.5)
         print("Returning to the View and Manage Tasks menu...\n")
         sleep(2)
@@ -605,13 +614,23 @@ class TaskManager:
         while True:
             print("\nTasks & Options:\n")
             task_manager.display_tasks()
-            print("\n1. Add a new task")
-            print("2. Edit a task")
-            print("3. Mark a task as complete")
-            print("4. Remove a task")
-            print("5. View completed tasks")
-            print("6. Return to homepage\n")
-            choice = input("Select an option: \n")
+            print((
+                Fore.LIGHTMAGENTA_EX + "\n1. " +
+                Style.RESET_ALL + "Add a new task"))
+            print((
+                Fore.LIGHTMAGENTA_EX + "2. " +
+                Style.RESET_ALL + "Edit a task"))
+            print((Fore.LIGHTMAGENTA_EX + "3. " +
+                   Style.RESET_ALL + "Mark a task as complete"))
+            print((Fore.LIGHTMAGENTA_EX + "4. " +
+                   Style.RESET_ALL + "Remove a task"))
+            print((Fore.LIGHTMAGENTA_EX + "5. " +
+                   Style.RESET_ALL + "View completed tasks"))
+            print((Fore.LIGHTMAGENTA_EX + "6. " +
+                   Style.RESET_ALL + "Return to homepage\n"))
+            choice = input(
+                Fore.LIGHTGREEN_EX + "Enter your choice: " + Style.RESET_ALL
+                )
 
             if choice == "1":
                 clear_screen()
@@ -648,12 +667,15 @@ def homepage():
     clear_screen()
     while True:
         print_ascii_art()
-        print(Fore.CYAN + "Welcome to Tidy Tasks\n")
-        print(Fore.MAGENTA + "Please select an option:")
-        print(Fore.LIGHTMAGENTA_EX + "1." + Style.RESET_ALL + " View and manage tasks")
+        print(Fore.CYAN + "Welcome to Tidy Tasks!\n")
+        print(Fore.LIGHTMAGENTA_EX + "Please select an option:")
+        print((Fore.LIGHTMAGENTA_EX + "1." + Style.RESET_ALL +
+               " View and manage tasks"))
         print(Fore.LIGHTMAGENTA_EX + "2." + Style.RESET_ALL + " About")
         print(Fore.LIGHTMAGENTA_EX + "3." + Style.RESET_ALL + " Exit\n")
-        user_choice = input(Fore.LIGHTGREEN_EX + "Enter your choice: " + Style.RESET_ALL)
+        user_choice = input(
+            Fore.LIGHTGREEN_EX + "Enter your choice: " + Style.RESET_ALL
+        )
 
         if user_choice == "1":
             clear_screen()
