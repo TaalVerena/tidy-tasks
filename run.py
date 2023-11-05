@@ -25,40 +25,40 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open("tidy_tasks")
 
 # ASCII art for Tidy Tasks homepage
-tidy_tasks_ascii_art = r"""  
-  _______ _     _         _______        _        
- |__   __(_)   | |       |__   __|      | |       
-    | |   _  __| |_   _     | | __ _ ___| | _____ 
+tidy_tasks_ascii_art = r"""
+  _______ _     _         _______        _
+ |__   __(_)   | |       |__   __|      | |
+    | |   _  __| |_   _     | | __ _ ___| | _____
     | |  | |/ _` | | | |    | |/ _` / __| |/ / __|
     | |  | | (_| | |_| |    | | (_| \__ \   <\__ \
     |_|  |_|\__,_|\__, |    |_|\__,_|___/_|\_\___/
-                   __/ |                     
-                  |___/                                       
+                   __/ |
+                  |___/
 """
 
 # ASCII art for Tidy Tasks about page
 about_ascii_art = r"""
-           _                 _     _______ _______ 
-     /\   | |               | |   |__   __|__   __|
-    /  \  | |__   ___  _   _| |_     | |     | |   
-   / /\ \ | '_ \ / _ \| | | | __|    | |     | |   
-  / ____ \| |_) | (_) | |_| | |_     | |_    | |_  
- /_/    \_\_.__/ \___/ \__,_|\__|    |_(_)   |_(_) 
+           _                 _     _____        __
+     /\   | |               | |   |_   _|      / _|       _
+    /  \  | |__   ___  _   _| |_    | |  _ __ | |_ ___   (_)
+   / /\ \ | '_ \ / _ \| | | | __|   | | | '_ \|  _/ _ \
+  / ____ \| |_) | (_) | |_| | |_   _| |_| | | | || (_) |  _
+ /_/    \_|_.__/ \___/ \__,_|\__| |_____|_| |_|_| \___/  (_)
 """
 
 
 def print_ascii_art():
     """
-    Prints the Tidy Tasks ASCII art in green
+    Prints the Tidy Tasks ASCII art in magenta
     """
-    print(Fore.GREEN + tidy_tasks_ascii_art + Style.RESET_ALL)
+    print(Fore.MAGENTA + tidy_tasks_ascii_art + Style.RESET_ALL)
 
 
 def print_about_ascii_art():
     """
-    Prints the Tidy Tasks about ASCII art in green
+    Prints the Tidy Tasks about ASCII art in meganta
     """
-    print(Fore.GREEN + about_ascii_art + Style.RESET_ALL)
+    print(Fore.MAGENTA + about_ascii_art + Style.RESET_ALL)
 
 
 def clear_screen():
