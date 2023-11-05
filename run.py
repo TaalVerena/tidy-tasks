@@ -27,7 +27,10 @@ def clear_screen():
     """
     Clears the terminal screen
     """
-    os.system("clear")
+    command = "clear"
+    if os.name in ("nt", "dos"):  # If Machine is running on Windows, use cls
+        command = "cls"
+    os.system(command)
 
 
 def invalid_input():
@@ -46,6 +49,7 @@ def id_not_found():
     sleep(1.5)
     print("No task found with that id. Please try again. \n")
     sleep(2)
+    clear_screen()
 
 
 def exit_tidy_tasks():
