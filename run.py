@@ -84,7 +84,10 @@ def get_task_info():
     Gets task information from the user
     """
     description = input("Enter task description: \n")
-    category = input("Enter task category: \n")
+    category = TaskManager.get_user_input(
+        "Enter task category (home, work, hobbies, exercise): \n",
+        TaskManager.validate_category
+    )
     priority = TaskManager.get_user_input(
         "Enter task priority (high, medium, low): \n",
         TaskManager.validate_priority
@@ -137,6 +140,11 @@ class TaskManager:
     """
     Manages various operations on tasks using the Google Sheets backend
     """
+    TASKS_SHEET_NAME = "tasks"
+    COMPLETE_SHEET_NAME = "complete"
+    VALID_PRIORITIES = ['high', 'medium', 'low']
+    VALID_CATEGORIES = {'home', 'work', 'hobbies', 'exercise'}
+
     def __init__(self, sheet):
         """
         Initialise the TaskManager class
@@ -197,7 +205,7 @@ class TaskManager:
         headers = ["Task ID", "Description", "Category", "Priority", "Status"]
         tasks_table = [[getattr(task, header.replace(" ", "_").lower()) for header in headers] for task in completed_tasks]
         print(tabulate(tasks_table, headers=headers, tablefmt="fancy_grid"))
-   
+
         return_to_main_menu()
 
 
@@ -218,13 +226,24 @@ class TaskManager:
         """
         Validates the task priority
         """
-        valid_priorities = ["high", "medium", "low"]
-        return priority.lower() in valid_priorities
+        return priority.lower() in TaskManager.VALID_PRIORITIES
+
+    @staticmethod
+    def validate_category(category):
+        """
+        Validates the task category
+        """
+        return category.lower() in TaskManager.VALID_CATEGORIES
 
     def add_task(self, description, category, priority):
         """
         Adds a task to the spreadsheet after user confirmation
         """
+        # Validate the category
+        if not self.validate_category(category):
+            print(f"Invalid category. Valid categories are: {', '.join(self.VALID_CATEGORIES)}")
+            return
+
         # Validate the priority
         if not self.validate_priority(priority):
             print("Priority must be high, medium, or low.")
