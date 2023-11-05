@@ -76,7 +76,10 @@ def invalid_input():
     Displays an invalid input message
     """
     sleep(1.5)
-    print("Invalid input, please try again.\n")
+    print(
+        Fore.RED + "Invalid input, please try again.\n" +
+        Style.RESET_ALL
+    )
     sleep(2)
 
 
@@ -85,9 +88,17 @@ def invalid_menu_option():
     Displays an invalid menu option message
     """
     sleep(1.5)
-    print("Invalid input. Returning to the menu...\n")
+    print(
+        (
+            Fore.RED + "Invalid input. " + Style.RESET_ALL +
+            "Returning to the menu...\n"
+        )
+    )
     sleep(1.5)
-    print("Please select one of the menu options.\n")
+    print(
+        Fore.LIGHTGREEN_EX + "Please select one of the menu options.\n" +
+        Style.RESET_ALL
+    )
     sleep(2)
     clear_screen()
 
@@ -97,7 +108,12 @@ def id_not_found():
     Displays an ID not found message
     """
     sleep(1.5)
-    print("No task found with that id. Please try again. \n")
+    print(
+        (
+            Fore.RED + "No task found with that id. " +
+            Style.RESET_ALL + "Please try again. \n"
+        )
+    )
     sleep(2)
     clear_screen()
 
@@ -107,7 +123,13 @@ def exit_tidy_tasks():
     Exits the Tidy Tasks application
     """
     sleep(1.5)
-    print("\nThank you for using Tidy Tasks! Exiting application ...\n")
+    print(
+        (
+            Fore.LIGHTMAGENTA_EX +
+            "\nThank you for using Tidy Tasks! Exiting application ...\n" +
+            Style.RESET_ALL
+        )
+    )
     sleep(1.5)
     clear_screen()
     sleep(1.5)
@@ -120,7 +142,11 @@ def return_to_main_menu():
     """
     while True:
         choice = input(
-            ("\nPress enter to return to the main menu or 'q' to quit: \n")
+            (
+                Fore.LIGHTGREEN_EX + 
+                "\nPress enter to return to the main menu or 'q' to quit: \n" +
+                Style.RESET_ALL
+            )
         )
         if choice.lower() == "q":
             exit_tidy_tasks()
