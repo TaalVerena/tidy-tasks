@@ -636,12 +636,12 @@ def homepage():
     clear_screen()
     while True:
         print_ascii_art()
-        print("Welcome to Tidy Tasks!\n")
-        print("Please select an option:")
-        print("1. View and manage tasks")
-        print("2. About")
-        print("3. Exit\n")
-        user_choice = input("Enter your choice: \n")
+        print(Fore.CYAN + "Welcome to Tidy Tasks\n")
+        print(Fore.MAGENTA + "Please select an option:")
+        print(Fore.LIGHTMAGENTA_EX + "1." + Style.RESET_ALL + " View and manage tasks")
+        print(Fore.LIGHTMAGENTA_EX + "2." + Style.RESET_ALL + " About")
+        print(Fore.LIGHTMAGENTA_EX + "3." + Style.RESET_ALL + " Exit\n")
+        user_choice = input(Fore.LIGHTGREEN_EX + "Enter your choice: " + Style.RESET_ALL)
 
         if user_choice == "1":
             clear_screen()
