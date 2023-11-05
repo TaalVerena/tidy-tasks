@@ -527,16 +527,38 @@ class TaskManager:
                 )
                 task_to_edit.description = new_value
             elif choice == "2":
-                new_value = input(
-                    Fore.LIGHTGREEN_EX + "\nEnter a new category: \n" +
-                    Style.RESET_ALL
+                print("\nTask Category Options:")
+                for index, category in enumerate(TaskManager.VALID_CATEGORIES,
+                                                 start=1):
+                    print(
+                        Fore.LIGHTMAGENTA_EX + str(index) + ". " +
+                        Style.RESET_ALL + category
+                    )
+                category_index = TaskManager.get_user_input(
+                    Fore.LIGHTGREEN_EX + "\nChoose a new category " +
+                    Fore.LIGHTMAGENTA_EX + "(1 - 5): \n" + Style.RESET_ALL,
+                    TaskManager.validate_category
                 )
+                new_value = list(TaskManager.VALID_CATEGORIES)[
+                    int(category_index) - 1
+                ]
                 task_to_edit.category = new_value
             elif choice == "3":
-                new_value = input(
-                    Fore.LIGHTGREEN_EX + "\nEnter a new priority: \n" +
-                    Style.RESET_ALL
+                print("\nTask Priority Options:")
+                for index, priority in enumerate(TaskManager.VALID_PRIORITIES,
+                                                 start=1):
+                    print(
+                        Fore.LIGHTMAGENTA_EX + str(index) + ". " +
+                        Style.RESET_ALL + priority
+                    )
+                priority_index = TaskManager.get_user_input(
+                    Fore.LIGHTGREEN_EX + "\nChoose a new priority " +
+                    Fore.LIGHTMAGENTA_EX + "(1 - 3): \n" + Style.RESET_ALL,
+                    TaskManager.validate_priority
                 )
+                new_value = TaskManager.VALID_PRIORITIES[
+                    int(priority_index) - 1
+                ]
                 task_to_edit.priority = new_value
             else:
                 invalid_input()
