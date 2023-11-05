@@ -417,29 +417,53 @@ class TaskManager:
             id_not_found()
             return
 
-        print("\nCurrent task details:")
-        print(task_to_edit)
+        while True:
+            clear_screen()
+            print("\nCurrent task details:\n")
+            print(f"Description: {task_to_edit.description}")
+            print(f"Category: {task_to_edit.category}")
+            print(f"Priority: {task_to_edit.priority}")
 
-        print("\nWhich field do you want to edit?")
-        print("1. Description")
-        print("2. Category")
-        print("3. Priority")
-        print("4. Status")
-        choice = input("Enter your choice:  \n")
+            print("\nWhich field would you like to edit?")
+            print("1. Description")
+            print("2. Category")
+            print("3. Priority")
+            choice = input("\nEnter your choice: \n")
 
-        new_value = input("\nEnter the new value:  \n")
+            if choice == "1":
+                new_value = input("\nEnter a new description: \n")
+                task_to_edit.description = new_value
+            elif choice == "2":
+                new_value = input("\nEnter a new category: \n")
+                task_to_edit.category = new_value
+            elif choice == "3":
+                new_value = input("\nEnter a new priority: \n")
+                task_to_edit.priority = new_value
+            else:
+                invalid_input()
+                continue
 
-        if choice == "1":
-            task_to_edit.description = new_value
-        elif choice == "2":
-            task_to_edit.category = new_value
-        elif choice == "3":
-            task_to_edit.priority = new_value
-        elif choice == "4":
-            task_to_edit.status = new_value
-        else:
-            invalid_input()
-            return
+            clear_screen()
+            print("\nPlease confirm the updated task details: \n")
+            print(f"Description: {task_to_edit.description}")
+            print(f"Category: {task_to_edit.category}")
+            print(f"Priority: {task_to_edit.priority}")
+            confirmation = input("\nSave these changes? (yes/no): ")
+
+            if confirmation.lower() == "yes":
+                break
+            elif confirmation.lower() == "no":
+                print("\nChanges not saved.")
+                decision = input("Would you like to re-edit the task? (yes/no): ")
+                if decision.lower() == "yes":
+                    continue
+                else:
+                    print("Returning to the View and Manage Tasks menu...\n")
+                    sleep(2)
+                    return
+            else:
+                invalid_input()
+                continue
 
         worksheet = self.sheet.worksheet("tasks")
         row_to_edit = [
@@ -454,7 +478,7 @@ class TaskManager:
         worksheet.insert_row(row_to_edit, row_index)
 
         print("\nTask updated successfully!")
-
+        sleep(1.5)
         return_to_main_menu()
 
     def remove_task(self):
