@@ -547,13 +547,20 @@ class TaskManager:
             print(f"Description: {task_to_edit.description}")
             print(f"Category: {task_to_edit.category}")
             print(f"Priority: {task_to_edit.priority}")
-            confirmation = input("\nSave these changes? (yes/no): ")
+            confirmation = input(
+                Fore.LIGHTGREEN_EX + "\nSave these changes? (yes/no): " +
+                Style.RESET_ALL
+            )
 
             if confirmation.lower() == "yes":
                 break
             elif confirmation.lower() == "no":
-                print("\nChanges not saved.")
-                decision = input("Would you like to re-edit the task? (yes/no): ")
+                print(Fore.RED + "\nChanges not saved." + Style.RESET_ALL)
+                decision = input(
+                    Fore.LIGHTGREEN_EX +
+                    "\nWould you like to re-edit the task? (yes/no): " +
+                    Style.RESET_ALL
+                )
                 if decision.lower() == "yes":
                     continue
                 else:
@@ -576,7 +583,10 @@ class TaskManager:
         worksheet.delete_rows(row_index)
         worksheet.insert_row(row_to_edit, row_index)
 
-        print("\nTask updated successfully!")
+        print(
+            Fore.LIGHTGREEN_EX + "\nTask updated successfully!" +
+            Style.RESET_ALL
+        )
         sleep(1.5)
         return_to_main_menu()
 
