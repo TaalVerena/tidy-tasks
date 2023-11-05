@@ -4,6 +4,8 @@ import os
 from google.oauth2.service_account import Credentials
 from time import sleep
 from tabulate import tabulate
+from colorama import Fore, Style, init
+init(autoreset=True)
 
 # === GOOGLE SPREADSHEET AUTHENTICATION ===
 # The necessary scopes to interact with Google Sheets
@@ -596,6 +598,17 @@ def homepage():
     """
     clear_screen()
     while True:
+        print(Fore.GREEN + r"""  
+  _______ _     _         _______        _        
+ |__   __(_)   | |       |__   __|      | |       
+    | |   _  __| |_   _     | | __ _ ___| | _____ 
+    | |  | |/ _` | | | |    | |/ _` / __| |/ / __|
+    | |  | | (_| | |_| |    | | (_| \__ \   <\__ \
+    |_|  |_|\__,_|\__, |    |_|\__,_|___/_|\_\___/
+                   __/ |                     
+                  |___/                                       
+        """ + Style.RESET_ALL)
+
         print("Welcome to Tidy Tasks\n")
         print("Please select an option:")
         print("1. View and manage tasks")
