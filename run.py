@@ -120,7 +120,7 @@ def return_to_main_menu():
     """
     while True:
         choice = input(
-            ("\nPress enter to return to the " "main menu or 'q' to quit: \n")
+            ("\nPress enter to return to the main menu or 'q' to quit: \n")
         )
         if choice.lower() == "q":
             exit_tidy_tasks()
@@ -139,24 +139,32 @@ def get_task_info():
     """
     Gets task information from the user
     """
-    description = input("Enter task description: \n")
+    description = input(
+        Fore.LIGHTGREEN_EX + "Enter task description: \n" +
+        Style.RESET_ALL
+    )
     print("\nTask Category Options:")
     for index, category in enumerate(TaskManager.VALID_CATEGORIES, start=1):
-        print(Fore.LIGHTMAGENTA_EX +
-              str(index) + ". " + Style.RESET_ALL + category)
+        print(
+            Fore.LIGHTMAGENTA_EX +
+            str(index) + ". " + Style.RESET_ALL + category
+        )
     category_index = TaskManager.get_user_input(
-        "\nChoose a category " + Fore.LIGHTMAGENTA_EX + "(1 - 5): \n" + Style.RESET_ALL,
+        Fore.LIGHTGREEN_EX + "\nChoose a category " +
+        Fore.LIGHTMAGENTA_EX + "(1 - 5): \n" + Style.RESET_ALL,
         TaskManager.validate_category
     )
     category = list(TaskManager.VALID_CATEGORIES)[int(category_index) - 1]
 
     print("\nTask Priority Options:")
     for index, priority in enumerate(TaskManager.VALID_PRIORITIES, start=1):
-        print(Fore.LIGHTMAGENTA_EX +
-              str(index) + ". " + Style.RESET_ALL + priority)
+        print(
+            Fore.LIGHTMAGENTA_EX + str(index) + ". " +
+            Style.RESET_ALL + priority
+        )
     priority_index = TaskManager.get_user_input(
-        "\nChoose a priority " + Fore.LIGHTMAGENTA_EX + "(1 - 3): \n" + Style.RESET_ALL,
-        TaskManager.validate_priority
+        Fore.LIGHTGREEN_EX + "\nChoose a priority " + Fore.LIGHTMAGENTA_EX +
+        "(1 - 3): \n" + Style.RESET_ALL, TaskManager.validate_priority
     )
     priority = TaskManager.VALID_PRIORITIES[int(priority_index) - 1]
     return description, category, priority
@@ -170,15 +178,18 @@ def about_menu():
     print_about_ascii_art()
     print("Welcome to Tidy Tasks, your personal task management companion.\n")
     print("Crafted to bring simplicity and order to your daily to-dos.\n")
-    print((Fore.LIGHTMAGENTA_EX +
-           "\t- " + Style.RESET_ALL + "Easily view, add, edit, "
-           "complete and remove tasks.\n"))
-    print((Fore.LIGHTMAGENTA_EX +
-           "\t- " + Style.RESET_ALL + "Add a description, category "
-           "and priority to your tasks.\n"))
-    print((Fore.LIGHTMAGENTA_EX +
-           "\t- " + Style.RESET_ALL + "Manage your tasks anywhere,"
-           " any time at the click of a button.\n"))
+    print(
+        (Fore.LIGHTMAGENTA_EX + "\t- " + Style.RESET_ALL +
+         "Easily view, add, edit, complete and remove tasks.\n")
+    )
+    print(
+        (Fore.LIGHTMAGENTA_EX + "\t- " + Style.RESET_ALL +
+         "Add a description, category and priority to your tasks.\n")
+    )
+    print(
+        (Fore.LIGHTMAGENTA_EX + "\t- " + Style.RESET_ALL +
+         "Manage your tasks anywhere, any time at the click of a button.\n")
+    )
 
     input("Press enter to return to the homepage and get started!\n")
     clear_screen()
@@ -216,7 +227,6 @@ class TaskManager:
     COMPLETE_SHEET_NAME = "complete"
     VALID_CATEGORIES = {'home', 'work', 'studies', 'hobbies', 'exercise'}
     VALID_PRIORITIES = ['high', 'medium', 'low']
-
 
     def __init__(self, sheet):
         """
@@ -265,7 +275,6 @@ class TaskManager:
 
         return
 
-
     def display_completed_tasks(self):
         """
         Displays all completed tasks in the spreadsheet or
@@ -280,7 +289,7 @@ class TaskManager:
             print("No completed tasks found!")
             sleep(2)
             return
-        
+
         print("\nCompleted Tasks:\n")
 
         # Preparing data for tabulate
@@ -291,7 +300,10 @@ class TaskManager:
             Fore.BLUE + "Priority" + Style.RESET_ALL,
             Fore.BLUE + "Status" + Style.RESET_ALL
         ]
-        tasks_table = [[getattr(task, header.replace(" ", "_").lower()) for header in headers] for task in completed_tasks]
+        tasks_table = [
+            [getattr(task, header.replace(" ", "_").lower()) 
+             for header in headers] for task in completed_tasks
+        ]
         print(tabulate(tasks_table, headers=headers, tablefmt="fancy_grid"))
 
         return_to_main_menu()
@@ -339,21 +351,25 @@ class TaskManager:
             print(f"Category: {category}")
             print(f"Priority: {priority}")
             confirmation = input(
-                Fore.LIGHTGREEN_EX + "\n Add this task? (yes/no): " +
-                Style.RESET_ALL)
+                Fore.LIGHTGREEN_EX + "\nAdd this task? (yes/no): " +
+                Style.RESET_ALL
+            )
 
             if confirmation.lower() == "yes":
                 break
             elif confirmation.lower() == "no":
                 print(Fore.RED + "\nTask not added." + Style.RESET_ALL)
                 decision = input(
-                    "Would you like to re-enter the task details? (yes/no): "
+                    Fore.LIGHTGREEN_EX +
+                    "\nWould you like to re-enter the task details? (yes/no): "
+                    + Style.RESET_ALL
                 )
                 if decision.lower() == "yes":
+                    clear_screen()
                     description, category, priority = get_task_info()
                     continue
                 else:
-                    print("Returning to the View and Manage Tasks menu...\n")
+                    print("\nReturning to the View and Manage Tasks menu...\n")
                     sleep(2)
                     return
             else:
@@ -383,8 +399,10 @@ class TaskManager:
         tasks_worksheet.append_row(
             [next_task_id, description, category, priority, "open"]
         )
-        print(Fore.LIGHTGREEN_EX + 
-              "\nTask added successfully! \n" + Style.RESET_ALL)
+        print(
+            Fore.LIGHTGREEN_EX + "\nTask added successfully! \n" +
+            Style.RESET_ALL
+        )
         sleep(1.5)
         print("Returning to the View and Manage Tasks menu...\n")
         sleep(2)
@@ -401,7 +419,7 @@ class TaskManager:
                 input(
                     (
                         "\nEnter the task ID you "
-                        "would like to mark as complete: \n"
+                        "would like to mark as complete: "
                     )
                 )
             )
@@ -457,9 +475,12 @@ class TaskManager:
         Edits an existing task in the spreadsheet
         """
         try:
-            task_id = int(input((
-                "\nEnter the task ID you would like to edit: \n"
-                )))
+            task_id = int(input
+                          (
+                              (Fore.LIGHTGREEN_EX +
+                               "\nEnter the task ID you would like to edit: " +
+                               Style.RESET_ALL)
+                            ))
         except ValueError:
             invalid_input()
             return
@@ -479,25 +500,43 @@ class TaskManager:
 
         while True:
             clear_screen()
-            print("\nCurrent task details:\n")
+            print("\nCurrent Task Details:\n")
             print(f"Description: {task_to_edit.description}")
             print(f"Category: {task_to_edit.category}")
             print(f"Priority: {task_to_edit.priority}")
 
             print("\nWhich field would you like to edit?")
-            print("1. Description")
-            print("2. Category")
-            print("3. Priority")
-            choice = input("\nEnter your choice: \n")
+            print(
+                Fore.LIGHTMAGENTA_EX + "1. " + Style.RESET_ALL + "Description"
+            )
+            print(
+                Fore.LIGHTMAGENTA_EX + "2. " + Style.RESET_ALL + "Category"
+            )
+            print(
+                Fore.LIGHTMAGENTA_EX + "3. " + Style.RESET_ALL + "Priority"
+            )
+            choice = input(
+                Fore.LIGHTGREEN_EX + "\nEnter your choice: \n" +
+                Style.RESET_ALL
+            )
 
             if choice == "1":
-                new_value = input("\nEnter a new description: \n")
+                new_value = input(
+                    Fore.LIGHTGREEN_EX + "\nEnter a new description: \n" +
+                    Style.RESET_ALL
+                )
                 task_to_edit.description = new_value
             elif choice == "2":
-                new_value = input("\nEnter a new category: \n")
+                new_value = input(
+                    Fore.LIGHTGREEN_EX + "\nEnter a new category: \n" +
+                    Style.RESET_ALL
+                )
                 task_to_edit.category = new_value
             elif choice == "3":
-                new_value = input("\nEnter a new priority: \n")
+                new_value = input(
+                    Fore.LIGHTGREEN_EX + "\nEnter a new priority: \n" +
+                    Style.RESET_ALL
+                )
                 task_to_edit.priority = new_value
             else:
                 invalid_input()
@@ -548,7 +587,7 @@ class TaskManager:
         while True:
             try:
                 task_id = int(input(
-                    ("\nEnter the task ID you would like to remove: \n")
+                    ("\nEnter the task ID you would like to remove: ")
                 ))
             except ValueError:
                 invalid_input()
@@ -616,21 +655,31 @@ class TaskManager:
             task_manager.display_tasks()
             print((
                 Fore.LIGHTMAGENTA_EX + "\n1. " +
-                Style.RESET_ALL + "Add a new task"))
+                Style.RESET_ALL + "Add a new task"
+            ))
             print((
                 Fore.LIGHTMAGENTA_EX + "2. " +
-                Style.RESET_ALL + "Edit a task"))
-            print((Fore.LIGHTMAGENTA_EX + "3. " +
-                   Style.RESET_ALL + "Mark a task as complete"))
-            print((Fore.LIGHTMAGENTA_EX + "4. " +
-                   Style.RESET_ALL + "Remove a task"))
-            print((Fore.LIGHTMAGENTA_EX + "5. " +
-                   Style.RESET_ALL + "View completed tasks"))
-            print((Fore.LIGHTMAGENTA_EX + "6. " +
-                   Style.RESET_ALL + "Return to homepage\n"))
+                Style.RESET_ALL + "Edit a task"
+            ))
+            print((
+                Fore.LIGHTMAGENTA_EX + "3. " +
+                Style.RESET_ALL + "Mark a task as complete"
+            ))
+            print((
+                Fore.LIGHTMAGENTA_EX + "4. " +
+                Style.RESET_ALL + "Remove a task"
+            ))
+            print((
+                Fore.LIGHTMAGENTA_EX + "5. " +
+                Style.RESET_ALL + "View completed tasks"
+            ))
+            print((
+                Fore.LIGHTMAGENTA_EX + "6. " +
+                Style.RESET_ALL + "Return to homepage\n"
+            ))
             choice = input(
                 Fore.LIGHTGREEN_EX + "Enter your choice: " + Style.RESET_ALL
-                )
+            )
 
             if choice == "1":
                 clear_screen()
@@ -669,8 +718,10 @@ def homepage():
         print_ascii_art()
         print(Fore.CYAN + "Welcome to Tidy Tasks!\n")
         print(Fore.LIGHTMAGENTA_EX + "Please select an option:")
-        print((Fore.LIGHTMAGENTA_EX + "1." + Style.RESET_ALL +
-               " View and manage tasks"))
+        print((
+            Fore.LIGHTMAGENTA_EX + "1." + Style.RESET_ALL +
+            " View and manage tasks"
+        ))
         print(Fore.LIGHTMAGENTA_EX + "2." + Style.RESET_ALL + " About")
         print(Fore.LIGHTMAGENTA_EX + "3." + Style.RESET_ALL + " Exit\n")
         user_choice = input(
