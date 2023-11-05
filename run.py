@@ -222,7 +222,6 @@ class TaskManager:
 
         return_to_main_menu()
 
-
     @staticmethod
     def get_user_input(prompt, validation_func=None):
         """
@@ -341,6 +340,7 @@ class TaskManager:
 
         if not task_to_complete:
             id_not_found()
+            TaskManager.mark_task_as_complete()
             return
 
         print(f"\nMarking task with ID {task_id} as complete...\n")
@@ -515,7 +515,7 @@ class TaskManager:
             print("3. Mark a task as complete")
             print("4. Remove a task")
             print("5. View completed tasks")
-            print("6. Return to home page\n")
+            print("6. Return to homepage\n")
             choice = input("Select an option: \n")
 
             if choice == "1":
@@ -532,13 +532,13 @@ class TaskManager:
                 clear_screen()
                 task_manager.display_completed_tasks()
                 break
-
             elif choice == "6":
                 clear_screen()
                 homepage()
                 break
             else:
                 invalid_input()
+                clear_screen()
 
 
 # Initialize the TaskManager with the opened Google Sheets spreadsheet
@@ -567,7 +567,11 @@ def homepage():
         elif user_choice == "3":
             exit_tidy_tasks()
         else:
-            invalid_input()
+            print("Invalid input. Returning to homepage...\n")
+            sleep(1.5)
+            print("Please select 1, 2 or 3 from the homepage menu options.\n")
+            sleep(2)
+            clear_screen()
 
 
 # Invoke the homepage / landing page to start the application
