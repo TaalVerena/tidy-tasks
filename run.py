@@ -77,7 +77,7 @@ def invalid_input():
     """
     sleep(1.5)
     print(
-        Fore.RED + "Invalid input, please try again.\n" +
+        Fore.RED + "\nInvalid input, please try again.\n" +
         Style.RESET_ALL
     )
     sleep(2)
@@ -90,14 +90,14 @@ def invalid_menu_option():
     sleep(1.5)
     print(
         (
-            Fore.RED + "Invalid input. " + Style.RESET_ALL +
+            Fore.RED + "\nInvalid input. " + Style.RESET_ALL +
             "Returning to the menu...\n"
         )
     )
     sleep(1.5)
     print(
-        Fore.LIGHTGREEN_EX + "Please select one of the menu options.\n" +
-        Style.RESET_ALL
+        Fore.LIGHTGREEN_EX +
+        "Please select one of the menu options listed.\n" + Style.RESET_ALL
     )
     sleep(2)
     clear_screen()
@@ -444,8 +444,9 @@ class TaskManager:
             task_id = int(
                 input(
                     (
-                        "\nEnter the task ID you "
-                        "would like to mark as complete: "
+                        Fore.LIGHTGREEN_EX + "\nEnter the task ID " +
+                        "you would like to mark as complete: " +
+                        Style.RESET_ALL
                     )
                 )
             )
@@ -464,7 +465,26 @@ class TaskManager:
 
         if not task_to_complete:
             id_not_found()
-            TaskManager.mark_task_as_complete()
+            TaskManager.mark_task_as_complete(self)
+            return
+
+        # Display task details and confirm completion
+        clear_screen()
+        print("\nTask Details:\n")
+        print(f"Description: {task_to_complete.description}")
+        print(f"Category: {task_to_complete.category}")
+        print(f"Priority: {task_to_complete.priority}")
+        confirmation = input(
+            Fore.LIGHTGREEN_EX + "\nMark this task as complete? (yes/no): " +
+            Style.RESET_ALL
+        )
+
+        if confirmation.lower() != "yes":
+            print(
+                Fore.RED + "\nTask not marked as complete." +
+                Style.RESET_ALL
+            )
+            sleep(2)
             return
 
         print(f"\nMarking task with ID {task_id} as complete...\n")
