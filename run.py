@@ -84,14 +84,23 @@ def get_task_info():
     Gets task information from the user
     """
     description = input("Enter task description: \n")
-    category = TaskManager.get_user_input(
-        "Enter task category (home, work, hobbies, exercise): \n",
+    print("\nSelect a category:")
+    for index, category in enumerate(TaskManager.VALID_CATEGORIES, start=1):
+        print(f"{index}. {category}")
+    category_index = TaskManager.get_user_input(
+        "Choose a category (number): \n",
         TaskManager.validate_category
     )
-    priority = TaskManager.get_user_input(
-        "Enter task priority (high, medium, low): \n",
+    category = list(TaskManager.VALID_CATEGORIES)[int(category_index) - 1]
+
+    print("\nSelect a priority:")
+    for index, priority in enumerate(TaskManager.VALID_PRIORITIES, start=1):
+        print(f"{index}. {priority}")
+    priority_index = TaskManager.get_user_input(
+        "Choose a priority (number): \n",
         TaskManager.validate_priority
     )
+    priority = TaskManager.VALID_PRIORITIES[int(priority_index) - 1]
     return description, category, priority
 
 
@@ -142,8 +151,9 @@ class TaskManager:
     """
     TASKS_SHEET_NAME = "tasks"
     COMPLETE_SHEET_NAME = "complete"
-    VALID_PRIORITIES = ['high', 'medium', 'low']
     VALID_CATEGORIES = {'home', 'work', 'hobbies', 'exercise'}
+    VALID_PRIORITIES = ['high', 'medium', 'low']
+
 
     def __init__(self, sheet):
         """
@@ -222,33 +232,28 @@ class TaskManager:
             continue
 
     @staticmethod
-    def validate_priority(priority):
+    def validate_priority(index):
         """
-        Validates the task priority
+        Validates the task priority index
         """
-        return priority.lower() in TaskManager.VALID_PRIORITIES
+        try:
+            int_index = int(index)
+            return 1 <= int_index <= len(TaskManager.VALID_PRIORITIES)
+        except ValueError:
+            return False
 
     @staticmethod
-    def validate_category(category):
+    def validate_category(index):
         """
-        Validates the task category
+        Validates the task category index
         """
-        return category.lower() in TaskManager.VALID_CATEGORIES
+        try:
+            int_index = int(index)
+            return 1 <= int_index <= len(TaskManager.VALID_CATEGORIES)
+        except ValueError:
+            return False
 
     def add_task(self, description, category, priority):
-        """
-        Adds a task to the spreadsheet after user confirmation
-        """
-        # Validate the category
-        if not self.validate_category(category):
-            print(f"Invalid category. Valid categories are: {', '.join(self.VALID_CATEGORIES)}")
-            return
-
-        # Validate the priority
-        if not self.validate_priority(priority):
-            print("Priority must be high, medium, or low.")
-            return
-
         # Display task details for confirmation
         while True:
             clear_screen()
@@ -511,7 +516,8 @@ class TaskManager:
 
             if choice == "1":
                 clear_screen()
-                task_manager.add_task(*get_task_info())
+                description, category, priority = get_task_info()
+                task_manager.add_task(description, category, priority)
             elif choice == "2":
                 task_manager.edit_task()
             elif choice == "3":
