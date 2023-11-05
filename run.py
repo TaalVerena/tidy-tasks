@@ -24,6 +24,25 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 # Open the 'tidy_tasks' spreadsheet
 SHEET = GSPREAD_CLIENT.open("tidy_tasks")
 
+# ASCII art for Tidy Tasks
+tidy_tasks_ascii_art = r"""  
+  _______ _     _         _______        _        
+ |__   __(_)   | |       |__   __|      | |       
+    | |   _  __| |_   _     | | __ _ ___| | _____ 
+    | |  | |/ _` | | | |    | |/ _` / __| |/ / __|
+    | |  | | (_| | |_| |    | | (_| \__ \   <\__ \
+    |_|  |_|\__,_|\__, |    |_|\__,_|___/_|\_\___/
+                   __/ |                     
+                  |___/                                       
+"""
+
+
+def print_ascii_art():
+    """
+    Prints the Tidy Tasks ASCII art in green
+    """
+    print(Fore.GREEN + tidy_tasks_ascii_art + Style.RESET_ALL)
+
 
 def clear_screen():
     """
@@ -598,18 +617,8 @@ def homepage():
     """
     clear_screen()
     while True:
-        print(Fore.GREEN + r"""  
-  _______ _     _         _______        _        
- |__   __(_)   | |       |__   __|      | |       
-    | |   _  __| |_   _     | | __ _ ___| | _____ 
-    | |  | |/ _` | | | |    | |/ _` / __| |/ / __|
-    | |  | | (_| | |_| |    | | (_| \__ \   <\__ \
-    |_|  |_|\__,_|\__, |    |_|\__,_|___/_|\_\___/
-                   __/ |                     
-                  |___/                                       
-        """ + Style.RESET_ALL)
-
-        print("Welcome to Tidy Tasks\n")
+        print_ascii_art()
+        print("Welcome to Tidy Tasks!\n")
         print("Please select an option:")
         print("1. View and manage tasks")
         print("2. About")
