@@ -24,7 +24,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 # Open the 'tidy_tasks' spreadsheet
 SHEET = GSPREAD_CLIENT.open("tidy_tasks")
 
-# ASCII art for Tidy Tasks
+# ASCII art for Tidy Tasks homepage
 tidy_tasks_ascii_art = r"""  
   _______ _     _         _______        _        
  |__   __(_)   | |       |__   __|      | |       
@@ -36,12 +36,29 @@ tidy_tasks_ascii_art = r"""
                   |___/                                       
 """
 
+# ASCII art for Tidy Tasks about page
+about_ascii_art = r"""
+           _                 _     _______ _______ 
+     /\   | |               | |   |__   __|__   __|
+    /  \  | |__   ___  _   _| |_     | |     | |   
+   / /\ \ | '_ \ / _ \| | | | __|    | |     | |   
+  / ____ \| |_) | (_) | |_| | |_     | |_    | |_  
+ /_/    \_\_.__/ \___/ \__,_|\__|    |_(_)   |_(_) 
+"""
+
 
 def print_ascii_art():
     """
     Prints the Tidy Tasks ASCII art in green
     """
     print(Fore.GREEN + tidy_tasks_ascii_art + Style.RESET_ALL)
+
+
+def print_about_ascii_art():
+    """
+    Prints the Tidy Tasks about ASCII art in green
+    """
+    print(Fore.GREEN + about_ascii_art + Style.RESET_ALL)
 
 
 def clear_screen():
@@ -148,6 +165,7 @@ def about_menu():
     Displays the about menu for Tidy Tasks
     """
     clear_screen()
+    print_about_ascii_art()
     print("Welcome to Tidy Tasks, your personal task management companion.\n")
     print("Crafted to bring simplicity and order to your daily to-dos.\n")
     print("\t- Easily view, add, edit, complete and remove tasks.\n")
