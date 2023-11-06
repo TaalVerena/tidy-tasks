@@ -99,6 +99,18 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - If the user does not confirm the updated task details, they are presented with a message confirming the changes were not saved and are given the option to re-enter the task details. If the user chooses to re-enter the task details, they are returned to the edit task prompt, but if they choose not to re-enter the task details, they are returned to the view and manage tasks menu.
 
 #### Mark Task as Complete
+- By selecting option 3 from the view and manage tasks menu, the user is guided through the process of marking a task as complete.
+- The table / list of tasks remains visible to the user while they are marking a task as complete to ensure they can easily identify the task they wish to mark as complete.
+- The user is prompted to enter the task ID / number of the task they wish to mark as complete.
+
+    ![Mark Task as Complete Prompt](README-media/mark-task-as-complete-prompt.png)
+- If the user enters an invalid task ID / number, they are presented with an error message and prompted to try again.
+    ![Complete Task Invalid ID Prompt](README-media/complete-task-invalid-task-id.png)
+- If the user selects a valid task ID / number, they are presented with the task details and prompted to confirm marking the task as complete.
+
+    ![Confirm Complete Task Prompt](README-media/confirm-complete-task.png)
+- If the user confirms marking the task as complete, they are presented with a success message, the task is marked as complete in the spreadsheet and the user is returned to the view and manage tasks menu.
+- If the user does not confirm marking the task as complete, they are presented with a message confirming the task was not marked as complete and the user is returned to the view and manage tasks menu.
 
 ### Future Features to Implement
 
