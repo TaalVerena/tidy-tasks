@@ -77,7 +77,7 @@ def invalid_input():
     """
     sleep(1.5)
     print(
-        Fore.RED + "\nInvalid input, please try again.\n" +
+        Fore.RED + "\nInvalid input. Please try again." +
         Style.RESET_ALL
     )
     sleep(2)
@@ -110,8 +110,8 @@ def id_not_found():
     sleep(1.5)
     print(
         (
-            Fore.RED + "\nNo task found with that id. " +
-            Style.RESET_ALL + "Please try again. \n"
+            Fore.RED + "\nNo task found with that id. "
+            "Please try again." + Style.RESET_ALL
         )
     )
 
@@ -705,9 +705,14 @@ class TaskManager:
         """
         while True:
             try:
-                task_id = int(input(
-                    ("\nEnter the task ID you would like to remove: ")
-                ))
+                task_id = int(
+                    input(
+                        (
+                            Fore.LIGHTGREEN_EX + "\nEnter the task ID "
+                            "you would like to remove: " + Style.RESET_ALL
+                        )
+                    )
+                )
             except ValueError:
                 invalid_input()
                 continue
@@ -723,22 +728,22 @@ class TaskManager:
 
             if not task_to_remove:
                 id_not_found()
-                decision = input(
-                    "Would you like to remove a different task? (yes/no): "
-                )
-                if decision.lower() == "yes":
-                    continue
-                else:
-                    print("Returning to the View and Manage Tasks menu...\n")
-                    sleep(2)
-                    return
+                continue
 
-            print("\nTask to remove:")
-            print(task_to_remove)
+            clear_screen()
+            print("\nTask Details:\n")
+            print(f"Description: {task_to_remove.description}")
+            print(f"Category: {task_to_remove.category}")
+            print(f"Priority: {task_to_remove.priority}")
 
             while True:
                 confirmation = input(
-                    "Are you sure you want to remove this task? (yes/no): "
+                    (
+                        Fore.LIGHTGREEN_EX +
+                        "\nAre you sure you want to "
+                        "remove this task? (yes/no): "
+                        + Style.RESET_ALL
+                    )
                 )
 
                 if confirmation.lower() == "yes":
@@ -747,18 +752,14 @@ class TaskManager:
                     print("\nTask removed successfully!")
                     break
                 elif confirmation.lower() == "no":
-                    print("\nTask not removed.")
-                    decision = input(
-                        "Would you like to remove a different task? (yes/no): "
+                    print(
+                        (Fore.RED + "\nTask not removed." + Style.RESET_ALL)
                     )
-                    if decision.lower() == "yes":
-                        break
-                    else:
-                        print(
-                            "Returning to the View and Manage Tasks menu...\n"
-                        )
-                        sleep(2)
-                        return
+                    sleep(1.5)
+                    print("\nReturning to the View and Manage Tasks menu...\n")
+                    sleep(2)
+                    TaskManager.view_and_manage_tasks()
+                    return
                 else:
                     invalid_input()
                     continue

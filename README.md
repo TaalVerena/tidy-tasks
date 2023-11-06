@@ -112,6 +112,9 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - If the user confirms marking the task as complete, they are presented with a success message, the task is marked as complete in the spreadsheet and the user is returned to the view and manage tasks menu.
 - If the user does not confirm marking the task as complete, they are presented with a message confirming the task was not marked as complete and the user is returned to the view and manage tasks menu.
 
+#### Remove Task
+
+
 ### Future Features to Implement
 
 ## Testing
