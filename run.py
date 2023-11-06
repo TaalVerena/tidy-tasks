@@ -110,12 +110,10 @@ def id_not_found():
     sleep(1.5)
     print(
         (
-            Fore.RED + "No task found with that id. " +
+            Fore.RED + "\nNo task found with that id. " +
             Style.RESET_ALL + "Please try again. \n"
         )
     )
-    sleep(2)
-    clear_screen()
 
 
 def exit_tidy_tasks():
@@ -524,125 +522,140 @@ class TaskManager:
         """
         Edits an existing task in the spreadsheet
         """
-        try:
-            task_id = int(input
-                          (
-                              (Fore.LIGHTGREEN_EX +
-                               "\nEnter the task ID you would like to edit: " +
-                               Style.RESET_ALL)
-                            ))
-        except ValueError:
-            invalid_input()
-            return
-
-        tasks = self.fetch_tasks()
-        task_to_edit = None
-        row_index = None
-        for index, task in enumerate(tasks, start=2):
-            if task.task_id == task_id:
-                task_to_edit = task
-                row_index = index
-                break
-
-        if not task_to_edit:
-            id_not_found()
-            return
-
         while True:
-            clear_screen()
-            print("\nCurrent Task Details:\n")
-            print(f"Description: {task_to_edit.description}")
-            print(f"Category: {task_to_edit.category}")
-            print(f"Priority: {task_to_edit.priority}")
+            try:
+                task_id = int(input
+                              (
+                                (Fore.LIGHTGREEN_EX +
+                                 "\nEnter the task ID you would like to edit: "
+                                 + Style.RESET_ALL)
+                                ))
+                tasks = self.fetch_tasks()
+                task_to_edit = None
+                row_index = None
+                for index, task in enumerate(tasks, start=2):
+                    if task.task_id == task_id:
+                        task_to_edit = task
+                        row_index = index
+                        break
 
-            print("\nWhich field would you like to edit?")
-            print(
-                Fore.LIGHTMAGENTA_EX + "1. " + Style.RESET_ALL + "Description"
-            )
-            print(
-                Fore.LIGHTMAGENTA_EX + "2. " + Style.RESET_ALL + "Category"
-            )
-            print(
-                Fore.LIGHTMAGENTA_EX + "3. " + Style.RESET_ALL + "Priority"
-            )
-            choice = input(
-                Fore.LIGHTGREEN_EX + "\nEnter your choice: \n" +
-                Style.RESET_ALL
-            )
-
-            if choice == "1":
-                new_value = input(
-                    Fore.LIGHTGREEN_EX + "\nEnter a new description: \n" +
-                    Style.RESET_ALL
-                )
-                task_to_edit.description = new_value
-            elif choice == "2":
-                print("\nTask Category Options:")
-                for index, category in enumerate(TaskManager.VALID_CATEGORIES,
-                                                 start=1):
-                    print(
-                        Fore.LIGHTMAGENTA_EX + str(index) + ". " +
-                        Style.RESET_ALL + category
-                    )
-                category_index = TaskManager.get_user_input(
-                    Fore.LIGHTGREEN_EX + "\nChoose a new category " +
-                    Fore.LIGHTMAGENTA_EX + "(1 - 5): \n" + Style.RESET_ALL,
-                    TaskManager.validate_category
-                )
-                new_value = list(TaskManager.VALID_CATEGORIES)[
-                    int(category_index) - 1
-                ]
-                task_to_edit.category = new_value
-            elif choice == "3":
-                print("\nTask Priority Options:")
-                for index, priority in enumerate(TaskManager.VALID_PRIORITIES,
-                                                 start=1):
-                    print(
-                        Fore.LIGHTMAGENTA_EX + str(index) + ". " +
-                        Style.RESET_ALL + priority
-                    )
-                priority_index = TaskManager.get_user_input(
-                    Fore.LIGHTGREEN_EX + "\nChoose a new priority " +
-                    Fore.LIGHTMAGENTA_EX + "(1 - 3): \n" + Style.RESET_ALL,
-                    TaskManager.validate_priority
-                )
-                new_value = TaskManager.VALID_PRIORITIES[
-                    int(priority_index) - 1
-                ]
-                task_to_edit.priority = new_value
-            else:
-                invalid_input()
-                continue
-
-            clear_screen()
-            print("\nPlease confirm the updated task details: \n")
-            print(f"Description: {task_to_edit.description}")
-            print(f"Category: {task_to_edit.category}")
-            print(f"Priority: {task_to_edit.priority}")
-            confirmation = input(
-                Fore.LIGHTGREEN_EX + "\nSave these changes? (yes/no): " +
-                Style.RESET_ALL
-            )
-
-            if confirmation.lower() == "yes":
-                break
-            elif confirmation.lower() == "no":
-                print(Fore.RED + "\nChanges not saved." + Style.RESET_ALL)
-                decision = input(
-                    Fore.LIGHTGREEN_EX +
-                    "\nWould you like to re-edit the task? (yes/no): " +
-                    Style.RESET_ALL
-                )
-                if decision.lower() == "yes":
+                if not task_to_edit:
+                    id_not_found()
                     continue
-                else:
-                    print("Returning to the View and Manage Tasks menu...\n")
-                    sleep(2)
-                    return
-            else:
-                invalid_input()
-                continue
 
+                while True:
+                    clear_screen()
+                    print("\nCurrent Task Details:\n")
+                    print(f"Description: {task_to_edit.description}")
+                    print(f"Category: {task_to_edit.category}")
+                    print(f"Priority: {task_to_edit.priority}")
+
+                    print("\nWhich field would you like to edit?")
+                    print(
+                        Fore.LIGHTMAGENTA_EX + "1. " + Style.RESET_ALL +
+                        "Description"
+                    )
+                    print(
+                        Fore.LIGHTMAGENTA_EX + "2. " + Style.RESET_ALL +
+                        "Category"
+                    )
+                    print(
+                        Fore.LIGHTMAGENTA_EX + "3. " + Style.RESET_ALL +
+                        "Priority"
+                    )
+                    choice = input(
+                        Fore.LIGHTGREEN_EX + "\nEnter your choice: \n" +
+                        Style.RESET_ALL
+                    )
+
+                    if choice == "1":
+                        new_value = input(
+                            Fore.LIGHTGREEN_EX +
+                            "\nEnter a new description: \n" + Style.RESET_ALL
+                        )
+                        task_to_edit.description = new_value
+                    elif choice == "2":
+                        print("\nTask Category Options:")
+                        for index, category in enumerate(
+                                TaskManager.VALID_CATEGORIES, start=1):
+                            print(
+                                Fore.LIGHTMAGENTA_EX + str(index) + ". " +
+                                Style.RESET_ALL + category
+                            )
+                        category_index = TaskManager.get_user_input(
+                            Fore.LIGHTGREEN_EX + "\nChoose a new category " +
+                            Fore.LIGHTMAGENTA_EX + "(1 - 5): \n" +
+                            Style.RESET_ALL, TaskManager.validate_category
+                        )
+                        new_value = list(TaskManager.VALID_CATEGORIES)[
+                            int(category_index) - 1
+                        ]
+                        task_to_edit.category = new_value
+                    elif choice == "3":
+                        print("\nTask Priority Options:")
+                        for index, priority in enumerate(
+                                TaskManager.VALID_PRIORITIES, start=1):
+                            print(
+                                Fore.LIGHTMAGENTA_EX + str(index) + ". " +
+                                Style.RESET_ALL + priority
+                            )
+                        priority_index = TaskManager.get_user_input(
+                            Fore.LIGHTGREEN_EX + "\nChoose a new priority " +
+                            Fore.LIGHTMAGENTA_EX + "(1 - 3): \n" +
+                            Style.RESET_ALL, TaskManager.validate_priority
+                        )
+                        new_value = TaskManager.VALID_PRIORITIES[
+                            int(priority_index) - 1
+                        ]
+                        task_to_edit.priority = new_value
+                    else:
+                        invalid_input()
+                        continue
+
+                    clear_screen()
+                    print("\nPlease confirm the updated task details: \n")
+                    print(f"Description: {task_to_edit.description}")
+                    print(f"Category: {task_to_edit.category}")
+                    print(f"Priority: {task_to_edit.priority}")
+                    confirmation = input(
+                        Fore.LIGHTGREEN_EX + "\nSave these changes? (yes/no): "
+                        + Style.RESET_ALL
+                    )
+
+                    if confirmation.lower() == "yes":
+                        break
+                    elif confirmation.lower() == "no":
+                        print(
+                            Fore.RED + "\nChanges not saved." +
+                            Style.RESET_ALL
+                        )
+                        decision = input(
+                            Fore.LIGHTGREEN_EX +
+                            "\nWould you like to re-edit the task? (yes/no): "
+                            + Style.RESET_ALL
+                        )
+                        if decision.lower() == "yes":
+                            continue
+                        else:
+                            print(
+                                (
+                                    "Returning to the "
+                                    "View and Manage Tasks menu...\n"
+                                )
+                            )
+                            sleep(2)
+                            return
+                    else:
+                        invalid_input()
+                        continue
+                break
+
+            except ValueError:
+                print(
+                    Fore.RED +
+                    "\nInvalid input. Please enter a valid task ID." +
+                    Style.RESET_ALL
+                )
         worksheet = self.sheet.worksheet("tasks")
         row_to_edit = [
             task_to_edit.task_id,
