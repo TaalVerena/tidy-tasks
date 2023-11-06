@@ -70,6 +70,16 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
     ![View & Manage Tasks Menu](README-media/view-and-manage-tasks-menu.png)
 
 #### Add Task
+- By selecting option 1 from the view and manage tasks menu, the user is guided through the process of adding a task.
+- The user is prompted to enter a task description, category and priority.
+- To ensure a smooth user experience, the user is prompted to enter a category (home, studies, work, exercise, hobbies) and priority (low, medium, high) based on a list of options. This was implemented to speed up the process of adding a task and to ensure the table / list of tasks is consistent and easy to read.
+
+    ![Add Task](README-media/add-new-task.png)
+- Once the user has entered a task description, category and priority, they are presented with the task details entered and prompted to confirm the addition of the task.
+    ![Confirm New Task](README-media/confirm-new-task.png)
+- If the user confirms the addition of the task, they are presented with a success message, the task is added to the spreadsheet and the user is returned to the view and manage tasks menu.
+- The task ID / number is automatically generated and assigned to the task based on the number of tasks in the spreadsheet. This was implemented to ensure the task ID / number is unique and to ensure the user does not have to enter a task ID / number when adding a task.
+- If the user does not confirm the addition of the task, they are presented with a message confirming the task was not added and are given the option to re-enter the task details. If the user chooses to re-enter the task details, they are returned to the add task prompt, but if they choose not to re-enter the task details, they are returned to the view and manage tasks menu.
 
 #### Edit Task
 
