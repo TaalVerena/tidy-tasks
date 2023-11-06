@@ -457,79 +457,85 @@ class TaskManager:
         and removes it from the tasks tab.
         """
         # 1. Get the row of the task to mark as complete
-        try:
-            task_id = int(
-                input(
-                    (
-                        Fore.LIGHTGREEN_EX + "\nEnter the task ID " +
-                        "you would like to mark as complete: " +
-                        Style.RESET_ALL
+        while True:
+            try:
+                task_id = int(
+                    input(
+                        (
+                            Fore.LIGHTGREEN_EX + "\nEnter the task ID " +
+                            "you would like to mark as complete: " +
+                            Style.RESET_ALL
+                        )
                     )
                 )
+            except ValueError:
+                invalid_input()
+                continue
+
+            tasks = self.fetch_tasks()
+            task_to_complete = None
+            row_index = None
+            for index, task in enumerate(tasks, start=2):
+                if task.task_id == task_id:
+                    task_to_complete = task
+                    row_index = index
+                    break
+
+            if not task_to_complete:
+                id_not_found()
+                TaskManager.mark_task_as_complete(self)
+                continue
+
+            # Display task details and confirm completion
+            clear_screen()
+            print("\nTask Details:\n")
+            print(f"Description: {task_to_complete.description}")
+            print(f"Category: {task_to_complete.category}")
+            print(f"Priority: {task_to_complete.priority}")
+            confirmation = input(
+                Fore.LIGHTGREEN_EX + "\nMark this task as complete? (yes/no): "
+                + Style.RESET_ALL
             )
-        except ValueError:
-            invalid_input()
-            return
 
-        tasks = self.fetch_tasks()
-        task_to_complete = None
-        row_index = None
-        for index, task in enumerate(tasks, start=2):
-            if task.task_id == task_id:
-                task_to_complete = task
-                row_index = index
-                break
+            if confirmation.lower() != "yes":
+                print(
+                    Fore.RED + "\nTask not marked as complete." +
+                    Style.RESET_ALL
+                )
+                sleep(1.5)
+                print("\nReturning to the View and Manage Tasks menu...\n")
+                sleep(2)
+                TaskManager.view_and_manage_tasks()
+                return
 
-        if not task_to_complete:
-            id_not_found()
-            TaskManager.mark_task_as_complete(self)
-            return
-
-        # Display task details and confirm completion
-        clear_screen()
-        print("\nTask Details:\n")
-        print(f"Description: {task_to_complete.description}")
-        print(f"Category: {task_to_complete.category}")
-        print(f"Priority: {task_to_complete.priority}")
-        confirmation = input(
-            Fore.LIGHTGREEN_EX + "\nMark this task as complete? (yes/no): " +
-            Style.RESET_ALL
-        )
-
-        if confirmation.lower() != "yes":
-            print(
-                Fore.RED + "\nTask not marked as complete." +
-                Style.RESET_ALL
-            )
+            print(f"\nMarking task with ID {task_id} as complete...\n")
+            task_to_complete.status = "complete"
             sleep(2)
-            return
 
-        print(f"\nMarking task with ID {task_id} as complete...\n")
-        task_to_complete.status = "complete"
-        sleep(2)
+            # 2. Move task to the complete tab in Google Sheets
+            complete_worksheet = self.sheet.worksheet("complete")
+            row_to_append = [
+                task_to_complete.task_id,
+                task_to_complete.description,
+                task_to_complete.category,
+                task_to_complete.priority,
+                task_to_complete.status,
+            ]
+            complete_worksheet.append_row(row_to_append)
+            print(f"Task with ID {task_id} moved to the complete tab.\n")
 
-        # 2. Move task to the complete tab in Google Sheets
-        complete_worksheet = self.sheet.worksheet("complete")
-        row_to_append = [
-            task_to_complete.task_id,
-            task_to_complete.description,
-            task_to_complete.category,
-            task_to_complete.priority,
-            task_to_complete.status,
-        ]
-        complete_worksheet.append_row(row_to_append)
-        print(f"Task with ID {task_id} moved to the complete tab.\n")
+            # 3. Remove completed task from the tasks tab in Google Sheets
+            tasks_worksheet = self.sheet.worksheet("tasks")
+            if row_index:
+                tasks_worksheet.delete_rows(row_index)
+                sleep(2)
+                print(f"Task with ID {task_id} removed from the tasks tab.")
+            else:
+                print("Unable to find the task in the sheet to delete.")
 
-        # 3. Remove completed task from the tasks tab in Google Sheets
-        tasks_worksheet = self.sheet.worksheet("tasks")
-        if row_index:
-            tasks_worksheet.delete_rows(row_index)
             sleep(2)
-            print(f"Task with ID {task_id} removed from the tasks tab.")
-        else:
-            print("Unable to find the task in the sheet to delete.")
 
-        sleep(2)
+            break
 
         return_to_main_menu()
 
