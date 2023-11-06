@@ -26,6 +26,7 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 
 ## App Overview
 
+
 ## Planning
 ### Flowchart / Diagram
 
@@ -55,3 +56,11 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 ## Deployment
 
 ## Credits
+- Flowchart / diagram created using [Lucid Charts](https://www.lucidchart.com/pages/)
+- Ascii Art created using [Patorjk](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20)
+
+## Technologies Used
+- **Python:** The primary programming language used to create the application logic.
+- **Google Sheets API:** For storing and retrieving task data from a spreadsheet, serving as a database.
+- **Colorama:** To enhance the CLI experience with colored text for better readability.
+- **GSpread:** A Python API for Google Sheets used for operations on the spreadsheet.
