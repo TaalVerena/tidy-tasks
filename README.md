@@ -113,7 +113,19 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - If the user does not confirm marking the task as complete, they are presented with a message confirming the task was not marked as complete and the user is returned to the view and manage tasks menu.
 
 #### Remove Task
+- By selecting option 4 from the view and manage tasks menu, the user is guided through the process of removing a task.
+- The table / list of tasks remains visible to the user while they are removing a task to ensure they can easily identify the task they wish to remove.
+- The user is prompted to enter the task ID / number of the task they wish to remove.
 
+    ![Remove Task Prompt](README-media/remove-task-prompt.png)
+- If the user enters an invalid task ID / number, they are presented with an error message and prompted to try again.
+
+    ![Remove Task Invalid ID Prompt](README-media/remove-task-invalid-task-id.png)
+- If the user selects a valid task ID / number, they are presented with the task details and prompted to confirm removing the task.
+
+    ![Confirm Remove Task](README-media/confirm-remove-task.png)
+- If the user confirms removing the task, they are presented with a success message, the task is removed from the spreadsheet and the user is returned to the view and manage tasks menu.
+- If the user does not confirm removing the task, they are presented with a message confirming the task was not removed and the user is returned to the view and manage tasks menu.
 
 ### Future Features to Implement
 
