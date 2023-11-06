@@ -15,6 +15,7 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 ### Who Tidy Tasks Caters For
 - Tidy Tasks is designed for anyone who wants to keep track of their to-dos. It is designed to be simple and easy to use, with a minimal homepage and a clean interface.
 - Whether you're a busy parent, a student, or a professional, Tidy Tasks can help you keep track of your tasks.
+
 ### User Stories
 | User Want or Need      | How It Is Achieved | Achieved |
 | ----------- | ----------- | ----------- |
@@ -26,10 +27,20 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 ## App Overview
 
 ## Planning
-### Lucid Chart Diagram
+### Flowchart / Diagram
+
+![Tidy Tasks Flowchart](README-media/tidy-tasks-flowchart.png)
+
 ### Color Scheme & Ascii Art
 #### Color Scheme
 #### Ascii Art
+- Homepage Ascii Art
+    
+    ![Homepage Ascii Art](README-media/homepage-ascii-art.png)
+
+- About Ascii Art
+    
+    ![About Ascii Art](README-media/about-ascii-art.png)
 
 ## Features
 ### Existing Features
