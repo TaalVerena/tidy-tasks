@@ -52,6 +52,27 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 
 ## Features
 ### Existing Features
+#### Homepage
+- The homepage is minimal, inviting the user to navigate the app.
+- Pops of color are used to draw the user's attention to the menu options and input.
+
+    ![Homepage](README-media/tidy-tasks-homepage.png)  
+##### Menu Options
+1. View & Manage Tasks - This allows the user to view and manage their tasks.
+2. About - This provides the user with information about Tidy Tasks.
+3. Exit - This allows the user to exit the application and provides confirmation once selected.
+
+#### View & Manage Tasks Menu
+- By selecting option 1 from the homepage, the user is presented with the view and manage tasks menu.
+- The user is presented with a table / list of their open tasks and a menu of options to manage their tasks.
+- This differs from the flowchart in that viewing the list of tasks was originally intended to be one of the menu options. This change was implemented to make it easier for the user as they can now view their tasks without having to select an option from the menu and can see the different options available while viewing their open tasks.
+
+    ![View & Manage Tasks Menu](README-media/view-and-manage-tasks-menu.png)
+
+#### Add Task
+
+#### Edit Task
+
 ### Future Features to Implement
 
 ## Testing
