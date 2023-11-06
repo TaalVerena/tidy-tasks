@@ -116,6 +116,22 @@ def id_not_found():
     )
 
 
+def get_non_empty_input(prompt):
+    """
+    Ensures that the user enters a non-empty input
+    """
+    while True:
+        user_input = input(prompt).strip()
+        if user_input:
+            return user_input
+        else:
+            print(
+                (Fore.RED + "Description cannot be empty."
+                 "Please enter a valid description.\n" +
+                 Style.RESET_ALL)
+            )
+
+
 def exit_tidy_tasks():
     """
     Exits the Tidy Tasks application
@@ -569,9 +585,12 @@ class TaskManager:
                     )
 
                     if choice == "1":
-                        new_value = input(
-                            Fore.LIGHTGREEN_EX +
-                            "\nEnter a new description: \n" + Style.RESET_ALL
+                        new_value = get_non_empty_input(
+                            (
+                                Fore.LIGHTGREEN_EX +
+                                "\nEnter a new description: \n" +
+                                Style.RESET_ALL
+                            )
                         )
                         task_to_edit.description = new_value
                     elif choice == "2":

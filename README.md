@@ -87,7 +87,7 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - The user is prompted to enter the task ID / number of the task they wish to edit.
 
     ![Edit Task ID Prompt](README-media/edit-task-id-prompt.png)
-- If the user enters an invalid task ID / number, they are presented with an error message and advised to try again.
+- If the user enters an invalid task ID / number, they are presented with an error message and prompted to try again.
 - If the user selects a valid task ID / number, they are presented with the task details and prompted to confirm which field they wish to edit.
 
     ![Edit Task Field Prompt](README-media/edit-task-fields-prompt.png)
@@ -97,6 +97,8 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
     ![Confirm Edit Task](README-media/confirm-edit-task.png)
 - If the user confirms the updated task details, they are presented with a success message, the task is edited in the spreadsheet and the user is returned to the view and manage tasks menu.
 - If the user does not confirm the updated task details, they are presented with a message confirming the changes were not saved and are given the option to re-enter the task details. If the user chooses to re-enter the task details, they are returned to the edit task prompt, but if they choose not to re-enter the task details, they are returned to the view and manage tasks menu.
+
+#### Mark Task as Complete
 
 ### Future Features to Implement
 
