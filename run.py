@@ -179,9 +179,8 @@ def get_task_info():
     """
     Gets task information from the user
     """
-    description = input(
-        Fore.LIGHTGREEN_EX + "Enter task description: \n" +
-        Style.RESET_ALL
+    description = get_non_empty_input(
+        Fore.LIGHTGREEN_EX + "Enter task description: \n" + Style.RESET_ALL
     )
     print("\nTask Category Options:")
     for index, category in enumerate(TaskManager.VALID_CATEGORIES, start=1):
