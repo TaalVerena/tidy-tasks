@@ -143,7 +143,7 @@ def return_to_main_menu():
     while True:
         choice = input(
             (
-                Fore.LIGHTGREEN_EX + 
+                Fore.LIGHTGREEN_EX +
                 "\nPress enter to return to the main menu or 'q' to quit: \n" +
                 Style.RESET_ALL
             )
@@ -327,7 +327,7 @@ class TaskManager:
             Fore.BLUE + "Status" + Style.RESET_ALL
         ]
         tasks_table = [
-            [getattr(task, header.replace(" ", "_").lower()) 
+            [getattr(task, header.replace(" ", "_").lower())
              for header in headers] for task in completed_tasks
         ]
         print(tabulate(tasks_table, headers=headers, tablefmt="fancy_grid"))
@@ -415,7 +415,9 @@ class TaskManager:
             # Extract task IDs and convert them to integers
             task_ids = [int(record[0]) for record in tasks_records]
             if complete_records:
-                task_ids.extend([int(record[0]) for record in complete_records])
+                task_ids.extend(
+                    [int(record[0]) for record in complete_records]
+                )
             # Determine the next task ID (highest existing ID + 1)
             next_task_id = max(task_ids) + 1
         else:
@@ -715,7 +717,9 @@ class TaskManager:
                     if decision.lower() == "yes":
                         break
                     else:
-                        print("Returning to the View and Manage Tasks menu...\n")
+                        print(
+                            "Returning to the View and Manage Tasks menu...\n"
+                        )
                         sleep(2)
                         return
                 else:
