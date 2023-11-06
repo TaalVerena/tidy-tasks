@@ -34,6 +34,13 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 
 ### Color Scheme & Ascii Art
 #### Color Scheme
+- The colors throughout the application are kept minimal to ensure all text is easily readable.
+- The ascii art is magenta to add a splash of color to the homepage and about page.
+- Throughout the application, majority of the text is white on a black background.
+- Menu options are magenta and table headers are blue to stand out from the rest of the text.
+- Text inputs / prompts are green to ensure the user can easily identify where to input text.
+- Error messages are red to ensure the user can easily identify when an error has occurred and successfully completed operations are green for user confirmation.
+
 #### Ascii Art
 - Homepage Ascii Art
     
