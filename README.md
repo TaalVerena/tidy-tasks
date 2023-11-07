@@ -171,6 +171,30 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 2. The user inputs an invalid option.
 3. The user is presented with an error message and prompted to try again.
 
+#### Test 3: View & Manage Tasks Menu
+1. Open the application.
+2. The user selects option 1.
+3. The user is presented with a table / list of their open tasks and a menu of options to manage their tasks.
+4. The user selects option 1.
+5. Th user is taken to the add task prompt.
+6. The user selects option 2.
+7. The user is taken to the edit task prompt.
+8. The user selects option 3.
+9. The user is taken to the mark task as complete prompt.
+10. The user selects option 4.
+11. The user is taken to the remove task prompt.
+12. The user selects option 5.
+13. The user is taken to the view completed tasks prompt.
+14. The user selects option 6.
+15. The user is taken to the homepage.
+
+#### Test 4: View & Manage Tasks Menu - Error Handling
+1. Open the application.
+2. The user selects option 1.
+3. The user is presented with a table / list of their open tasks and a menu of options to manage their tasks.
+4. The user inputs an invalid option.
+5. The user is presented with an error message and prompted to try again.
+
 
 ### Tests & Results
 ### Bugs
