@@ -127,6 +127,10 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - If the user confirms removing the task, they are presented with a success message, the task is removed from the spreadsheet and the user is returned to the view and manage tasks menu.
 - If the user does not confirm removing the task, they are presented with a message confirming the task was not removed and the user is returned to the view and manage tasks menu.
 
+#### View Completed Tasks
+- By selecting option 5 from the view and manage tasks menu, the user is presented with a table / list of their completed tasks.
+- 
+
 ### Future Features to Implement
 - **Add Options to Completed Tasks** - Add the option to edit and re-open completed tasks.
 - **Search & Sort Tasks** - Add the option to search and sort tasks by task ID / number, task description, category and priority.

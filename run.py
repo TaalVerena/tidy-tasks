@@ -342,6 +342,15 @@ class TaskManager:
 
         print("\nCompleted Tasks:\n")
 
+        # Preparing data for tabulate
+        tasks_table = [
+            [
+                task.task_id, task.description,
+                task.category, task.priority, task.status
+            ]
+            for task in completed_tasks
+        ]
+
         # Headers
         headers = [
             Fore.BLUE + "Task ID" + Style.RESET_ALL,
@@ -349,12 +358,6 @@ class TaskManager:
             Fore.BLUE + "Category" + Style.RESET_ALL,
             Fore.BLUE + "Priority" + Style.RESET_ALL,
             Fore.BLUE + "Status" + Style.RESET_ALL
-        ]
-
-        # Preparing data for tabulate
-        tasks_table = [
-            [getattr(task, header.replace(" ", "_").lower())
-             for header in headers] for task in completed_tasks
         ]
 
         print(tabulate(tasks_table, headers=headers, tablefmt="fancy_grid"))
