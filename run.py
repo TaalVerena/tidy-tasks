@@ -46,6 +46,8 @@ about_ascii_art = r"""
  /_/    \_|_.__/ \___/ \__,_|\__| |_____|_| |_|_| \___/  (_)
 """
 
+MAX_DESCRIPTION_LENGTH = 50
+
 
 def print_ascii_art():
     """
@@ -66,7 +68,7 @@ def clear_screen():
     Clears the terminal screen
     """
     command = "clear"
-    if os.name in ("nt", "dos"):  # If Machine is running on Windows, use cls
+    if os.name in ("nt", "dos"):
         command = "cls"
     os.system(command)
 
@@ -116,20 +118,27 @@ def id_not_found():
     )
 
 
-def get_non_empty_input(prompt):
+def get_non_empty_input(prompt, max_length=None):
     """
     Ensures that the user enters a non-empty input
+    that is less than or equal to the max length
     """
-    while True:
-        user_input = input(prompt).strip()
-        if user_input:
-            return user_input
-        else:
+    user_input = input(prompt).strip()
+    while not user_input or (max_length and len(user_input) > max_length):
+        if not user_input:
             print(
-                (Fore.RED + "Description cannot be empty."
-                 "Please enter a valid description.\n" +
-                 Style.RESET_ALL)
+                Fore.RED + "Input cannot be empty. Please try again." +
+                Style.RESET_ALL
             )
+        elif len(user_input) > max_length:
+            print(
+                (
+                    Fore.RED + f"Input must be under {max_length} characters. "
+                    "Please try again." + Style.RESET_ALL
+                )
+            )
+        user_input = input(prompt).strip()
+    return user_input
 
 
 def exit_tidy_tasks():
@@ -175,12 +184,14 @@ def return_to_main_menu():
             continue
 
 
-def get_task_info():
+def get_task_info(max_description_length):
     """
     Gets task information from the user
+    and implements validation
     """
     description = get_non_empty_input(
-        Fore.LIGHTGREEN_EX + "Enter task description: \n" + Style.RESET_ALL
+        prompt=Fore.LIGHTGREEN_EX + "Enter task description: " +
+        Style.RESET_ALL, max_length=max_description_length
     )
     print("\nTask Category Options:")
     for index, category in enumerate(TaskManager.VALID_CATEGORIES, start=1):
@@ -300,7 +311,7 @@ class TaskManager:
             for task in tasks
         ]
 
-        # Header
+        # Headers
         headers = [
             Fore.BLUE + "Task ID" + Style.RESET_ALL,
             Fore.BLUE + "Description" + Style.RESET_ALL,
@@ -331,7 +342,7 @@ class TaskManager:
 
         print("\nCompleted Tasks:\n")
 
-        # Preparing data for tabulate
+        # Headers
         headers = [
             Fore.BLUE + "Task ID" + Style.RESET_ALL,
             Fore.BLUE + "Description" + Style.RESET_ALL,
@@ -339,10 +350,13 @@ class TaskManager:
             Fore.BLUE + "Priority" + Style.RESET_ALL,
             Fore.BLUE + "Status" + Style.RESET_ALL
         ]
+
+        # Preparing data for tabulate
         tasks_table = [
             [getattr(task, header.replace(" ", "_").lower())
              for header in headers] for task in completed_tasks
         ]
+
         print(tabulate(tasks_table, headers=headers, tablefmt="fancy_grid"))
 
         return_to_main_menu()
@@ -405,7 +419,7 @@ class TaskManager:
                 )
                 if decision.lower() == "yes":
                     clear_screen()
-                    description, category, priority = get_task_info()
+                    description, category, priority = get_task_info(MAX_DESCRIPTION_LENGTH)
                     continue
                 else:
                     print("\nReturning to the View and Manage Tasks menu...\n")
@@ -456,7 +470,7 @@ class TaskManager:
         Marks a task as complete, moves it to the complete tab
         and removes it from the tasks tab.
         """
-        # 1. Get the row of the task to mark as complete
+        # Get the row of the task to mark as complete
         while True:
             try:
                 task_id = int(
@@ -512,7 +526,7 @@ class TaskManager:
             task_to_complete.status = "complete"
             sleep(2)
 
-            # 2. Move task to the complete tab in Google Sheets
+            # Move task to the complete tab in Google Sheets
             complete_worksheet = self.sheet.worksheet("complete")
             row_to_append = [
                 task_to_complete.task_id,
@@ -524,7 +538,7 @@ class TaskManager:
             complete_worksheet.append_row(row_to_append)
             print(f"Task with ID {task_id} moved to the complete tab.\n")
 
-            # 3. Remove completed task from the tasks tab in Google Sheets
+            # Remove completed task from the tasks tab in Google Sheets
             tasks_worksheet = self.sheet.worksheet("tasks")
             if row_index:
                 tasks_worksheet.delete_rows(row_index)
@@ -591,11 +605,10 @@ class TaskManager:
 
                     if choice == "1":
                         new_value = get_non_empty_input(
-                            (
-                                Fore.LIGHTGREEN_EX +
-                                "\nEnter a new description: \n" +
-                                Style.RESET_ALL
-                            )
+                            prompt=(Fore.LIGHTGREEN_EX +
+                                    "\nEnter a new description: \n" +
+                                    Style.RESET_ALL),
+                            max_length=MAX_DESCRIPTION_LENGTH
                         )
                         task_to_edit.description = new_value
                     elif choice == "2":
@@ -805,7 +818,8 @@ class TaskManager:
 
             if choice == "1":
                 clear_screen()
-                description, category, priority = get_task_info()
+                description, category, priority = get_task_info(
+                    MAX_DESCRIPTION_LENGTH)
                 task_manager.add_task(description, category, priority)
             elif choice == "2":
                 task_manager.edit_task()
