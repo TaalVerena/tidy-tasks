@@ -683,11 +683,12 @@ class TaskManager:
                         else:
                             print(
                                 (
-                                    "Returning to the "
+                                    "\nReturning to the "
                                     "View and Manage Tasks menu...\n"
                                 )
                             )
                             sleep(2)
+                            clear_screen()
                             return
                     else:
                         invalid_input()
