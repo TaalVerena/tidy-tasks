@@ -129,7 +129,9 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 
 #### View Completed Tasks
 - By selecting option 5 from the view and manage tasks menu, the user is presented with a table / list of their completed tasks.
-- 
+- The user is given the option to return to the view and manage tasks menu or exit the application.
+
+    ![View Completed Tasks](README-media/view-completed-tasks.png)
 
 ### Future Features to Implement
 - **Add Options to Completed Tasks** - Add the option to edit and re-open completed tasks.
@@ -141,7 +143,9 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 ### Tests & Results
 ### Bugs
 #### Fixed Bugs
+- The task ID calculation was not working as intended. The task ID was not being calculated based on the number of tasks in the spreadsheet, but was instead being calculated based on the number of rows in the spreadsheet. This was fixed by changing the calculation to count the number of tasks in the spreadsheet and then add 1 to the count to ensure the task ID is unique.
 #### Unfixed Bugs
+- At certain points in the code, the clear screen function does not work as intended. Throughout testing, this only appears to happen in Heroku, but not in the terminal / CMD.
 
 ## Deployment
 
