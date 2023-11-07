@@ -150,6 +150,28 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - **Refactor Code** - Refactor the code to make it more efficient and even easier to read.
 
 ## Testing
+### Manual Testing
+#### Test 1: Homepage
+1. Open the application.
+2. The homepage is displayed.
+3. The user is prompted to select an option from the menu.
+4. The user selects option 1.
+5. The user is presented with a table / list of their open tasks and a menu of options to manage their tasks.
+6. The user selects option 6 to return to the homepage.
+7. The user is returned to the homepage.
+8. The user selects option 2.
+9. The user is presented with information about Tidy Tasks, a list of features and the option to return to the homepage.
+10. The user presses enter to return to the homepage.
+11. The user is returned to the homepage.
+12. The user selects option 3.
+13. The user is presented with a confirmation message and the application exits.
+
+#### Test 2: Homepage - Error Handling
+1. Open the application.
+2. The user inputs an invalid option.
+3. The user is presented with an error message and prompted to try again.
+
+
 ### Tests & Results
 ### Bugs
 #### Fixed Bugs

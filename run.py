@@ -422,7 +422,8 @@ class TaskManager:
                 )
                 if decision.lower() == "yes":
                     clear_screen()
-                    description, category, priority = get_task_info(MAX_DESCRIPTION_LENGTH)
+                    description, category, priority = get_task_info(
+                        MAX_DESCRIPTION_LENGTH)
                     continue
                 else:
                     print("\nReturning to the View and Manage Tasks menu...\n")
