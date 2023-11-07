@@ -151,106 +151,80 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 
 ## Testing
 ### Manual Testing
-#### Test 1: Homepage
-1. Open the application.
-2. The homepage is displayed.
-3. The user is prompted to select an option from the menu.
-4. The user selects option 1.
-5. The user is presented with a table / list of their open tasks and a menu of options to manage their tasks.
-6. The user selects option 6 to return to the homepage.
-7. The user is returned to the homepage.
-8. The user selects option 2.
-9. The user is presented with information about Tidy Tasks, a list of features and the option to return to the homepage.
-10. The user presses enter to return to the homepage.
-11. The user is returned to the homepage.
-12. The user selects option 3.
-13. The user is presented with a confirmation message and the application exits.
+#### Test 1: Homepage Navigation
+
+| Step | Action | Expected Outcome | Pass/Fail |
+|------|--------|------------------|-----------|
+| 1 | Open the application. | The user is presented with the homepage & prompted to select an option from the menu. | Pass |
+| 2 | The user selects option 1. | The user is taken to the view and manage tasks menu. | Pass |
+| 3 | The user selects option 6 from the view and manage tasks menu. | The user is taken to the homepage. | Pass |
+| 4 | The user selects option 2. | The user is taken to the about page. | Pass |
+| 5 | The user presses enter on the about page. | The user is taken to the homepage. | Pass |
+| 6 | The user selects option 3. | The user is presented with a confirmation message and the application is exited. | Pass |
+
 
 #### Test 2: Homepage - Error Handling
-1. Open the application.
-2. The user inputs an invalid option.
-3. The user is presented with an error message and prompted to try again.
+| Step | Action | Expected Outcome | Pass/Fail |
+|------|--------|------------------|-----------|
+| 1 | Open the application. | The user is presented with the homepage & prompted to select an option from the menu. | Pass |
+| 2 | The user inputs an invalid option. | The user is presented with an error message and prompted to try again. | Pass |
 
 #### Test 3: View & Manage Tasks Menu
-1. Open the application.
-2. The user selects option 1.
-3. The user is presented with a table / list of their open tasks and a menu of options to manage their tasks.
-4. The user selects option 1.
-5. Th user is taken to the add task prompt.
-6. The user selects option 2.
-7. The user is taken to the edit task prompt.
-8. The user selects option 3.
-9. The user is taken to the mark task as complete prompt.
-10. The user selects option 4.
-11. The user is taken to the remove task prompt.
-12. The user selects option 5.
-13. The user is taken to the view completed tasks prompt.
-14. The user selects option 6.
-15. The user is taken to the homepage.
+| Step | Action | Expected Outcome | Pass/Fail |
+|------|--------|------------------|-----------|
+| 1 | Open the application. | The user is presented with the homepage & prompted to select an option from the menu. | Pass |
+| 2 | The user selects option 1 from the homepage. | The user is presented with a table / list of their open tasks and a menu of options to manage their tasks. | Pass |
+| 3 | The user selects option 1 from the view and manage tasks menu. | The user is taken to the add task prompt. | Pass |
+| 4 | The user selects option 2 from the view and manage tasks menu. | The user is taken to the edit task prompt. | Pass |
+| 5 | The user selects option 3 from the view and manage tasks menu. | The user is taken to the mark task as complete prompt. | Pass |
+| 6 | The user selects option 4 from the view and manage tasks menu. | The user is taken to the remove task prompt. | Pass |
+| 7 | The user selects option 5 from the view and manage tasks menu. | The user is taken to the view completed tasks prompt. | Pass |
+| 8 | The user selects option 6 from the view and manage tasks menu. | The user is taken to the homepage. | Pass |
 
 #### Test 4: View & Manage Tasks Menu - Error Handling
-1. Open the application.
-2. The user selects option 1.
-3. The user is presented with a table / list of their open tasks and a menu of options to manage their tasks.
-4. The user inputs an invalid option.
-5. The user is presented with an error message and prompted to try again.
+| Step | Action | Expected Outcome | Pass/Fail |
+|------|--------|------------------|-----------|
+| 1 | Open the application. | The user is presented with the homepage & prompted to select an option from the menu. | Pass |
+| 2 | The user selects option 1 from the homepage. | The user is presented with a table / list of their open tasks and a menu of options to manage their tasks. | Pass |
+| 3 | The user inputs an invalid option. | The user is presented with an error message and prompted to try again. | Pass |
 
 #### Test 5: Add Task
-1. Open the application.
-2. The user selects option 1.
-3. The user is presented with a table / list of their open tasks and a menu of options to manage their tasks.
-4. The user selects option 1.
-5. The user is taken to the add task prompt.
-6. The user enters a task description.
-7. The user is prompted to enter a category.
-8. The user enters a category.
-9. The user is prompted to enter a priority.
-10. The user enters a priority.
-11. The user is presented with the task details entered and prompted to confirm the addition of the task.
-12. The user confirms the addition of the task.
-13. The user is presented with a success message, the task is added to the spreadsheet and the user is returned to the view and manage tasks menu.
-14. Instead of confirming the addition of the task, the user selects no.
-15. The user is presented with a message confirming the task was not added and is given the option to re-enter the task details.
-16. The user selects yes.
-17. The user is returned to the add task prompt.
-18. Instead of confirming the addition of the task, the user selects no.
-19. The user is returned to the view and manage tasks menu.
+| Step | Action | Expected Outcome | Pass/Fail |
+|------|--------|------------------|-----------|
+| 1 | Open the application. | The user is presented with the homepage & prompted to select an option from the menu. | Pass |
+| 2 | The user selects option 1 from the homepage. | The user is presented with a table / list of their open tasks and a menu of options to manage their tasks. | Pass |
+| 3 | The user selects option 1 from the view and manage tasks menu. | The user is taken to the add task prompt. | Pass |
+| 4 | The user is prompted to enter a task description. | The user enters a task description & is taken to the next step. | Pass |
+| 5 | The user is prompted to enter a category. | The user enters a category & is taken to the next step. | Pass |
+| 6 | The user is prompted to enter a priority. | The user enters a priority & is taken to the next step. | Pass |
+| 7 | The user is presented with the task details entered and prompted to confirm the addition of the task. | The user confirms the addition of the task, is presented with a success message, the task is added to the spreadsheet and the user is returned to the view and manage tasks menu. | Pass |
+| 8 | Instead of confirming the addition of the task, the user selects no. | The user is presented with a message confirming the task was not added and is given the option to re-enter the task details. | Pass |
+| 9 | The user selects yes when prompted to re-enter the task details. | The user is returned to the add task prompt. | Pass |
+| 10 | The user selects no when prompted to re-enter the task details. | The user is returned to the view and manage tasks menu. | Pass |
 
 #### Test 6: Add Task - Error Handling
-1. Open the application.
-2. The user selects option 1.
-3. The user is presented with a table / list of their open tasks and a menu of options to manage their tasks.
-4. The user selects option 1.
-5. The user is taken to the add task prompt.
-6. The user attempts to add a task without entering a task description.
-7. The user is presented with an error message and prompted to try again.
-8. The user enters a task description that exceeds the maximum character limit.
-9. The user is presented with an error message and prompted to try again.
-10. The user enters a task description.
-11. The user is prompted to enter a category.
-12. The user presses enter without entering a category.
-13. The user is presented with an error message and prompted to try again.
-14. The user enters an invalid category.
-15. The user is presented with an error message and prompted to try again.
-16. The user enters a category.
-17. The user is prompted to enter a priority.
-18. The user presses enter without entering a priority.
-19. The user is presented with an error message and prompted to try again.
-20. The user enters an invalid priority.
-21. The user is presented with an error message and prompted to try again.
-22. The user enters a priority.
-23. The user is presented with the task details entered and prompted to confirm the addition of the task.
-24. The user presses enter without confirming the addition of the task.
-25. The user is presented with a message and prompted to try again.
-26. The user inputs an invalid option.
-27. The user is presented with an error message and prompted to try again.
-28. The user confirms the addition of the task.
-29. Instead of confirming the addition of the task, the user selects no.
-30. The user is presented with a message confirming the task was not added and is given the option to re-enter the task details.
-31. The user presses enter without selecting an option.
-32. The user is presented with an error message and prompted to try again.
-33. The user inputs an invalid option.
-34. The user is presented with an error message and prompted to try again.
+| Step | Action | Expected Outcome | Pass/Fail |
+|------|--------|------------------|-----------|
+| 1 | Open the application. | The user is presented with the homepage & prompted to select an option from the menu. | Pass |
+| 2 | The user selects option 1 from the homepage. | The user is presented with a table / list of their open tasks and a menu of options to manage their tasks. | Pass |
+| 3 | The user selects option 1 from the view and manage tasks menu. | The user is taken to the add task prompt. | Pass |
+| 4 | The user attempts to add a task without entering a task description. | The user is presented with an error message and prompted to try again. | Pass |
+| 5 | The user attempts to add a description that exceeds the maximum character limit. | The user is presented with an error message and prompted to try again. | Pass |
+| 6 | The user enters a valid task description. | The user is prompted to enter a category. | Pass |
+| 7 | The user attempts to add a task without entering a category. | The user is presented with an error message and prompted to try again. | Pass |
+| 8 | The user attempts to add an invalid category. | The user is presented with an error message and prompted to try again. | Pass |
+| 9 | The user enters a valid category. | The user is prompted to enter a priority. | Pass |
+| 10 | The user attempts to add a task without entering a priority. | The user is presented with an error message and prompted to try again. | Pass |
+| 11 | The user attempts to add an invalid priority. | The user is presented with an error message and prompted to try again. | Pass |
+| 12 | The user enters a valid priority. | The user is presented with the task details entered and prompted to confirm the addition of the task. | Pass |
+| 13 | The user attempts to confirm the addition of the task without selecting an option. | The user is presented with an error message and prompted to try again. | Pass |
+| 14 | The user attempts to confirm the addition of the task by selecting an invalid option. | The user is presented with an error message and prompted to try again. | Pass |
+| 15 | The user confirms the addition of the task. | The user is presented with a success message, the task is added to the spreadsheet and the user is returned to the view and manage tasks menu. | Pass |
+| 16 | Instead of confirming the addition of the task, the user selects no. | The user is presented with a message confirming the task was not added and is given the option to re-enter the task details. | Pass |
+| 17 | The user presses enter without selecting an option. | The user is presented with an error message and prompted to try again. | Pass |
+| 18 | The user selects an invalid option. | The user is presented with an error message and prompted to try again. | Pass |
+| 19 | The user selects yes when prompted to re-enter the task details. | The user is returned to the add task prompt. | Pass |
+| 20 | The user selects no when prompted to re-enter the task details. | The user is returned to the view and manage tasks menu. | Pass |
 ### Tests & Results
 ### Bugs
 #### Fixed Bugs
