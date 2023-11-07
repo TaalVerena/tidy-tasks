@@ -24,9 +24,6 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 | Manage tasks in one place     | A view and manage tasks section present with options for managing and viewing tasks       | Yes       |
 | Add tasks easily     | A form with a text input and submit button is present       | Yes       |
 
-## App Overview
-
-
 ## Planning
 ### Flowchart / Diagram
 
@@ -138,6 +135,13 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - The user is given the option to return to the view and manage tasks menu or exit the application.
 
     ![View Completed Tasks](README-media/view-completed-tasks.png)
+
+#### About
+- By selecting option 2 from the homepage, the user is presented with information about Tidy Tasks.
+- This includes a description of Tidy Tasks and a list of features.
+
+    ![About](README-media/about.png)
+- The user is given the option to return to the homepage or exit the application.
 
 ### Future Features to Implement
 - **Add Options to Completed Tasks** - Add the option to edit and re-open completed tasks.
