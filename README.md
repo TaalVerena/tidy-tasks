@@ -195,7 +195,62 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 4. The user inputs an invalid option.
 5. The user is presented with an error message and prompted to try again.
 
+#### Test 5: Add Task
+1. Open the application.
+2. The user selects option 1.
+3. The user is presented with a table / list of their open tasks and a menu of options to manage their tasks.
+4. The user selects option 1.
+5. The user is taken to the add task prompt.
+6. The user enters a task description.
+7. The user is prompted to enter a category.
+8. The user enters a category.
+9. The user is prompted to enter a priority.
+10. The user enters a priority.
+11. The user is presented with the task details entered and prompted to confirm the addition of the task.
+12. The user confirms the addition of the task.
+13. The user is presented with a success message, the task is added to the spreadsheet and the user is returned to the view and manage tasks menu.
+14. Instead of confirming the addition of the task, the user selects no.
+15. The user is presented with a message confirming the task was not added and is given the option to re-enter the task details.
+16. The user selects yes.
+17. The user is returned to the add task prompt.
+18. Instead of confirming the addition of the task, the user selects no.
+19. The user is returned to the view and manage tasks menu.
 
+#### Test 6: Add Task - Error Handling
+1. Open the application.
+2. The user selects option 1.
+3. The user is presented with a table / list of their open tasks and a menu of options to manage their tasks.
+4. The user selects option 1.
+5. The user is taken to the add task prompt.
+6. The user attempts to add a task without entering a task description.
+7. The user is presented with an error message and prompted to try again.
+8. The user enters a task description that exceeds the maximum character limit.
+9. The user is presented with an error message and prompted to try again.
+10. The user enters a task description.
+11. The user is prompted to enter a category.
+12. The user presses enter without entering a category.
+13. The user is presented with an error message and prompted to try again.
+14. The user enters an invalid category.
+15. The user is presented with an error message and prompted to try again.
+16. The user enters a category.
+17. The user is prompted to enter a priority.
+18. The user presses enter without entering a priority.
+19. The user is presented with an error message and prompted to try again.
+20. The user enters an invalid priority.
+21. The user is presented with an error message and prompted to try again.
+22. The user enters a priority.
+23. The user is presented with the task details entered and prompted to confirm the addition of the task.
+24. The user presses enter without confirming the addition of the task.
+25. The user is presented with a message and prompted to try again.
+26. The user inputs an invalid option.
+27. The user is presented with an error message and prompted to try again.
+28. The user confirms the addition of the task.
+29. Instead of confirming the addition of the task, the user selects no.
+30. The user is presented with a message confirming the task was not added and is given the option to re-enter the task details.
+31. The user presses enter without selecting an option.
+32. The user is presented with an error message and prompted to try again.
+33. The user inputs an invalid option.
+34. The user is presented with an error message and prompted to try again.
 ### Tests & Results
 ### Bugs
 #### Fixed Bugs

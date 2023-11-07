@@ -127,14 +127,14 @@ def get_non_empty_input(prompt, max_length=None):
     while not user_input or (max_length and len(user_input) > max_length):
         if not user_input:
             print(
-                Fore.RED + "Input cannot be empty. Please try again." +
+                Fore.RED + "\nInput cannot be empty. Please try again.\n" +
                 Style.RESET_ALL
             )
         elif len(user_input) > max_length:
             print(
                 (
-                    Fore.RED + f"Input must be under {max_length} characters. "
-                    "Please try again." + Style.RESET_ALL
+                    Fore.RED + f"\nInput must be under {max_length} "
+                    "characters. Please try again.\n" + Style.RESET_ALL
                 )
             )
         user_input = input(prompt).strip()
@@ -425,11 +425,14 @@ class TaskManager:
                     description, category, priority = get_task_info(
                         MAX_DESCRIPTION_LENGTH)
                     continue
-                else:
+                elif decision.lower() == "no":
                     print("\nReturning to the View and Manage Tasks menu...\n")
                     sleep(2)
                     clear_screen()
                     return
+                else:
+                    invalid_input()
+                    continue
             else:
                 invalid_input()
                 continue
