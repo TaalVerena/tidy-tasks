@@ -32,6 +32,12 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 
 ![Tidy Tasks Flowchart](README-media/tidy-tasks-flowchart.png)
 
+### Concept
+- The concept for Tidy Tasks was to create a simple, easy to use to-do list app that allows the user to add, edit, remove and mark tasks as complete.
+- The app is designed to be personalized and offers a minimal layout and a clean interface.
+- Being able to access to the app from anywhere was also a key concept, which is why the app is hosted on Heroku and uses Google Sheets as a database.
+- Accessing all of your tasks in one place and being able to manage them with ease was also a key concept, which is why the app allows the user to view and manage their tasks with the click of a button.
+
 ### Color Scheme & Ascii Art
 #### Color Scheme
 - The colors throughout the application are kept minimal to ensure all text is easily readable.
