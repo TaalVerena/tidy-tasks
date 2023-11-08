@@ -241,7 +241,12 @@ def about_menu():
          "Manage your tasks anywhere, any time at the click of a button.\n")
     )
 
-    input("Press enter to return to the homepage and get started!\n")
+    input(
+        (
+            Fore.LIGHTGREEN_EX +
+            "Press enter to return to the homepage and get started!\n"
+            + Style.RESET_ALL)
+    )
     clear_screen()
 
 

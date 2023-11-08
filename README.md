@@ -1,5 +1,5 @@
 # Tidy Tasks
-Welcome to Tidy Tasks, a personal to-do list app built with Python and Google Sheets.
+Welcome to Tidy Tasks, a personal to-do list app.
 
 ## Introduction
 Tidy Tasks is designed to help you keep track of your to-dos by adding, editing removing and marking tasks as complete.
@@ -14,15 +14,15 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 ## User Experience (UX)
 ### Who Tidy Tasks Caters For
 - Tidy Tasks is designed for anyone who wants to keep track of their to-dos. It is designed to be simple and easy to use, with a minimal homepage and a clean interface.
-- Whether you're a busy parent, a student, or a professional, Tidy Tasks can help you keep track of your tasks.
+- Whether you're a busy parent, a student, or a professional, Tidy Tasks can help you keep track of your tasks in a simple, easy to use app.
 
 ### User Stories
 | User Want or Need      | How It Is Achieved | Achieved |
 | ----------- | ----------- | ----------- |
-| Easily see what Tidy tasks is for      | An About section provides information about Tidy Tasks and what the user can achieve       | Yes       |
+| Easily see what Tidy Tasks is for      | An About section provides information about Tidy Tasks and what the user can achieve through using Tidy Tasks       | Yes       |
 | Navigate the app with ease      | Numbered options with clear details present throughout       | Yes       |
 | Manage tasks in one place     | A view and manage tasks section present with options for managing and viewing tasks       | Yes       |
-| Add tasks easily     | A form with a text input and submit button is present       | Yes       |
+| Easily manage tasks     | A step by step process for adding, editing, removing and marking tasks as complete       | Yes       |
 
 ## Planning
 ### Flowchart / Diagram
@@ -32,8 +32,8 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 ### Concept
 - The concept for Tidy Tasks was to create a simple, easy to use to-do list app that allows the user to add, edit, remove and mark tasks as complete.
 - The app is designed to be personalized and offers a minimal layout and a clean interface.
-- Being able to access to the app from anywhere was also a key concept, which is why the app is hosted on Heroku and uses Google Sheets as a database.
-- Accessing all of your tasks in one place and being able to manage them with ease was also a key concept, which is why the app allows the user to view and manage their tasks with the click of a button.
+- Being able to access the app from anywhere was another key concept, which is why the app is hosted on Heroku and uses Google Sheets as a database.
+- Having access to all tasks in a neat, easy to read table / list was a key feature of the app and has been implemented to ensure the user can easily view and manage their tasks.
 
 ### Color Scheme & Ascii Art
 #### Color Scheme
@@ -41,7 +41,7 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - The ascii art is magenta to add a splash of color to the homepage and about page.
 - Throughout the application, majority of the text is white on a black background.
 - Menu options are magenta and table headers are blue to stand out from the rest of the text.
-- Text inputs / prompts are green to ensure the user can easily identify where to input text.
+- Text inputs / prompts are green to ensure the user can easily identify where to input text / select an option.
 - Error messages are red to ensure the user can easily identify when an error has occurred and successfully completed operations are green for user confirmation.
 
 #### Ascii Art
@@ -61,9 +61,9 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 
     ![Homepage](README-media/tidy-tasks-homepage.png)  
 ##### Menu Options
-1. View & Manage Tasks - This allows the user to view and manage their tasks.
-2. About - This provides the user with information about Tidy Tasks.
-3. Exit - This allows the user to exit the application and provides confirmation once selected.
+1. **View & Manage Tasks** - This allows the user to view and manage their tasks.
+2. **About** - This provides the user with information about Tidy Tasks.
+3. **Exit** - This allows the user to exit the application and provides confirmation once selected.
 
 #### View & Manage Tasks Menu
 - By selecting option 1 from the homepage, the user is presented with the view and manage tasks menu.
@@ -71,14 +71,19 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - This differs from the flowchart in that viewing the list of tasks was originally intended to be one of the menu options. This change was implemented to make it easier for the user as they can now view their tasks without having to select an option from the menu and can see the different options available while viewing their open tasks.
 
     ![View & Manage Tasks Menu](README-media/view-and-manage-tasks-menu.png)
+- If there are no tasks, the user is presented with a message confirming there are no open tasks.
+  
+    ![No Open Tasks](README-media/no-open-tasks.png)
 
 #### Add Task
 - By selecting option 1 from the view and manage tasks menu, the user is guided through the process of adding a task.
 - The user is prompted to enter a task description, category and priority.
+- Throughout the app, if the user attempts to enter an empty description or description that exceeds the maximum character limit, they are presented with an error message and prompted to try again. This was implemented to ensure the user enters a valid task description.
 - To ensure a smooth user experience, the user is prompted to enter a category (home, studies, work, exercise, hobbies) and priority (low, medium, high) based on a list of options. This was implemented to speed up the process of adding a task and to ensure the table / list of tasks is consistent and easy to read.
 
     ![Add Task](README-media/add-new-task.png)
 - Once the user has entered a task description, category and priority, they are presented with the task details entered and prompted to confirm the addition of the task.
+
     ![Confirm New Task](README-media/confirm-new-task.png)
 - If the user confirms the addition of the task, they are presented with a success message, the task is added to the spreadsheet and the user is returned to the view and manage tasks menu.
 - The task ID / number is automatically generated and assigned to the task based on the number of tasks in the spreadsheet. This was implemented to ensure the task ID / number is unique and to ensure the user does not have to enter a task ID / number when adding a task.
@@ -108,11 +113,12 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 
     ![Mark Task as Complete Prompt](README-media/mark-task-as-complete-prompt.png)
 - If the user enters an invalid task ID / number, they are presented with an error message and prompted to try again.
+    
     ![Complete Task Invalid ID Prompt](README-media/complete-task-invalid-task-id.png)
 - If the user selects a valid task ID / number, they are presented with the task details and prompted to confirm marking the task as complete.
 
     ![Confirm Complete Task Prompt](README-media/confirm-complete-task.png)
-- If the user confirms marking the task as complete, they are presented with a success message, the task is marked as complete in the spreadsheet and the user is returned to the view and manage tasks menu.
+- If the user confirms marking the task as complete, they are presented with a success message, the task is marked as complete in the spreadsheet and the user is presented with an option to return to the view and manage tasks menu or exit the application.
 - If the user does not confirm marking the task as complete, they are presented with a message confirming the task was not marked as complete and the user is returned to the view and manage tasks menu.
 
 #### Remove Task
@@ -127,14 +133,15 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - If the user selects a valid task ID / number, they are presented with the task details and prompted to confirm removing the task.
 
     ![Confirm Remove Task](README-media/confirm-remove-task.png)
-- If the user confirms removing the task, they are presented with a success message, the task is removed from the spreadsheet and the user is returned to the view and manage tasks menu.
+- If the user confirms removing the task, they are presented with a success message, the task is removed from the spreadsheet and the user is presented with an option to return to the view and manage tasks menu or exit the application.
 - If the user does not confirm removing the task, they are presented with a message confirming the task was not removed and the user is returned to the view and manage tasks menu.
 
 #### View Completed Tasks
 - By selecting option 5 from the view and manage tasks menu, the user is presented with a table / list of their completed tasks.
-- The user is given the option to return to the view and manage tasks menu or exit the application.
 
     ![View Completed Tasks](README-media/view-completed-tasks.png)
+- The user is given the option to return to the view and manage tasks menu or exit the application.
+- If there are no completed tasks, the user is presented with a message confirming there are no completed tasks and is returned to the view and manage tasks menu.
 
 #### About
 - By selecting option 2 from the homepage, the user is presented with information about Tidy Tasks.
