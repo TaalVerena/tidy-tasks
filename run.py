@@ -513,25 +513,38 @@ class TaskManager:
             print(f"Description: {task_to_complete.description}")
             print(f"Category: {task_to_complete.category}")
             print(f"Priority: {task_to_complete.priority}")
-            confirmation = input(
-                Fore.LIGHTGREEN_EX + "\nMark this task as complete? (yes/no): "
-                + Style.RESET_ALL
-            )
 
-            if confirmation.lower() != "yes":
-                print(
-                    Fore.RED + "\nTask not marked as complete." +
-                    Style.RESET_ALL
-                )
-                sleep(1.5)
+            while True:
+                confirmation = input(
+                    Fore.LIGHTGREEN_EX +
+                    "\nMark this task as complete? (yes/no): "
+                    + Style.RESET_ALL
+                ).lower()
+
+                if confirmation == "yes":
+                    print(f"\nMarking task with ID {task_id} as complete...\n")
+                    task_to_complete.status = "complete"
+                    break
+                elif confirmation == "no":
+                    print(
+                        Fore.RED + "\nTask not marked as complete." +
+                        Style.RESET_ALL
+                    )
+                    sleep(1.5)
+                    break
+                else:
+                    print(
+                        (
+                            Fore.RED + "\nInvalid option. "
+                            "Please enter 'yes' or 'no'." + Style.RESET_ALL
+                        )
+                    )
+
+            if confirmation == "no":
                 print("\nReturning to the View and Manage Tasks menu...\n")
                 sleep(2)
-                TaskManager.view_and_manage_tasks()
+                clear_screen()
                 return
-
-            print(f"\nMarking task with ID {task_id} as complete...\n")
-            task_to_complete.status = "complete"
-            sleep(2)
 
             # Move task to the complete tab in Google Sheets
             complete_worksheet = self.sheet.worksheet("complete")
