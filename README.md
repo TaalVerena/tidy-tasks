@@ -277,6 +277,21 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 | 7 | The user presses q. | The user is presented with a confirmation message and the application is exited. | Pass |
 | 8 | Instead of confirming marking the task as complete, the user selects no. | The user is presented with a message confirming the task was not marked as complete and the user is returned to the view and manage tasks menu. | Pass |
 
+#### Test 10: Mark Task as Complete - Error Handling
+| Step | Action | Expected Outcome | Pass/Fail |
+|------|--------|------------------|-----------|
+| 1 | Open the application. | The user is presented with the homepage & prompted to select an option from the menu. | Pass |
+| 2 | The user selects option 1 from the homepage. | The user is presented with a table / list of their open tasks and a menu of options to manage their tasks. | Pass |
+| 3 | The user selects option 3 from the view and manage tasks menu. | The user is taken to the mark task as complete prompt. | Pass |
+| 4 | The user attempts to mark a task as complete without entering a task ID / number. | The user is presented with an error message and prompted to try again. | Pass |
+| 5 | The user attempts to mark a task as complete with an invalid task ID / number. | The user is presented with an error message and prompted to try again. | Pass |
+| 6 | The user enters a valid task ID / number. | The user is presented with the task details and is prompted to confirm marking the task as complete. | Pass |
+| 7 | The user attempts to confirm marking the task as complete without selecting an option. | The user is presented with an error message and prompted to try again. | Pass |
+| 8 | The user attempts to confirm marking the task as complete by selecting an invalid option. | The user is presented with an error message and prompted to try again. | Pass |
+| 9 | The user confirms marking the task as complete. | The user is presented with a success message, the task is marked as complete and the user is presented with an option to return to the view and manage tasks menu or exit the application. | Pass |
+| 10 | The user presses enter. | The user is returned to the view and manage tasks menu. | Pass |
+| 11 | The user presses q. | The user is presented with a confirmation message and the application is exited. | Pass |
+| 12 | Instead of confirming marking the task as complete, the user selects no. | The user is presented with a message confirming the task was not marked as complete and the user is returned to the view and manage tasks menu. | Pass |
 
 ### Bugs
 #### Fixed Bugs
