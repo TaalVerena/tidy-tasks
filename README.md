@@ -367,6 +367,57 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 
 ## Deployment
 
+### Heroku
+The application is deployed on Heroku and can be accessed [here](https://tidy-tasks-9ed489f18853.herokuapp.com/).
+To deploy the application on Heroku, follow the steps below:
+1. Log in to Heroku or create an account if necessary.
+2. Click on the button labeled "New" from the dashboard in the top right corner and select the "Create new app" option in the drop-down menu.
+3. Enter a unique name for the application and select the region you are in. For this project, the unique name is "tidy-tasks" and the region selected is Europe.
+4. Click on "create app".
+5. Navigate to the settings tab and locate the "Config Vars" section and click "Reveal config vars".
+6. Add a config var:
+   - In the "KEY" field enter "CREDS" in capital letters.
+   - In the "VALUE" field copy and paste the contents of the creds.json file and click "Add".
+7. Add another config var:
+   - In the "KEY" field enter PORT in all capital letters.
+   - In the "VALUE" field enter 8000 and click "Add".
+8. Scroll to the "Buildpacks" section and click "Add buildpack".
+9. Select Python and save changes.
+10. Add another buildpack and select Nodejs then save changes again.
+11. Ensure that the Python buildpack is above the Nodejs buildpack.
+12. Navigate to the "Deploy" section by clicking the "Deploy" tab in the top navbar.
+13. Select "GitHub" as the deployment method and click "Connect to GitHub".
+14. Search for the GitHub repository name in the search bar.
+15. Click on "connect" to link the repository to Heroku.
+16. Scroll down and click on "Deploy Branch".
+17. Once the app is deployed, Heroku will notify you and provide a button to view the app.
+
+### Forking the GitHub Repository
+This can be done to create a copy of the repository. The copy can be viewed and edited without affecting the original repository.
+
+To fork the repository through GitHub, take the following steps:
+1. In the "tidy-tasks" repository, click on the "fork" tab in the top right corner.
+2. Click on "create fork" to fork the repository.
+
+### Cloning the GitHub Repository
+To clone the repository through GitHub:
+
+1. In the repository, select the "code" tab located just above the list of files and next to the gitpod button.
+2. Ensure HTTPS is selected in the dropdown menu.
+3. Copy the URL under HTTPS.
+4. Open Git Bash in your IDE of choice.
+5. Change the current working directory to the location where you want the cloned directory to be created.
+6. Type "git clone" and paste the URL that was copied from the repository.
+7. Press the "enter" key to create the clone.
+
+### APIs
+In order for the app to function as intended, APIs need to be set up and connected. In particular, the following APIs were used for this application:
+
+- **Google Drive API** - This helps with getting credentials to access the files within Google drive.
+- **Google Sheets API** - This is the API for the Google sheets where the data is stored for the app.
+
+I followed the steps in a [video](https://www.youtube.com/watch?v=WTll5p4N7hE) from the Code Institute's Love Sandwiches project on how to set up and connect APIs.
+
 ## Credits
 - Flowchart / diagram created using [Lucid Charts](https://www.lucidchart.com/pages/)
 - Ascii Art created using [Patorjk](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20)
