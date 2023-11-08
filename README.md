@@ -421,6 +421,9 @@ I followed the steps in a [video](https://www.youtube.com/watch?v=WTll5p4N7hE) f
 ## Credits
 - Flowchart / diagram created using [Lucid Charts](https://www.lucidchart.com/pages/)
 - Ascii Art created using [Patorjk](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20)
+- The Code Institute community. In particular, the following members:
+  - [Tony118g](https://github.com/Tony118g/doctor-diary)
+  - [TerraBite147](https://github.com/TerraBite147)
 
 ## Technologies Used
 - **Python:** The primary programming language used to create the application logic.
