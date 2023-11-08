@@ -344,7 +344,8 @@ class TaskManager:
         try:
             records = worksheet.get_all_records()
         except IndexError:
-            # If there are no records (only headers or completely empty), print a message and return
+            # If there are no records (only headers or completely empty),
+            # print a message and return
             sleep(1.5)
             print("No completed tasks found.")
             sleep(1.5)
@@ -746,7 +747,12 @@ class TaskManager:
                     worksheet.delete_rows(row_index)
                     worksheet.insert_row(row_to_edit, row_index)
 
-                    print(Fore.LIGHTGREEN_EX + "\nTask updated successfully!" + Style.RESET_ALL)
+                    print(
+                        (
+                            Fore.LIGHTGREEN_EX + "\nTask updated successfully!"
+                            + Style.RESET_ALL
+                            )
+                        )
                     sleep(1.5)
                     return_to_main_menu()
                     return

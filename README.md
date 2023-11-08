@@ -158,6 +158,11 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - **Refactor Code** - Refactor the code to make it more efficient and even easier to read.
 
 ## Testing
+### Linter Testing
+- This application was tested using [CI Python Linter](https://pep8ci.herokuapp.com/). No errors were found.
+
+    ![Linter Testing](README-media/linter-testing.png)
+
 ### Manual Testing
 #### Test 1: Homepage Navigation
 
