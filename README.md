@@ -305,6 +305,7 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 | 7 | The user presses q. | The user is presented with a confirmation message and the application is exited. | Pass |
 | 8 | Instead of confirming removing the task, the user selects no. | The user is presented with a message confirming the task was not removed and the user is returned to the view and manage tasks menu. | Pass |
 
+
 ### Bugs
 #### Fixed Bugs
 - The task ID calculation was not working as intended. The task ID was not being calculated based on the number of tasks in the spreadsheet, but was instead being calculated based on the number of rows in the spreadsheet. This was fixed by changing the calculation to count the number of tasks in the spreadsheet and then add 1 to the count to ensure the task ID is unique.

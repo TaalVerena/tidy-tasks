@@ -286,10 +286,14 @@ class TaskManager:
 
     def fetch_tasks(self):
         """
-        Fetches all tasks from the spreadsheet
+        Fetches all tasks from the spreadsheet.
         """
         worksheet = self.sheet.worksheet("tasks")
-        records = worksheet.get_all_records()
+        try:
+            records = worksheet.get_all_records()
+        except IndexError:
+            return []
+
         return [Task(**record) for record in records]
 
     def display_tasks(self):
@@ -299,7 +303,7 @@ class TaskManager:
         """
         tasks = self.fetch_tasks()
         if not tasks:
-            print("No tasks found!")
+            print("No open tasks found.")
             return
 
         # Preparing data for tabulate
@@ -328,17 +332,23 @@ class TaskManager:
     def display_completed_tasks(self):
         """
         Displays all completed tasks in the spreadsheet or
-        a message if there are no completed tasks
+        a message if there are no completed tasks.
         """
         worksheet = self.sheet.worksheet("complete")
-        records = worksheet.get_all_records()
-        completed_tasks = [Task(**record) for record in records]
 
-        if not completed_tasks:
+        try:
+            records = worksheet.get_all_records()
+        except IndexError:
+            # If there are no records (only headers or completely empty), print a message and return
             sleep(1.5)
-            print("No completed tasks found!")
+            print("No completed tasks found.")
+            sleep(1.5)
+            print("\nReturning to the View and Manage Tasks menu...\n")
             sleep(2)
+            clear_screen()
             return
+
+        completed_tasks = [Task(**record) for record in records]
 
         print("\nCompleted Tasks:\n")
 
