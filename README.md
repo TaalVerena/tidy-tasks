@@ -330,6 +330,12 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 | 4 | The user presses enter. | The user is returned to the view and manage tasks menu. | Pass |
 | 5 | The user presses q. | The user is presented with a confirmation message and the application is exited. | Pass |
 
+#### Test 14: View Completed Tasks - Error Handling
+| Step | Action | Expected Outcome | Pass/Fail |
+|------|--------|------------------|-----------|
+| 1 | Open the application. | The user is presented with the homepage & prompted to select an option from the menu. | Pass |
+| 2 | The user selects option 1 from the homepage. | The user is presented with a table / list of their open tasks and a menu of options to manage their tasks. | Pass |
+| 3 | The user selects option 5 from the view and manage tasks menu, but there are no completed tasks. | The user is presented with a message confirming there are no completed tasks and is returned to the view and manage tasks menu. | Pass |
 
 ### Bugs
 #### Fixed Bugs
