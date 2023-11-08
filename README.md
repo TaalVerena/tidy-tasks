@@ -355,8 +355,10 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 ### Bugs
 #### Fixed Bugs
 - The task ID calculation was not working as intended. The task ID was not being calculated based on the number of tasks in the spreadsheet, but was instead being calculated based on the number of rows in the spreadsheet. This was fixed by changing the calculation to count the number of tasks in the spreadsheet and then add 1 to the count to ensure the task ID is unique.
+- An error would occur if there were no tasks in the spreadsheet. This was fixed by adding an if statement to check if there are any tasks in the spreadsheet and if there are no tasks, the user is presented with a message confirming there are no open tasks or no completed tasks.
+
 #### Unfixed Bugs
-- At certain points in the code, the clear screen function does not work as intended. Throughout testing, this only appears to happen in Heroku, but not in the terminal / CMD.
+- At certain points in the code, the clear screen function does not appear to work as intended. It partially clears the screen, but there is still some information from the previous slide left at the top of the screen. Throughout testing, this only appears to happen in Heroku, but not in the terminal / CMD.
 
 ## Deployment
 
