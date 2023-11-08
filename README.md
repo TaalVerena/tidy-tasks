@@ -321,6 +321,16 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 | 11 | The user presses q. | The user is presented with a confirmation message and the application is exited. | Pass |
 | 12 | Instead of confirming removing the task, the user selects no. | The user is presented with a message confirming the task was not removed and the user is returned to the view and manage tasks menu. | Pass |
 
+#### Test 13: View Completed Tasks
+| Step | Action | Expected Outcome | Pass/Fail |
+|------|--------|------------------|-----------|
+| 1 | Open the application. | The user is presented with the homepage & prompted to select an option from the menu. | Pass |
+| 2 | The user selects option 1 from the homepage. | The user is presented with a table / list of their open tasks and a menu of options to manage their tasks. | Pass |
+| 3 | The user selects option 5 from the view and manage tasks menu. | The user is taken to the view completed tasks prompt and is presented with a table / list of their completed tasks as well as an option to return to the view and manage tasks menu or exit the application. | Pass |
+| 4 | The user presses enter. | The user is returned to the view and manage tasks menu. | Pass |
+| 5 | The user presses q. | The user is presented with a confirmation message and the application is exited. | Pass |
+
+
 ### Bugs
 #### Fixed Bugs
 - The task ID calculation was not working as intended. The task ID was not being calculated based on the number of tasks in the spreadsheet, but was instead being calculated based on the number of rows in the spreadsheet. This was fixed by changing the calculation to count the number of tasks in the spreadsheet and then add 1 to the count to ensure the task ID is unique.
