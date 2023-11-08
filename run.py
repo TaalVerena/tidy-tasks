@@ -575,6 +575,8 @@ class TaskManager:
                 tasks = self.fetch_tasks()
                 task_to_edit = None
                 row_index = None
+
+                # Find the task to edit
                 for index, task in enumerate(tasks, start=2):
                     if task.task_id == task_id:
                         task_to_edit = task
@@ -656,44 +658,70 @@ class TaskManager:
                         invalid_input()
                         continue
 
-                    clear_screen()
-                    print("\nPlease confirm the updated task details: \n")
-                    print(f"Description: {task_to_edit.description}")
-                    print(f"Category: {task_to_edit.category}")
-                    print(f"Priority: {task_to_edit.priority}")
-                    confirmation = input(
-                        Fore.LIGHTGREEN_EX + "\nSave these changes? (yes/no): "
-                        + Style.RESET_ALL
-                    )
+                    while True:
+                        clear_screen()
+                        print("\nPlease confirm the updated task details: \n")
+                        print(f"Description: {task_to_edit.description}")
+                        print(f"Category: {task_to_edit.category}")
+                        print(f"Priority: {task_to_edit.priority}")
+                        confirmation = input(
+                            Fore.LIGHTGREEN_EX +
+                            "\nSave these changes? (yes/no): "
+                            + Style.RESET_ALL
+                        )
+
+                        if confirmation.lower() == "yes":
+                            break
+                        elif confirmation.lower() == "no":
+                            print(
+                                Fore.RED + "\nChanges not saved." +
+                                Style.RESET_ALL
+                            )
+                            decision = ''
+                            while decision.lower() not in ['yes', 'no']:
+                                decision = input(
+                                    (
+                                        Fore.LIGHTGREEN_EX +
+                                        "\nWould you like to re-edit the task?"
+                                        " (yes/no): " + Style.RESET_ALL
+                                    )
+                                )
+                                if decision.lower() == 'no':
+                                    print(
+                                        (
+                                            "\nReturning to the "
+                                            "View and Manage Tasks menu...\n"
+                                        )
+                                    )
+                                    sleep(2)
+                                    clear_screen()
+                                    return
+                                elif decision.lower() != 'yes':
+                                    invalid_input()
+                            break
+                        else:
+                            invalid_input()
 
                     if confirmation.lower() == "yes":
                         break
-                    elif confirmation.lower() == "no":
-                        print(
-                            Fore.RED + "\nChanges not saved." +
-                            Style.RESET_ALL
-                        )
-                        decision = input(
-                            Fore.LIGHTGREEN_EX +
-                            "\nWould you like to re-edit the task? (yes/no): "
-                            + Style.RESET_ALL
-                        )
-                        if decision.lower() == "yes":
-                            continue
-                        else:
-                            print(
-                                (
-                                    "\nReturning to the "
-                                    "View and Manage Tasks menu...\n"
-                                )
-                            )
-                            sleep(2)
-                            clear_screen()
-                            return
-                    else:
-                        invalid_input()
-                        continue
-                break
+
+                if confirmation.lower() == "yes":
+                    worksheet = self.sheet.worksheet("tasks")
+                    row_to_edit = [
+                        task_to_edit.task_id,
+                        task_to_edit.description,
+                        task_to_edit.category,
+                        task_to_edit.priority,
+                        task_to_edit.status,
+                    ]
+
+                    worksheet.delete_rows(row_index)
+                    worksheet.insert_row(row_to_edit, row_index)
+
+                    print(Fore.LIGHTGREEN_EX + "\nTask updated successfully!" + Style.RESET_ALL)
+                    sleep(1.5)
+                    return_to_main_menu()
+                    return
 
             except ValueError:
                 print(
@@ -701,24 +729,6 @@ class TaskManager:
                     "\nInvalid input. Please enter a valid task ID." +
                     Style.RESET_ALL
                 )
-        worksheet = self.sheet.worksheet("tasks")
-        row_to_edit = [
-            task_to_edit.task_id,
-            task_to_edit.description,
-            task_to_edit.category,
-            task_to_edit.priority,
-            task_to_edit.status,
-        ]
-
-        worksheet.delete_rows(row_index)
-        worksheet.insert_row(row_to_edit, row_index)
-
-        print(
-            Fore.LIGHTGREEN_EX + "\nTask updated successfully!" +
-            Style.RESET_ALL
-        )
-        sleep(1.5)
-        return_to_main_menu()
 
     def remove_task(self):
         """
