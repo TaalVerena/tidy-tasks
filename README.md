@@ -241,6 +241,30 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 | 11 | The user selects yes when prompted to re-enter the task details. | The user is returned to the edit task prompt. | Pass |
 | 12 | The user selects no when prompted to re-enter the task details. | The user is returned to the view and manage tasks menu. | Pass |
 
+#### Test 8: Edit Task - Error Handling
+| Step | Action | Expected Outcome | Pass/Fail |
+|------|--------|------------------|-----------|
+| 1 | Open the application. | The user is presented with the homepage & prompted to select an option from the menu. | Pass |
+| 2 | The user selects option 1 from the homepage. | The user is presented with a table / list of their open tasks and a menu of options to manage their tasks. | Pass |
+| 3 | The user selects option 2 from the view and manage tasks menu. | The user is taken to the edit task prompt. | Pass |
+| 4 | The user attempts to edit a task without entering a task ID / number. | The user is presented with an error message and prompted to try again. | Pass |
+| 5 | The user attempts to edit a task with an invalid task ID / number. | The user is presented with an error message and prompted to try again. | Pass |
+| 6 | The user enters a valid task ID / number. | The user is presented with the task details and prompted to confirm which field they wish to edit. | Pass |
+| 7 | The user attempts to confirm which field they wish to edit without selecting an option. | The user is presented with an error message and prompted to try again. | Pass |
+| 8 | The user attempts to confirm which field they wish to edit by selecting an invalid option. | The user is presented with an error message and prompted to try again. | Pass |
+| 9 | The user selects option 1. | The user is prompted to enter the new value for the description field. | Pass |
+| 10 | The user attempts to confirm the update without entering a new value. | The user is presented with an error message and prompted to try again. | Pass |
+| 11 | The user attempts to confirm the update with a new value that exceeds the maximum character limit. | The user is presented with an error message and prompted to try again. | Pass |
+| 12 | The user enters a valid new value. | The user is presented with the updated task details and prompted to confirm the update. | Pass |
+| 13 | The user attempts to confirm the update without selecting an option. | The user is presented with an error message and prompted to try again. | Pass |
+| 14 | The user attempts to confirm the update by selecting an invalid option. | The user is presented with an error message and prompted to try again. | Pass |
+| 15 | The user confirms the update. | The user is presented with a success message, the task is edited in the spreadsheet and the user is presented with an option to return to the view and manage tasks menu or exit the application. | Pass |
+| 16 | The user presses enter. | The user is returned to the view and manage tasks menu. | Pass |
+| 17 | The user presses q. | The user is presented with a confirmation message and the application is exited. | Pass |
+| 18 | Instead of confirming the update, the user selects no. | The user is presented with a message confirming the changes were not saved and is given the option to re-enter the task details. | Pass |
+| 19 | The user selects yes when prompted to re-enter the task details. | The user is returned to the edit task prompt. | Pass |
+| 20 | The user selects no when prompted to re-enter the task details. | The user is returned to the view and manage tasks menu. | Pass |
+
 ### Bugs
 #### Fixed Bugs
 - The task ID calculation was not working as intended. The task ID was not being calculated based on the number of tasks in the spreadsheet, but was instead being calculated based on the number of rows in the spreadsheet. This was fixed by changing the calculation to count the number of tasks in the spreadsheet and then add 1 to the count to ensure the task ID is unique.
