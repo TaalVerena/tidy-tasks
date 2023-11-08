@@ -143,11 +143,12 @@ The live Tidy Tasks app can be found [here](https://tidy-tasks-9ed489f18853.hero
 - The user is given the option to return to the view and manage tasks menu or exit the application.
 - If there are no completed tasks, the user is presented with a message confirming there are no completed tasks and is returned to the view and manage tasks menu.
 
-#### About
+#### About Section
 - By selecting option 2 from the homepage, the user is presented with information about Tidy Tasks.
 - This includes a description of Tidy Tasks and a list of features.
+- The About section has bee kept minimal and contains a splash of color to draw the user's attention to the information.
 
-    ![About](README-media/about.png)
+    ![About Section](README-media/about-section.png)
 - The user is given the option to return to the homepage or exit the application.
 
 ### Future Features to Implement
